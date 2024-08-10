@@ -52,11 +52,3 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-# CMake
-cmake-build-debug
-build
-
-# IDE
-.vscode/
-.vs/
-.idea
