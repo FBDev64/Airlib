@@ -1,3 +1,0 @@
-C:/Users/Adam/dev/Airlib/cmake-build-debug/CMakeFiles/Airlib.dir
-C:/Users/Adam/dev/Airlib/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/Adam/dev/Airlib/cmake-build-debug/CMakeFiles/rebuild_cache.dir
