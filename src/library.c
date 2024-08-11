@@ -1,4 +1,4 @@
-#include "library.h"
+#include "airlib.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -87,7 +87,7 @@ void DisplayH6(char *txt, char *color) {
 }
 
 void DisplayBreakLineDash() {
-        printf("\n---------------------------------------------------\n");
+    printf("\n---------------------------------------------------\n");
 }
 
 void DisplayBreakLine() {
@@ -126,7 +126,7 @@ void clrscr() {
 // Clock and Time
 // ------------------------------------------------
 
-void Sleep(int ms) {
+void SysSleep(int ms) {
     clock_t goal = ms * CLOCKS_PER_SEC / 1000;
     clock_t start = clock();
     while (clock() < goal) {
@@ -134,7 +134,9 @@ void Sleep(int ms) {
 }
 
 float GetGameTime() {
-    time_t t;
-    time(&t);
-    return (float) t;
+    time_t rawtime;
+    struct tm *timeinfo;
+    time(&rawtime);
+    timeinfo = localtime(&rawtime);
+    printf("The time is %d:%d:%d\n", timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
 }

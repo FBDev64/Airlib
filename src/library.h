@@ -37,7 +37,7 @@ void clrscr();
 // Clock and Time
 // ------------------------------------------------
 
-void Sleep(int ms);
+void SysSleep(int ms);
 float GetGameTime();
 
 #endif //AIRLIB_LIBRARY_H
