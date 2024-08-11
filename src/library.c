@@ -1,6 +1,7 @@
 #include "library.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 // ------------------------------------------------
 // Some Basic Info
@@ -69,14 +70,28 @@ void CloseWindow() {
     exit(0);
 }
 
+void SegFault() {
+    int *p = NULL;
+    *p = 1;
+}
+
+void clrscr() {
+    system("@cls||clear");
+}
+
 // ------------------------------------------------
-// Audio
+// Clock and Time
 // ------------------------------------------------
 
-// TODO: Implement audio
+void Sleep(int ms) {
+    clock_t goal = ms * CLOCKS_PER_SEC / 1000;
+    clock_t start = clock();
+    while (clock() < goal) {
+    }
+}
 
-// ------------------------------------------------
-// Math
-// ------------------------------------------------
-
-// TODO: Implement math
+float GetGameTime() {
+    time_t t;
+    time(&t);
+    return (float) t;
+}

@@ -14,10 +14,20 @@ void DisplayCyanColor(char *txt);
 void DisplayWhiteColor(char *txt);
 void DisplayNormalColor(char *txt);
 void DisplayColor(char *txt, char *color);
+
 // ------------------------------------------------
 // Window
 // ------------------------------------------------
 
 void CloseWindow();
+void SegFault();
+void clrscr();
+
+// ------------------------------------------------
+// Clock and Time
+// ------------------------------------------------
+
+void Sleep(int ms);
+float GetGameTime();
 
 #endif //AIRLIB_LIBRARY_H
