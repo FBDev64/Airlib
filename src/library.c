@@ -1,6 +1,6 @@
 #include "library.h"
 #include <stdio.h>
-#include <process.h>
+#include <stdlib.h>
 
 // ------------------------------------------------
 // Some Basic Info
@@ -30,35 +30,35 @@
 // -------------------------------------------------
 
 void DisplayRedColor(char *txt) {
-    printf("%sred\n", KRED);
+    printf("%s%s%s\n", KRED, txt, KNRM);
 }
 
 void DisplayGreenColor(char *txt) {
-    printf("%sgreen\n", KGRN);
+    printf("%s%s%s\n", KGRN, txt, KNRM);
 }
 
 void DisplayYellowColor(char *txt) {
-    printf("%syellow\n", KYEL);
+    printf("%s%s%s\n", KYEL, txt, KNRM);
 }
 
 void DisplayBlueColor(char *txt) {
-    printf("%sblue\n", KBLU);
+    printf("%s%s%s\n", KBLU, txt, KNRM);
 }
 
 void DisplayMagentaColor(char *txt) {
-    printf("%smagenta\n", KMAG);
+    printf("%s%s%s\n", KMAG, txt, KNRM);
 }
 
 void DisplayCyanColor(char *txt) {
-    printf("%scyan\n", KCYN);
+    printf("%s%s%s\n", KCYN, txt, KNRM);
 }
 
 void DisplayWhiteColor(char *txt) {
-    printf("%swhite\n", KWHT);
+    printf("%s%s%s\n", KWHT, txt, KNRM);
 }
 
-void DisplayNormalColor(char *txt) {
-    printf("%snormal\n", KNRM);
+void DisplayColor(char *txt, char *color) {
+    printf("%s%s%s\n", color, txt, KNRM);
 }
 
 // ------------------------------------------------
@@ -70,25 +70,13 @@ void CloseWindow() {
 }
 
 // ------------------------------------------------
+// Audio
+// ------------------------------------------------
+
+// TODO: Implement audio
+
+// ------------------------------------------------
 // Math
 // ------------------------------------------------
 
-float sqrt(float x) {
-    printf("sqrt(%f) = %f\n", x, sqrt(x));
-}
-
-float sin(float x) {
-    printf("sin(%f) = %f\n", x, sin(x));
-}
-
-float cos(float x) {
-    printf("cos(%f) = %f\n", x, cos(x));
-}
-
-float tan(float x) {
-    printf("tan(%f) = %f\n", x, tan(x));
-}
-
-float pow(float x, float y) {
-    printf("pow(%f, %f) = %f\n", x, y, pow(x, y));
-}
+// TODO: Implement math

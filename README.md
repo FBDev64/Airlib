@@ -9,7 +9,7 @@ I recently discoverd Raylib, and I, as a C developer, decided I'll create a "por
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 
 ## Documentation
-See the [DOCS.md](url)
+See the [DOCS.md](./DOCS.md)
 
 ## Compile and Run
 

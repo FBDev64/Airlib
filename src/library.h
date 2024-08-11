@@ -13,21 +13,11 @@ void DisplayMagentaColor(char *txt);
 void DisplayCyanColor(char *txt);
 void DisplayWhiteColor(char *txt);
 void DisplayNormalColor(char *txt);
-
+void DisplayColor(char *txt, char *color);
 // ------------------------------------------------
 // Window
 // ------------------------------------------------
 
 void CloseWindow();
-
-// ------------------------------------------------
-// Math
-// ------------------------------------------------
-
-float sqrt(float x);
-float sin(float x);
-float cos(float x);
-float tan(float x);
-float pow(float x, float y);
 
 #endif //AIRLIB_LIBRARY_H
