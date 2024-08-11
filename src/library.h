@@ -27,6 +27,7 @@ void DislayBreakLine();
 // Window
 // ------------------------------------------------
 
+void InitWindow();
 void CloseWindow();
 void SegFault();
 void clrscr();

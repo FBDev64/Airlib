@@ -98,6 +98,10 @@ void DislayBreakLine() {
 // Window
 // ------------------------------------------------
 
+void InitWindow() {
+    system("@cls||clear");
+}
+
 void CloseWindow() {
     exit(0);
 }
