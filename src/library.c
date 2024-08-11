@@ -102,6 +102,13 @@ void InitWindow() {
     system("@cls||clear");
 }
 
+void CloseWindowNy() {
+    // User want to close window if else
+    char ny;
+    printf("Do you want to close window? (y/n) ");
+    scanf("%s", &ny);
+}
+
 void CloseWindow() {
     exit(0);
 }
