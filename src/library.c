@@ -27,7 +27,7 @@
 #define KWHT  "\x1B[37m"
 
 // -------------------------------------------------
-// Color
+// Color and Strings
 // -------------------------------------------------
 
 void DisplayRedColor(char *txt) {
@@ -60,6 +60,38 @@ void DisplayWhiteColor(char *txt) {
 
 void DisplayColor(char *txt, char *color) {
     printf("%s%s%s\n", color, txt, KNRM);
+}
+
+void DisplayH1(char *txt, char *color) {
+    printf("%s# %s%s\n", color, txt, KNRM);
+}
+
+void DisplayH2(char *txt, char *color) {
+    printf("%s## %s%s\n", color, txt, KNRM);
+}
+
+void DisplayH3(char *txt, char *color) {
+    printf("%s### %s%s\n", color, txt, KNRM);
+}
+
+void DisplayH4(char *txt, char *color) {
+    printf("%s#### %s%s\n", color, txt, KNRM);
+}
+
+void DisplayH5(char *txt, char *color) {
+    printf("%s##### %s%s\n", color, txt, KNRM);
+}
+
+void DisplayH6(char *txt, char *color) {
+    printf("%s###### %s%s\n", color, txt, KNRM);
+}
+
+void DislayBreakLineDash() {
+        printf("\n---------------------------------------------------\n");
+}
+
+void DislayBreakLine() {
+    printf("\n");
 }
 
 // ------------------------------------------------
