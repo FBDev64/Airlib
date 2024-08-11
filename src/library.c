@@ -86,11 +86,11 @@ void DisplayH6(char *txt, char *color) {
     printf("%s###### %s%s\n", color, txt, KNRM);
 }
 
-void DislayBreakLineDash() {
+void DisplayBreakLineDash() {
         printf("\n---------------------------------------------------\n");
 }
 
-void DislayBreakLine() {
+void DisplayBreakLine() {
     printf("\n");
 }
 

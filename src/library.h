@@ -20,8 +20,8 @@ void DisplayH3(char *txt, char *color);
 void DisplayH4(char *txt, char *color);
 void DisplayH5(char *txt, char *color);
 void DisplayH6(char *txt, char *color);
-void DislayBreakLineDash();
-void DislayBreakLine();
+void DisplayBreakLineDash();
+void DisplayBreakLine();
 
 // ------------------------------------------------
 // Window
