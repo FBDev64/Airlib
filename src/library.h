@@ -12,7 +12,6 @@ void DisplayBlueColor(char *txt);
 void DisplayMagentaColor(char *txt);
 void DisplayCyanColor(char *txt);
 void DisplayWhiteColor(char *txt);
-void DisplayNormalColor(char *txt);
 void DisplayColor(char *txt, char *color);
 void DisplayH1(char *txt, char *color);
 void DisplayH2(char *txt, char *color);
