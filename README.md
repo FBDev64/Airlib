@@ -1,4 +1,4 @@
-# FBD-gui
+# Airlib
 
 I recently discoverd Raylib, and I, as a C developer, decided I'll create a "port" of for the Terminal.
 
@@ -9,11 +9,11 @@ I recently discoverd Raylib, and I, as a C developer, decided I'll create a "por
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 
 ## Documentation
-See the [DOCS.md](./DOCS.md)
+See the [FN.md](./FN.md), where thre is the descripton of the functions and usages.
 
 ## Compile and Run
 
-Just include the `library.c` in your codebase and rename it to `airlib.c`.
+Just include the `library.c` and `library.h` in your codebase and rename it to `airlib.c` and `airlib.h`.
 I use CMake, by the way.
 
 ## Contributing
