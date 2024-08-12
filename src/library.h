@@ -26,7 +26,7 @@ void DisplayBreakLine();
 // Window
 // ------------------------------------------------
 
-void InitWindow();
+char InitWindow(char title);
 void CloseWindowNy();
 void CloseWindow();
 void SegFault();

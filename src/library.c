@@ -98,8 +98,9 @@ void DisplayBreakLine() {
 // Window
 // ------------------------------------------------
 
-void InitWindow() {
+char InitWindow(char title) {
     system("@cls||clear");
+    return title;
 }
 
 void CloseWindowNy() {
