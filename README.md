@@ -21,7 +21,7 @@ I use CMake, by the way.
 Pull requests are welcome. For major changes, please open an issue first
 to discuss what you would like to change.
 
-Tip : If a function <bold>YOU</bold> implemented doesn't work, just delete it. Like I did for `void DisplayColor(char *txt, char *color)` in previous versions.
+Tip : If a function **YOU** implemented doesn't work, just delete it. Like I did for `void DisplayColor(char *txt, char *color)` in previous versions.
 
 ## License
 
