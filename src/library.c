@@ -1,4 +1,3 @@
-#include "airlib.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -58,10 +57,6 @@ void DisplayWhiteColor(char *txt) {
     printf("%s%s%s\n", KWHT, txt, KNRM);
 }
 
-void DisplayColor(char *txt, char *color) {
-    printf("%s%s%s\n", color, txt, KNRM);
-}
-
 void DisplayH1(char *txt, char *color) {
     printf("%s# %s%s\n", color, txt, KNRM);
 }
@@ -98,9 +93,8 @@ void DisplayBreakLine() {
 // Window
 // ------------------------------------------------
 
-char InitWindow(char title) {
+void InitWindow() {
     system("@cls||clear");
-    return title;
 }
 
 void CloseWindowNy() {

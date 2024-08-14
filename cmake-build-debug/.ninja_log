@@ -1,0 +1,6 @@
+# ninja log v6
+6	460	7450721584322818	CMakeFiles/Airlib.dir/library.c.obj	fe92020068255b21
+382	703	7450724225667972	libAirlib.dll	ac35f9c05c4cabf8
+382	703	7450724225667972	libAirlib.dll.a	ac35f9c05c4cabf8
+3	324	7450724218911583	CMakeFiles/Airlib.dir/src/library.c.obj	df3a52f4a81794b1
+16	382	7450724219061582	CMakeFiles/Airlib.dir/src/main.c.obj	ae7324c87f9af572

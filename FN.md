@@ -13,7 +13,6 @@ Color functions:
 - DisplayMagentaColor(txt) // Used to display a magenta color, takes text as a parameter
 - DisplayCyanColor(txt) // Used to display a cyan color, takes text as a parameter
 - DisplayWhiteColor(txt) // Used to display a white color, whiter than normal, takes text as a parameter
-- DisplayColor(txt, color) // Used to display a color, takes text as a parameter and color as a parameter
 
 String functions:
 - DisplayH1(txt, color) // Used to display a header 1
