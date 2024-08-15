@@ -49,48 +49,20 @@ Color functions:
     - Usage: DisplayWhiteColor("This is white text");
 
 String functions:
-- DisplayH1(txt, color)
+- DisplayTitle(txt)
     - Displays a header 1 (largest)
     - Parameters:
         - txt: char* - The text to be displayed
         - color: char* - The color code to use (e.g., KRED, KGRN)
     - Usage: DisplayH1("Main Title", KRED);
 
-- DisplayH2(txt, color)
+- DisplaySubTitle(txt)
     - Displays a header 2
     - Parameters:
         - txt: char* - The text to be displayed
         - color: char* - The color code to use
-    - Usage: DisplayH2("Subtitle", KBLU);
-
-- DisplayH3(txt, color)
-    - Displays a header 3
-    - Parameters:
-        - txt: char* - The text to be displayed
-        - color: char* - The color code to use
-    - Usage: DisplayH3("Section", KGRN);
-
-- DisplayH4(txt, color)
-    - Displays a header 4
-    - Parameters:
-        - txt: char* - The text to be displayed
-        - color: char* - The color code to use
-    - Usage: DisplayH4("Subsection", KYEL);
-
-- DisplayH5(txt, color)
-    - Displays a header 5
-    - Parameters:
-        - txt: char* - The text to be displayed
-        - color: char* - The color code to use
-    - Usage: DisplayH5("Minor Section", KMAG);
-
-- DisplayH6(txt, color)
-    - Displays a header 6 (smallest)
-    - Parameters:
-        - txt: char* - The text to be displayed
-        - color: char* - The color code to use
-    - Usage: DisplayH6("Small Header", KCYN);
-
+    - Usage: DisplayH2("Subtitle");
+    - 
 - DisplayBreakLine()
     - Displays a line break (newline)
     - Usage: DisplayBreakLine();

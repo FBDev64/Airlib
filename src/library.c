@@ -51,28 +51,12 @@ void DisplayWhiteColor(char *txt) {
     printf("%s%s%s\n", KWHT, txt, KNRM);
 }
 
-void DisplayH1(char *txt, char *color) {
+void DisplayTitle(char *txt, char *color) {
     printf("%s# %s%s\n", color, txt, KNRM);
 }
 
-void DisplayH2(char *txt, char *color) {
+void DisplaySubTitle(char *txt, char *color) {
     printf("%s## %s%s\n", color, txt, KNRM);
-}
-
-void DisplayH3(char *txt, char *color) {
-    printf("%s### %s%s\n", color, txt, KNRM);
-}
-
-void DisplayH4(char *txt, char *color) {
-    printf("%s#### %s%s\n", color, txt, KNRM);
-}
-
-void DisplayH5(char *txt, char *color) {
-    printf("%s##### %s%s\n", color, txt, KNRM);
-}
-
-void DisplayH6(char *txt, char *color) {
-    printf("%s###### %s%s\n", color, txt, KNRM);
 }
 
 void DisplayBreakLine() {
@@ -83,7 +67,7 @@ void DisplayBreakLine() {
 // Window
 // ------------------------------------------------
 
-void InitWindow() {
+void InitWindow() { // This one is just for code readability
     system("@cls||clear");
 }
 
@@ -92,6 +76,9 @@ void CloseWindowNy() {
     char ny;
     printf("Do you want to close window? (y/n) ");
     scanf("%s", &ny);
+    if (ny == 'y' || ny == 'Y') {
+        exit(0);
+    }
 }
 
 void CloseWindow() {
