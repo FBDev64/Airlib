@@ -9,12 +9,6 @@
 #ifndef PI
 #define PI 3.14159265358979323846f
 #endif
-#ifndef DEG2RAD
-#define DEG2RAD (PI/180.0f)
-#endif
-#ifndef RAD2DEG
-#define RAD2DEG (180.0f/PI)
-#endif
 
 #define KNRM  "\x1B[0m"
 #define KRED  "\x1B[31m"
@@ -81,10 +75,6 @@ void DisplayH6(char *txt, char *color) {
     printf("%s###### %s%s\n", color, txt, KNRM);
 }
 
-void DisplayBreakLineDash() {
-    printf("\n---------------------------------------------------\n");
-}
-
 void DisplayBreakLine() {
     printf("\n");
 }
@@ -135,3 +125,113 @@ float GetGameTime() {
     timeinfo = localtime(&rawtime);
     printf("The time is %d:%d:%d\n", timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
 }
+
+// ------------------------------------------------
+// Drawing
+// ------------------------------------------------
+
+void DrawRedLine() {
+    printf("%s-----------------%s\n", KRED, KNRM);
+}
+
+void DrawGreenLine() {
+    printf("%s-----------------%s\n", KGRN, KNRM);
+}
+
+void DrawYellowLine() {
+    printf("%s-----------------%s\n", KYEL, KNRM);
+}
+
+void DrawBlueLine() {
+    printf("%s-----------------%s\n", KBLU, KNRM);
+}
+
+void DrawMagentaLine() {
+    printf("%s-----------------%s\n", KMAG, KNRM);
+}
+
+void DrawCyanLine() {
+    printf("%s-----------------%s\n", KCYN, KNRM);
+}
+
+void DrawWhiteLine() {
+    printf("%s-----------------%s\n", KWHT, KNRM);
+}
+
+void DrawRedPolygon(int sides) {
+    printf("%s", KRED);
+    for (int i = 0; i < sides; i++) {
+        printf("*---");
+    }
+    printf("*%s\n", KNRM);
+}
+
+void DrawGreenPolygon(int sides) {
+    printf("%s", KGRN);
+    for (int i = 0; i < sides; i++) {
+        printf("*---");
+    }
+    printf("*%s\n", KNRM);
+}
+
+void DrawYellowPolygon(int sides) {
+    printf("%s", KYEL);
+    for (int i = 0; i < sides; i++) {
+        printf("*---");
+    }
+    printf("*%s\n", KNRM);
+}
+
+void DrawBluePolygon(int sides) {
+    printf("%s", KBLU);
+    for (int i = 0; i < sides; i++) {
+        printf("*---");
+    }
+    printf("*%s\n", KNRM);
+}
+
+void DrawMagentaPolygon(int sides) {
+    printf("%s", KMAG);
+    for (int i = 0; i < sides; i++) {
+        printf("*---");
+    }
+    printf("*%s\n", KNRM);
+}
+
+void DrawCyanPolygon(int sides) {
+    printf("%s", KCYN);
+    for (int i = 0; i < sides; i++) {
+        printf("*---");
+    }
+    printf("*%s\n", KNRM);
+}
+
+void DrawWhitePolygon(int sides) {
+    printf("%s", KWHT);
+    for (int i = 0; i < sides; i++) {
+        printf("*---");
+    }
+    printf("*%s\n", KNRM);
+}
+
+// ------------------------------------------------
+// Math
+// ------------------------------------------------
+
+float DEG2RAD(float deg) {
+    return deg * PI / 180.0f;
+}
+
+float RAD2DEG(float rad) {
+    return rad * 180.0f / PI;
+}
+
+float sqrt(float x) {
+    if (x <= 0) return 0;
+    float guess = x / 2;
+    for (int i = 0; i < 10; i++) {
+        guess = (guess + x / guess) / 2;
+    }
+    return guess;
+}
+

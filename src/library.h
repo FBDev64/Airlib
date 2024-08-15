@@ -18,7 +18,6 @@ void DisplayH3(char *txt, char *color);
 void DisplayH4(char *txt, char *color);
 void DisplayH5(char *txt, char *color);
 void DisplayH6(char *txt, char *color);
-void DisplayBreakLineDash();
 void DisplayBreakLine();
 
 // ------------------------------------------------
@@ -37,5 +36,32 @@ void clrscr();
 
 void SysSleep(int ms);
 float GetGameTime();
+
+// ------------------------------------------------
+// Drawing
+// ------------------------------------------------
+
+void DrawRedLine();
+void DrawGreenLine();
+void DrawYellowLine();
+void DrawBlueLine();
+void DrawMagentaLine();
+void DrawCyanLine();
+void DrawWhiteLine();
+void DrawRedPolygon(int sides);
+void DrawGreenPolygon(int sides);
+void DrawYellowPolygon(int sides);
+void DrawBluePolygon(int sides);
+void DrawMagentaPolygon(int sides);
+void DrawCyanPolygon(int sides);
+void DrawWhitePolygon(int sides);
+
+// ------------------------------------------------
+// Math
+// ------------------------------------------------
+
+float DEG2RAD(float deg);
+float RAD2DEG(float rad);
+float sqrt(float x);
 
 #endif //AIRLIB_LIBRARY_H
