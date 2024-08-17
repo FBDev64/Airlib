@@ -212,13 +212,3 @@ float DEG2RAD(float deg) {
 float RAD2DEG(float rad) {
     return rad * 180.0f / PI;
 }
-
-float sqrt(float x) {
-    if (x <= 0) return 0;
-    float guess = x / 2;
-    for (int i = 0; i < 10; i++) {
-        guess = (guess + x / guess) / 2;
-    }
-    return guess;
-}
-
