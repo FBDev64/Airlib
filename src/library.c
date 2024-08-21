@@ -67,11 +67,11 @@ void DisplayBreakLine() {
 // Window
 // ------------------------------------------------
 
-void InitWindow() { // This one is just for code readability
+void InitWindow(void) { // This one is just for code readability
     system("@cls||clear");
 }
 
-void CloseWindowNy() {
+void CloseWindowNy(void) {
     // User want to close window if else
     char ny;
     printf("Do you want to close window? (y/n) ");
@@ -81,7 +81,7 @@ void CloseWindowNy() {
     }
 }
 
-void CloseWindow() {
+void CloseWindow(void) {
     exit(0);
 }
 
@@ -90,8 +90,8 @@ void SegFault() {
     *p = 1;
 }
 
-void clrscr() {
-    system("@cls||clear");
+void clscr(char color) {
+    system("@cls||clear");  // This clears the screen
 }
 
 // ------------------------------------------------
