@@ -1,5 +1,6 @@
-#include <stdio.h>
+#include <stdarg.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <time.h>
 
 // ------------------------------------------------
@@ -18,6 +19,36 @@
 #define KMAG  "\x1B[35m"
 #define KCYN  "\x1B[36m"
 #define KWHT  "\x1B[37m"
+
+// -------------------------------------------------
+// Debug
+// -------------------------------------------------
+
+size_t g_allocatedMemory = 0;
+
+void DebugLog(const char *format, ...) {
+    va_list args;
+    va_start(args, format);
+    vprintf(format, args);
+    va_end(args);
+}
+
+double CalculateFrameRate(void) {
+    static double lastTime = 0;
+    static int frameCount = 0;
+    static double fps = 0;
+
+    double currentTime = (double)clock() / CLOCKS_PER_SEC;
+    frameCount++;
+
+    if (currentTime - lastTime > 1.0) {
+        fps = frameCount / (currentTime - lastTime);
+        frameCount = 0;
+        lastTime = currentTime;
+    }
+
+    return fps;
+}
 
 // -------------------------------------------------
 // Color and Strings
