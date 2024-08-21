@@ -18,15 +18,15 @@
 // Color and Strings
 // -------------------------------------------------
 
-void DisplayRedColor(char *txt);
-void DisplayGreenColor(char *txt);
-void DisplayYellowColor(char *txt);
-void DisplayBlueColor(char *txt);
-void DisplayMagentaColor(char *txt);
-void DisplayCyanColor(char *txt);
-void DisplayWhiteColor(char *txt);
-void DisplayTitle(char *txt, char *color);
-void DisplaySubTitle(char *txt, char *color);
+void DisplayRedColor(char *text);
+void DisplayGreenColor(char *text);
+void DisplayYellowColor(char *text);
+void DisplayBlueColor(char *text);
+void DisplayMagentaColor(char *text);
+void DisplayCyanColor(char *text);
+void DisplayWhiteColor(char *text);
+void DisplayTitle(char *text, char *color);
+void DisplaySubTitle(char *text, char *color);
 void DisplayBreakLine();
 
 // ------------------------------------------------

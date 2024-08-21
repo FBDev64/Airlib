@@ -23,40 +23,40 @@
 // Color and Strings
 // -------------------------------------------------
 
-void DisplayRedColor(char *txt) {
-    printf("%s%s%s\n", KRED, txt, KNRM);
+void DisplayRedColor(char *text) {
+    printf("%s%s%s\n", KRED, text, KNRM);
 }
 
-void DisplayGreenColor(char *txt) {
-    printf("%s%s%s\n", KGRN, txt, KNRM);
+void DisplayGreenColor(char *text) {
+    printf("%s%s%s\n", KGRN, text, KNRM);
 }
 
-void DisplayYellowColor(char *txt) {
-    printf("%s%s%s\n", KYEL, txt, KNRM);
+void DisplayYellowColor(char *text) {
+    printf("%s%s%s\n", KYEL, text, KNRM);
 }
 
-void DisplayBlueColor(char *txt) {
-    printf("%s%s%s\n", KBLU, txt, KNRM);
+void DisplayBlueColor(char *text) {
+    printf("%s%s%s\n", KBLU, text, KNRM);
 }
 
-void DisplayMagentaColor(char *txt) {
-    printf("%s%s%s\n", KMAG, txt, KNRM);
+void DisplayMagentaColor(char *text) {
+    printf("%s%s%s\n", KMAG, text, KNRM);
 }
 
-void DisplayCyanColor(char *txt) {
-    printf("%s%s%s\n", KCYN, txt, KNRM);
+void DisplayCyanColor(char *text) {
+    printf("%s%s%s\n", KCYN, text, KNRM);
 }
 
-void DisplayWhiteColor(char *txt) {
-    printf("%s%s%s\n", KWHT, txt, KNRM);
+void DisplayWhiteColor(char *text) {
+    printf("%s%s%s\n", KWHT, text, KNRM);
 }
 
-void DisplayTitle(char *txt, char *color) {
-    printf("%s# %s%s\n", color, txt, KNRM);
+void DisplayTitle(char *text, char *color) {
+    printf("%s# %s%s\n", color, text, KNRM);
 }
 
-void DisplaySubTitle(char *txt, char *color) {
-    printf("%s## %s%s\n", color, txt, KNRM);
+void DisplaySubTitle(char *text, char *color) {
+    printf("%s## %s%s\n", color, text, KNRM);
 }
 
 void DisplayBreakLine() {
