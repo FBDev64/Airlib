@@ -21,76 +21,16 @@
 #define KWHT  "\x1B[37m"
 
 // -------------------------------------------------
-// Debug
-// -------------------------------------------------
-
-size_t g_allocatedMemory = 0;
-
-void DebugLog(const char *format, ...) {
-    va_list args;
-    va_start(args, format);
-    vprintf(format, args);
-    va_end(args);
-}
-
-double CalculateFrameRate(void) {
-    static double lastTime = 0;
-    static int frameCount = 0;
-    static double fps = 0;
-
-    double currentTime = (double)clock() / CLOCKS_PER_SEC;
-    frameCount++;
-
-    if (currentTime - lastTime > 1.0) {
-        fps = frameCount / (currentTime - lastTime);
-        frameCount = 0;
-        lastTime = currentTime;
-    }
-
-    return fps;
-}
-
-// -------------------------------------------------
 // Color and Strings
 // -------------------------------------------------
 
-void DisplayRedColor(char *text) {
-    printf("%s%s%s\n", KRED, text, KNRM);
-}
-
-void DisplayGreenColor(char *text) {
-    printf("%s%s%s\n", KGRN, text, KNRM);
-}
-
-void DisplayYellowColor(char *text) {
-    printf("%s%s%s\n", KYEL, text, KNRM);
-}
-
-void DisplayBlueColor(char *text) {
-    printf("%s%s%s\n", KBLU, text, KNRM);
-}
-
-void DisplayMagentaColor(char *text) {
-    printf("%s%s%s\n", KMAG, text, KNRM);
-}
-
-void DisplayCyanColor(char *text) {
-    printf("%s%s%s\n", KCYN, text, KNRM);
-}
-
-void DisplayWhiteColor(char *text) {
-    printf("%s%s%s\n", KWHT, text, KNRM);
-}
-
-void DisplayTitle(char *text, char *color) {
-    printf("%s# %s%s\n", color, text, KNRM);
-}
-
-void DisplaySubTitle(char *text, char *color) {
-    printf("%s## %s%s\n", color, text, KNRM);
-}
-
-void DisplayBreakLine() {
+void DisplayText(char *text, char *color, int bold, int italic, int underline) {
+    printf("%s", color);
+    if (bold) printf("\033[1m");
+    if (italic) printf("\033[3m");
+    if (underline) printf("\033[4m");
+    printf("%s", text);
+    printf(KNRM);  // Reset to normal
     printf("\n");
 }
 
@@ -121,7 +61,7 @@ void SegFault() {
     *p = 1;
 }
 
-void clscr(char color) {
+void clscr() {
     system("@cls||clear");  // This clears the screen
 }
 

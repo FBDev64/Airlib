@@ -15,27 +15,10 @@
 #define KWHT  "\x1B[37m"
 
 // -------------------------------------------------
-// Debug
-// -------------------------------------------------
-
-void DebugLog(const char *format, ...);
-
-double CalculateFrameRate(void);
-
-// -------------------------------------------------
 // Color and Strings
 // -------------------------------------------------
 
-void DisplayRedColor(char *text);
-void DisplayGreenColor(char *text);
-void DisplayYellowColor(char *text);
-void DisplayBlueColor(char *text);
-void DisplayMagentaColor(char *text);
-void DisplayCyanColor(char *text);
-void DisplayWhiteColor(char *text);
-void DisplayTitle(char *text, char *color);
-void DisplaySubTitle(char *text, char *color);
-void DisplayBreakLine();
+void DisplayText(char *text, char *color, int bold, int italic, int underline);
 
 // ------------------------------------------------
 // Window
