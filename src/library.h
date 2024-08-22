@@ -62,6 +62,5 @@ void DrawWhitePolygon(int sides);
 
 float DEG2RAD(float deg);
 float RAD2DEG(float rad);
-float sqrt(float x);
 
 #endif //AIRLIB_LIBRARY_H
