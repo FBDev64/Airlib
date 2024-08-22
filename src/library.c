@@ -1,4 +1,4 @@
-#include <stdarg.h>
+#include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
@@ -19,6 +19,19 @@
 #define KMAG  "\x1B[35m"
 #define KCYN  "\x1B[36m"
 #define KWHT  "\x1B[37m"
+
+// -------------------------------------------------
+// Input Handling
+// -------------------------------------------------
+
+int cursorX = 0;
+int cursorY = 0;
+
+void MoveCursor(int x, int y) {
+    cursorX = x;
+    cursorY = y;
+    printf("\033[%d;%dH", y, x);
+}
 
 // -------------------------------------------------
 // Color and Strings
@@ -88,88 +101,42 @@ float GetGameTime() {
 // Drawing
 // ------------------------------------------------
 
-void DrawRedLine() {
-    printf("%s-----------------%s\n", KRED, KNRM);
-}
-
-void DrawGreenLine() {
-    printf("%s-----------------%s\n", KGRN, KNRM);
-}
-
-void DrawYellowLine() {
-    printf("%s-----------------%s\n", KYEL, KNRM);
-}
-
-void DrawBlueLine() {
-    printf("%s-----------------%s\n", KBLU, KNRM);
-}
-
-void DrawMagentaLine() {
-    printf("%s-----------------%s\n", KMAG, KNRM);
-}
-
-void DrawCyanLine() {
-    printf("%s-----------------%s\n", KCYN, KNRM);
-}
-
-void DrawWhiteLine() {
-    printf("%s-----------------%s\n", KWHT, KNRM);
-}
-
-void DrawRedPolygon(int sides) {
-    printf("%s", KRED);
-    for (int i = 0; i < sides; i++) {
-        printf("*---");
+void DrawBox(int x, int y, int width, int height, char *color) {
+    printf("%s", color);
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            printf("*");
+        }
+        printf("\n");
     }
-    printf("*%s\n", KNRM);
+    printf(KNRM);  // Reset to normal
 }
 
-void DrawGreenPolygon(int sides) {
-    printf("%s", KGRN);
-    for (int i = 0; i < sides; i++) {
-        printf("*---");
-    }
-    printf("*%s\n", KNRM);
-}
+typedef void (*ButtonAction)();
 
-void DrawYellowPolygon(int sides) {
-    printf("%s", KYEL);
-    for (int i = 0; i < sides; i++) {
-        printf("*---");
+void DrawButton(int x, int y, int width, int height, const char* text, ButtonAction action) {
+    // Draw the button as before
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            if (i == 0 || i == height - 1 || j == 0 || j == width - 1) {
+                printf("*");
+            } else if (i == height / 2 && j > 1 && j < width - 2) {
+                printf("%s", text);
+                j += strlen(text) - 1;
+            } else {
+                printf(" ");
+            }
+        }
+        printf("\n");
     }
-    printf("*%s\n", KNRM);
-}
 
-void DrawBluePolygon(int sides) {
-    printf("%s", KBLU);
-    for (int i = 0; i < sides; i++) {
-        printf("*---");
+    // Check if the button is clicked (you'd need to implement input handling)
+    // Removed the call to IsButtonClicked as it's not defined
+    // You should implement this function or use an appropriate input handling mechanism
+    // For now, we'll just call the action if it's provided
+    if (action != NULL) {
+        action();
     }
-    printf("*%s\n", KNRM);
-}
-
-void DrawMagentaPolygon(int sides) {
-    printf("%s", KMAG);
-    for (int i = 0; i < sides; i++) {
-        printf("*---");
-    }
-    printf("*%s\n", KNRM);
-}
-
-void DrawCyanPolygon(int sides) {
-    printf("%s", KCYN);
-    for (int i = 0; i < sides; i++) {
-        printf("*---");
-    }
-    printf("*%s\n", KNRM);
-}
-
-void DrawWhitePolygon(int sides) {
-    printf("%s", KWHT);
-    for (int i = 0; i < sides; i++) {
-        printf("*---");
-    }
-    printf("*%s\n", KNRM);
 }
 
 // ------------------------------------------------
