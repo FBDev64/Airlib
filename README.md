@@ -1,6 +1,6 @@
 # Airlib
 
-Library for Real Time Console.
+Library for Console game development.
 
 ## Technical Badges
 
