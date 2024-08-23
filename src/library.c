@@ -4,6 +4,68 @@
 #include <time.h>
 
 // ------------------------------------------------
+// Inputs
+// ------------------------------------------------
+
+#ifdef _WIN32
+#include <conio.h>
+#else
+#include <termios.h>
+#include <unistd.h>
+#include <fcntl.h>
+#endif
+
+#ifndef _WIN32
+int kbhit(void) {
+    struct termios oldt, newt;
+    int ch;
+    int oldf;
+
+    tcgetattr(STDIN_FILENO, &oldt);
+    newt = oldt;
+    newt.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+    oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
+    fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
+
+    ch = getchar();
+
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+    fcntl(STDIN_FILENO, F_SETFL, oldf);
+
+    if(ch != EOF) {
+        ungetc(ch, stdin);
+        return 1;
+    }
+
+    return 0;
+}
+
+char getch(void) {
+    char ch;
+    struct termios oldt, newt;
+
+    tcgetattr(STDIN_FILENO, &oldt);
+    newt = oldt;
+    newt.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+
+    ch = getchar();
+
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+
+    return ch;
+}
+#endif
+
+int GetKeyPressed(void) {
+    if (kbhit()) {
+        return getch();
+    }
+    return 0;
+}
+
+// ------------------------------------------------
 // Some Basic Info
 // ------------------------------------------------
 
@@ -19,19 +81,6 @@
 #define KMAG  "\x1B[35m"
 #define KCYN  "\x1B[36m"
 #define KWHT  "\x1B[37m"
-
-// -------------------------------------------------
-// Input Handling
-// -------------------------------------------------
-
-int cursorX = 0;
-int cursorY = 0;
-
-void MoveCursor(int x, int y) {
-    cursorX = x;
-    cursorY = y;
-    printf("\033[%d;%dH", y, x);
-}
 
 // -------------------------------------------------
 // Color and Strings
@@ -95,6 +144,15 @@ float GetGameTime() {
     time(&rawtime);
     timeinfo = localtime(&rawtime);
     printf("The time is %d:%d:%d\n", timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
+}
+
+char GetNonBlockingInput() {
+    char c;
+    if (kbhit()) {
+        c = getch();
+        return c;
+    }
+    return 0;
 }
 
 // ------------------------------------------------
