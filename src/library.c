@@ -3,66 +3,32 @@
 #include <stdio.h>
 #include <time.h>
 
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include <unistd.h>
+#include <sys/sysinfo.h>
+#endif
+
 // ------------------------------------------------
-// Inputs
+// System
 // ------------------------------------------------
+
+unsigned long long GetMemorySize(void) {
+    unsigned long long totalMemory = 0;
 
 #ifdef _WIN32
-#include <conio.h>
+    MEMORYSTATUSEX memInfo;
+    memInfo.dwLength = sizeof(MEMORYSTATUSEX);
+    GlobalMemoryStatusEx(&memInfo);
+    totalMemory = memInfo.ullTotalPhys;
 #else
-#include <termios.h>
-#include <unistd.h>
-#include <fcntl.h>
+    struct sysinfo memInfo;
+    sysinfo(&memInfo);
+    totalMemory = (unsigned long long)memInfo.totalram * memInfo.mem_unit;
 #endif
 
-#ifndef _WIN32
-int kbhit(void) {
-    struct termios oldt, newt;
-    int ch;
-    int oldf;
-
-    tcgetattr(STDIN_FILENO, &oldt);
-    newt = oldt;
-    newt.c_lflag &= ~(ICANON | ECHO);
-    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-    oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
-    fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
-
-    ch = getchar();
-
-    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-    fcntl(STDIN_FILENO, F_SETFL, oldf);
-
-    if(ch != EOF) {
-        ungetc(ch, stdin);
-        return 1;
-    }
-
-    return 0;
-}
-
-char getch(void) {
-    char ch;
-    struct termios oldt, newt;
-
-    tcgetattr(STDIN_FILENO, &oldt);
-    newt = oldt;
-    newt.c_lflag &= ~(ICANON | ECHO);
-    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-
-    ch = getchar();
-
-    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-
-    return ch;
-}
-#endif
-
-int GetKeyPressed(void) {
-    if (kbhit()) {
-        return getch();
-    }
-    return 0;
+    return totalMemory;
 }
 
 // ------------------------------------------------
@@ -146,13 +112,11 @@ float GetGameTime() {
     printf("The time is %d:%d:%d\n", timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
 }
 
-char GetNonBlockingInput() {
-    char c;
-    if (kbhit()) {
-        c = getch();
-        return c;
-    }
-    return 0;
+float StopWatch() {
+    clock_t start = clock();
+    clock_t end = clock();
+    float seconds = (float) (end - start) / CLOCKS_PER_SEC;
+    return seconds;
 }
 
 // ------------------------------------------------

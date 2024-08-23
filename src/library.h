@@ -2,10 +2,10 @@
 #define AIRLIB_LIBRARY_H
 
 // ------------------------------------------------
-// Inputs
+// System
 // ------------------------------------------------
 
-int GetKeyPressed(void);
+unsigned long long GetMemorySize(void);
 
 // ------------------------------------------------
 // Some Basic Info
