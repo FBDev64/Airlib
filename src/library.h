@@ -31,8 +31,6 @@ void DisplayText(char *text, char *color, int bold, int italic, int underline);
 // ------------------------------------------------
 
 void InitWindow();
-void CloseWindowNy();
-void CloseWindow();
 void SegFault();
 void clrscr();
 

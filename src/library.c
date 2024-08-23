@@ -70,16 +70,6 @@ void InitWindow(void) { // This one is just for code readability
     system("@cls||clear");
 }
 
-void CloseWindowNy(void) {
-    // User want to close window if else
-    char ny;
-    printf("Do you want to close window? (y/n) ");
-    scanf("%s", &ny);
-    if (ny == 'y' || ny == 'Y') {
-        exit(0);
-    }
-}
-
 void SegFault() {
     int *p = NULL;
     *p = 1;
