@@ -80,10 +80,6 @@ void CloseWindowNy(void) {
     }
 }
 
-void CloseWindow(void) {
-    exit(0);
-}
-
 void SegFault() {
     int *p = NULL;
     *p = 1;
