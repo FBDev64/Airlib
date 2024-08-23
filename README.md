@@ -1,4 +1,4 @@
-# Airlib
+# librtc
 
 I recently discoverd Raylib, and I, as a C developer, decided I'll create a "port" of for the Terminal.
 
@@ -10,11 +10,11 @@ I recently discoverd Raylib, and I, as a C developer, decided I'll create a "por
 
 ## Documentation
 See the [FN.md](./FN.md), where thre is the descripton of the functions and usages.
-For a real example, check [FBD](https://github.com/fbdev64/FBD.git)
+For a real example, check [FBD](https://github.com/fbdev64/FBD.git) or [librtc-examples]([https://](https://github.com/fbdev64/librtc.git).
 
 ## Compile and Run
 
-Just include the `library.c` and `library.h` in your codebase and rename it to `airlib.c` and `airlib.h`.
+Just include the `library.c` and `library.h` in your codebase and rename it to `librtc.c` and `librtc.h`.
 <br>I use CMake, by the way.
 
 ## Contributing
