@@ -1,6 +1,6 @@
 # librtc
 
-I recently discoverd Raylib, and I, as a C developer, decided I'll create a "port" of for the Terminal.
+Library for Real Time Console.
 
 ## Technical Badges
 
@@ -9,8 +9,8 @@ I recently discoverd Raylib, and I, as a C developer, decided I'll create a "por
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 
 ## Documentation
-See the [FN.md](./FN.md), where thre is the descripton of the functions and usages.
-For a real example, check [FBD](https://github.com/fbdev64/FBD.git) or [librtc-examples]([https://](https://github.com/fbdev64/librtc.git).
+See the [FN.md](./FN.md), where there is the description of the functions and usages.
+For a real example, check [FBD](https://github.com/fbdev64/FBD.git) or [librtc-examples](https://github.com/fbdev64/librtc.git).
 
 ## Compile and Run
 
