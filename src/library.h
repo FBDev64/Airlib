@@ -20,10 +20,6 @@
 
 void DisplayText(char *text, char *color, int bold, int italic, int underline);
 
-typedef void (*ButtonAction)();
-
-void DrawButton(int x, int y, int width, int height, const char* text, ButtonAction action) 
-
 // ------------------------------------------------
 // Window
 // ------------------------------------------------
@@ -46,34 +42,6 @@ float GetGameTime();
 // ------------------------------------------------
 
 void DrawBox(int x, int y, int width, int height, char *color);
-
-typedef void (*ButtonAction)();
-
-void DrawButton(int x, int y, int width, int height, const char* text, char *ButtonAction) {
-    // Draw the button as before
-    for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-            if (i == 0 || i == height - 1 || j == 0 || j == width - 1) {
-                printf("*");
-            } else if (i == height / 2 && j > 1 && j < width - 2) {
-                printf("%s", text);
-                j += strlen(text) - 1;
-            } else {
-                printf(" ");
-            }
-        }
-        printf("\n");
-    }
-
-    // Check if the button is clicked (you'd need to implement input handling)
-    // Removed the call to IsButtonClicked as it's not defined
-    // You should implement this function or use an appropriate input handling mechanism
-    // For now, we'll just call the action if it's provided
-    if (action != NULL) {
-        action();
-    }
-}
-
 
 // ------------------------------------------------
 // Math
