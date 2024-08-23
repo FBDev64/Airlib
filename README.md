@@ -1,4 +1,4 @@
-# librtc
+# Airlib
 
 Library for Real Time Console.
 
@@ -10,12 +10,13 @@ Library for Real Time Console.
 
 ## Documentation
 See the [FN.md](./FN.md), where there is the description of the functions and usages.
-For a real example, check [FBD](https://github.com/fbdev64/FBD.git) or [librtc-examples](https://github.com/fbdev64/librtc.git).
+For a real example, check [FBD](https://github.com/fbdev64/FBD.git) or [Airlib-examples](https://github.com/fbdev64/Airlib-examples.git).
 
 ## Compile and Run
 
-Just include the `library.c` and `library.h` in your codebase and rename it to `librtc.c` and `librtc.h`.
-<br>I use CMake, by the way.
+Just include the `library.c` and `library.h` in your codebase and rename it to `airlib.c` and `airlib.h`.
+
+Tip : Use Make to compile your code.
 
 ## Contributing
 
