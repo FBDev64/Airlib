@@ -18,7 +18,7 @@ Just include the `library.c` and `library.h` in your codebase and rename it to `
 
 Tip : Use Make to compile your code.
 
-## Contributing
+## Contributing 
 
 Pull requests are welcome. For major changes, please open an issue first
 to discuss what you would like to change.
