@@ -2,12 +2,6 @@
 #define AIRLIB_LIBRARY_H
 
 // ------------------------------------------------
-// System
-// ------------------------------------------------
-
-unsigned long long GetMemorySize(void);
-
-// ------------------------------------------------
 // Some Basic Info
 // ------------------------------------------------
 
@@ -46,12 +40,5 @@ float GetGameTime();
 // ------------------------------------------------
 
 void DrawBox(int x, int y, int width, int height, char *color);
-
-// ------------------------------------------------
-// Math
-// ------------------------------------------------
-
-float DEG2RAD(float deg);
-float RAD2DEG(float rad);
 
 #endif //AIRLIB_LIBRARY_H

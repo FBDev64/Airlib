@@ -3,34 +3,6 @@
 #include <stdio.h>
 #include <time.h>
 
-#ifdef _WIN32
-#include <windows.h>
-#else
-#include <unistd.h>
-#include <sys/sysinfo.h>
-#endif
-
-// ------------------------------------------------
-// System
-// ------------------------------------------------
-
-unsigned long long GetMemorySize(void) {
-    unsigned long long totalMemory = 0;
-
-#ifdef _WIN32
-    MEMORYSTATUSEX memInfo;
-    memInfo.dwLength = sizeof(MEMORYSTATUSEX);
-    GlobalMemoryStatusEx(&memInfo);
-    totalMemory = memInfo.ullTotalPhys;
-#else
-    struct sysinfo memInfo;
-    sysinfo(&memInfo);
-    totalMemory = (unsigned long long)memInfo.totalram * memInfo.mem_unit;
-#endif
-
-    return totalMemory;
-}
-
 // ------------------------------------------------
 // Some Basic Info
 // ------------------------------------------------
@@ -118,16 +90,4 @@ void DrawBox(int x, int y, int width, int height, char *color) {
         printf("\n");
     }
     printf(KNRM);  // Reset to normal
-}
-
-// ------------------------------------------------
-// Math
-// ------------------------------------------------
-
-float DEG2RAD(float deg) {
-    return deg * PI / 180.0f;
-}
-
-float RAD2DEG(float rad) {
-    return rad * 180.0f / PI;
 }
