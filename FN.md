@@ -7,8 +7,7 @@ The documentation of the Functions present in the project.
     - if you want bold, put 1 in bold, same for others. To disable, put 0.
 
 ## Window
-- InitWindow() :
-    - Clears the screen, for readability.
+
 - SegFault() :
     - Exits the program with a segmentation fault
 - clrscr() :
