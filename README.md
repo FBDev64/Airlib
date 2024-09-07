@@ -16,7 +16,7 @@ For a real example, check [FBD](https://github.com/fbdev64/FBD.git) or [Airlib-e
 
 Just include the `library.c` and `library.h` in your codebase and rename it to `airlib.c` and `airlib.h`.
 
-Tip : Compile like `gcc main.c include/airlib.c`
+Tip : Compile like `gcc main.c <path/to/airlib.c>`
 
 ## Contributing 
 
