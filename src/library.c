@@ -1,28 +1,88 @@
+/* Copyright (c) 2024 Adam Ellouze. All Rights Reserved. */
+
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
 
-// ------------------------------------------------
-// Some Basic Info
-// ------------------------------------------------
-
-#ifndef PI
-#define PI 3.14159265358979323846f
-#endif
+// ------------------------------------
+// ANSI Escape Colors
+// ------------------------------------
 
 #define KNRM  "\x1B[0m"
 #define KRED  "\x1B[31m"
 #define KGRN  "\x1B[32m"
-#define KYEL  "\x1B[33m"
+#define KYEL  "\x1B[33m" 
 #define KBLU  "\x1B[34m"
 #define KMAG  "\x1B[35m"
 #define KCYN  "\x1B[36m"
 #define KWHT  "\x1B[37m"
 
-// -------------------------------------------------
+// ------------------------------------
+// Error handling
+// ------------------------------------
+
+/* If you ever have to use this,  */
+
+char *Airlib_Logger(char *text, int error, int warn, int info) {
+  
+  // Color
+  if (error) printf(KRED);
+  if (warn) printf(KYEL);
+  if (info) printf(KBLU);
+  
+  // text
+  if (error) printf("error: ");
+  if (warn) printf("warn: ");
+  if (info) printf("info: ");
+  printf("%s", text);
+  
+  printf(KNRM);
+}
+
+// ------------------------------------
+// Get Platform
+// ------------------------------------
+
+const char *Airlib_GetPlatform(void) {
+  #if defined(_WIN32)
+    return "Windows";
+  #elif defined(__APPLE__)
+    return "Apple";
+  #elif defined(__MACH__)
+    return "Apple";
+  #elif defined(TARGET_OS_EMBEDDED)
+    return "iOS Embedded";
+  #elif defined(TARGET_IPHONE_SIMULATOR)
+    return "iOS Emulator";
+  #elif defined(TARGET_OS_IPHONE)
+    return "iOS";
+  #elif defined(TARGET_OS_MAC)
+    return "MacOS";
+  #elif defined(__unix__)
+    return "Unix";
+  #elif defined(__linux__)
+    return "Linux";
+  #elif defined(__sun)
+    return "Solaris";
+  #elif defined(__hpux)
+    return "HP UX"; 
+  #elif defined(__DragonFly__)
+    return "DragonFly BSD";
+  #elif defined(__FreeBSD__)
+    return "FreeBSD";
+  #elif defined(__NetBSD__)
+    return "NetBSD";
+  #elif defined(__OpenBSD__)
+    return "OpenBSD";
+  #else 
+    #error "[ platform ] : unknown platform !"
+  #endif
+}
+
+// ------------------------------------
 // Color and Strings
-// -------------------------------------------------
+// ------------------------------------
 
 void DisplayText(char *text, char *color, int bold, int italic, int underline) {
     printf("%s", color);
@@ -34,13 +94,9 @@ void DisplayText(char *text, char *color, int bold, int italic, int underline) {
     printf("\n");
 }
 
-// ------------------------------------------------
+// ------------------------------------
 // Window
-// ------------------------------------------------
-
-void InitWindow(void) { // This one is just for code readability
-    system("@cls||clear");
-}
+// ------------------------------------
 
 void SegFault() {
     int *p = NULL;
@@ -51,9 +107,7 @@ void clrscr() {
     system("@cls||clear");  // This clears the screen
 }
 
-// ------------------------------------------------
 // Clock and Time
-// ------------------------------------------------
 
 void SysSleep(int ms) {
     clock_t goal = ms * CLOCKS_PER_SEC / 1000;
@@ -77,9 +131,7 @@ float StopWatch() {
     return seconds;
 }
 
-// ------------------------------------------------
 // Drawing
-// ------------------------------------------------
 
 void DrawBox(int x, int y, int width, int height, char *color) {
     printf("%s", color);

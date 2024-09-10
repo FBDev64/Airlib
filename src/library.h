@@ -1,3 +1,5 @@
+/* Copyright (c) 2024 Adam Ellouze. All Rights Reserved. */
+
 #ifndef AIRLIB_LIBRARY_H
 #define AIRLIB_LIBRARY_H
 
@@ -13,6 +15,12 @@
 #define KMAG  "\x1B[35m"
 #define KCYN  "\x1B[36m"
 #define KWHT  "\x1B[37m"
+
+// -------------------------------------------------
+// Get Platform
+// -------------------------------------------------
+
+const char *Airlib_GetPlatform(void);
 
 // -------------------------------------------------
 // Color and Strings
