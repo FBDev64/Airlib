@@ -8,11 +8,7 @@ Library for Console game development.
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 
-## Documentation
-See the [FN.md](./FN.md), where there is the description of the functions and usages.
-For a real example, check [FBD](https://github.com/fbdev64/FBD.git) or [Airlib-examples](https://github.com/fbdev64/Airlib-examples.git).
-
-## Compile and Run
+### Compile and Run
 
 Just include the `library.c` and `library.h` in your codebase and rename it to `airlib.c` and `airlib.h`.
 
