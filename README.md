@@ -1,6 +1,6 @@
 # Airlib
 
-A Cross-Platform library designed to simplify low-level App development.
+A Cross-Platform development library for Terminal gamedev.
 
 ## Technical Badges
 
