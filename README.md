@@ -1,6 +1,6 @@
 # Airlib
 
-Library for Console game development.
+A development library for terminal-based applications and games.
 
 ## Technical Badges
 
