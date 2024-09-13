@@ -9,14 +9,15 @@
 // ANSI Escape Colors
 // ------------------------------------
 
-#define KNRM  "\x1B[0m"
-#define KRED  "\x1B[31m"
-#define KGRN  "\x1B[32m"
-#define KYEL  "\x1B[33m" 
-#define KBLU  "\x1B[34m"
-#define KMAG  "\x1B[35m"
-#define KCYN  "\x1B[36m"
-#define KWHT  "\x1B[37m"
+#define KCLS  "\e[2J" 
+#define KNRM  "\e[0m"
+#define KRED  "\e[31m"
+#define KGRN  "\e[32m"
+#define KYEL  "\e[33m" 
+#define KBLU  "\e[34m"
+#define KMAG  "\e[35m"
+#define KCYN  "\e[36m"
+#define KWHT  "\e[37m"
 
 // ------------------------------------
 // Error handling
@@ -24,7 +25,7 @@
 
 /* If you ever have to use this,  */
 
-char *Airlib_Logger(char *text, int error, int warn, int info) {
+char *Airlib_Logger(char *text, unsigned int error, unsigned int warn, unsigned int info) {
   
   // Color
   if (error) printf(KRED);
@@ -84,7 +85,7 @@ const char *Airlib_GetPlatform(void) {
 // Color and Strings
 // ------------------------------------
 
-void DisplayText(char *text, char *color, int bold, int italic, int underline) {
+void DisplayText(char *text, char *color, unsigned int bold, unsigned int italic, unsigned int underline) {
     printf("%s", color);
     if (bold) printf("\033[1m");
     if (italic) printf("\033[3m");
@@ -104,7 +105,7 @@ void SegFault() {
 }
 
 void clrscr() {
-    system("@cls||clear");  // This clears the screen
+    printf(KCLS);  // This clears the screen
 }
 
 // Clock and Time
