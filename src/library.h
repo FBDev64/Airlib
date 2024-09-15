@@ -39,7 +39,7 @@ void DisplayText(char *text, char *color, unsigned int bold, unsigned int italic
 // Window
 // ------------------------------------------------
 
-void InitWindow();
+
 void SegFault();
 void clrscr();
 
