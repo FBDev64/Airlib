@@ -10,7 +10,8 @@ A Cross-Platform development library for Terminal gamedev.
 
 ## Features
 
-- Rich Text Display (DisplayText())
+- Rich Text Display : DisplayText()
+- Error Beautifying : Airlib_Logger()
 - 
 
 ## Compile and Run
