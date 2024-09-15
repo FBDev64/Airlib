@@ -108,7 +108,9 @@ void clrscr() {
     printf(KCLS);  // This clears the screen
 }
 
+// ------------------------------------
 // Clock and Time
+// ------------------------------------
 
 void SysSleep(int ms) {
     clock_t goal = ms * CLOCKS_PER_SEC / 1000;
