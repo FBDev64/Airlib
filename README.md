@@ -14,7 +14,7 @@ A Cross-Platform development library for Terminal gamedev.
 - Error Beautifying : Airlib_Logger()
 - Drawing : DrawBox()
 - Screen Manipulation : clrscr(), SegFault()
-- 
+- Clock and Time : GetGameTime(), SysSleep()
 
 ## Compile and Run
 
