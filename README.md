@@ -12,7 +12,8 @@ A Cross-Platform development library for Terminal gamedev.
 
 - Rich Text Display : DisplayText()
 - Error Beautifying : Airlib_Logger()
-- 
+- Drawing : DrawBox()
+- Screen Manipulation : clrscr(), 
 
 ## Compile and Run
 
