@@ -134,7 +134,9 @@ float StopWatch() {
     return seconds;
 }
 
+// ------------------------------------
 // Drawing
+// ------------------------------------
 
 void DrawBox(int x, int y, int width, int height, char *color) {
     printf("%s", color);
