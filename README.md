@@ -8,7 +8,12 @@ A Cross-Platform development library for Terminal gamedev.
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 
-### Compile and Run
+## Features
+
+- Rich Text Display (DisplayText())
+- 
+
+## Compile and Run
 
 Just include the `library.c` and `library.h` in your codebase and rename it to `airlib.c` and `airlib.h`.
 
