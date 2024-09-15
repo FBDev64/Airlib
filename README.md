@@ -10,12 +10,12 @@ A Cross-Platform development library for Terminal gamedev.
 
 ## Features
 
-- Rich Text Display : DisplayText()
-- Error Beautifying : Airlib_Logger()
-- Drawing : DrawBox()
-- Screen Manipulation : clrscr(), SegFault()
-- Clock and Time : GetGameTime(), SysSleep()
-- Get Platform : Airlib_GetPlatform()
+- Rich Text Display : `DisplayText()`
+- Error Beautifying : `Airlib_Logger()`
+- Drawing : `DrawBox()`
+- Screen Manipulation : `clrscr()`, `SegFault()`
+- Clock and Time : `GetGameTime()`, `SysSleep()`
+- Get Platform : |Airlib_GetPlatform()`
 
 ## Compile and Run
 
