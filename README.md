@@ -15,7 +15,7 @@ A Cross-Platform development library for Terminal gamedev.
 - Drawing : `DrawBox()`
 - Screen Manipulation : `clrscr()`, `SegFault()`
 - Clock and Time : `GetGameTime()`, `SysSleep()`
-- Get Platform : |Airlib_GetPlatform()`
+- Get Platform : `Airlib_GetPlatform()`
 
 ## Compile and Run
 
