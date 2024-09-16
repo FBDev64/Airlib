@@ -10,24 +10,16 @@ A Cross-Platform development library for Terminal gamedev.
 
 ## Features
 
-- Rich Text Display : `DisplayText()`
-- Error Beautifying : `Airlib_Logger()`
-- Drawing : `DrawBox()`
-- Screen Manipulation : `clrscr()`, `SegFault()`
-- Clock and Time : `GetGameTime()`, `SysSleep()`
-- Get Platform : `Airlib_GetPlatform()`
+- Rich Text Display : `richText`
+- Error Beautifying : `errorLog`
+- Drawing : `drawBox`
+- Screen Manipulation : `clrscr`, `segFault`
+- Clock and Time : `getGameTime`, `sysSleep`
+- Get Platform : `GET_PLATFORM`
 
-## Compile and Run
+## Compile
 
-Just include the `library.c` and `library.h` in your codebase and rename it to `airlib.c` and `airlib.h`.
-
-Tip : Compile like `gcc main.c <path/to/airlib.c>`
-
-## Contributing 
-
-Pull requests are welcome. Make sure the code you wrote works before making the PR.
-
-Tip : If a function **YOU** implemented doesn't work, just delete it. Like I did for `void DisplayColor(char *txt, char *color)` in previous versions.
+Include the header file OR compile with the shared object file. 
 
 ## License
 
