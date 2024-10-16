@@ -86,5 +86,16 @@ float stopWatch();
 
 void drawBox(int x, int y, int width, int height, char *color);
 
+// -----------------------------------------------
+// I/O 
+// -----------------------------------------------
+
+#ifdef _WIN32
+  char nonBlockingInput();
+#else 
+  void enableNonBlockingInput(); 
+  void disableNonBlockingInput();
+#endif 
+
 #endif //AIRLIB_LIBRARY_H
 

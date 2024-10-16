@@ -4,6 +4,16 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+
+#ifdef _WIN32
+  #include <conio.h>
+  #include <windows.h> // For Sleep function
+#else 
+  #include <fcntl.h>
+  #include <termios.h>
+  #include <unistd.h>
+#endif /* ifdef _WIN32 */ 
+
 #include "library.h"
 
 // ------------------------------------
@@ -94,3 +104,41 @@ void drawBox(int x, int y, int width, int height, char *color) {
     printf(KNRM);  // Reset to normal
 }
 
+// -----------------------------------
+// I/O 
+// -----------------------------------
+
+#ifdef _WIN32
+
+
+// Function to check for non-blocking input
+char nonBlockingInput() {
+    if (_kbhit()) { // Check if a key is pressed
+        return _getch(); // Return the character without waiting for Enter
+    }
+    return 0; // Return 0 if no key was pressed
+}
+
+#else 
+  
+void enableNonBlockingInput() {
+    struct termios t;
+    tcgetattr(STDIN_FILENO, &t); // Get terminal attributes
+    t.c_lflag &= ~(ICANON | ECHO); // Disable canonical mode and echo
+    tcsetattr(STDIN_FILENO, TCSANOW, &t); // Set terminal attributes
+
+    int flags = fcntl(STDIN_FILENO, F_GETFL, 0); // Get file status flags
+    fcntl(STDIN_FILENO, F_SETFL, flags | O_NONBLOCK); // Set stdin to non-blocking
+}
+
+void disableNonBlockingInput() {
+    struct termios t;
+    tcgetattr(STDIN_FILENO, &t);
+    t.c_lflag |= ICANON | ECHO; // Re-enable canonical mode and echo
+    tcsetattr(STDIN_FILENO, TCSANOW, &t);
+
+    int flags = fcntl(STDIN_FILENO, F_GETFL, 0);
+    fcntl(STDIN_FILENO, F_SETFL, flags & ~O_NONBLOCK); // Set stdin back to blocking
+}
+
+#endif /* ifdef _WIN32 */
