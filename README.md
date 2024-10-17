@@ -1,6 +1,6 @@
 # Airlib
 
-A Cross-Platform development library for Terminal gamedev.
+A Cross-Platform Flash library.
 
 ## Technical Badges
 
