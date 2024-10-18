@@ -1,6 +1,6 @@
 # Notes
 
-This is the planning document for the library 
+This is the planning document for the library.
 
 ## Objectif
 
