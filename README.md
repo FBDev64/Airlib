@@ -8,7 +8,7 @@ A Cross-Platform Flash library.
 
 ## Further reading
 
-For further reading, documents are available in (docs)[./docs/]. The documentation ((docs.tex)[./docs/docs.tex]) is written in French, but the planning document ((NOTES.md)[./docs/NOTES.md] is in English.
+For further reading, documents are available in [docs](./docs/). The documentation ([docs.tex](./docs/docs.tex) is written in French, but the planning document ([NOTES.md](./docs/NOTES.md)) is in English.
 
 ## Compile
 
