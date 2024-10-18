@@ -1,18 +1,18 @@
 # Notes
 
-Ceci est le document de planification de la librairie.
+This is the planning document for the library 
 
 ## Objectif
 
-L'objectif final est une librairie comme [OpenFL](https://www.openfl.org/) et [Flixel](https://flixel.org/). Elle doit avoir une API comme Flash, pour faciliter le développement de jeux.
+The final objective of the library is to have one similar to [OpenFL](https://www.openfl.org/) and [Flixel](https://flixel.org/), that has a Flash-like syntax/API.
 
-## Tâches
+## Tasks
 
-- [ ] Rendu graphique 2D
-- [ ] Fenêtres
-- [ ] Evenements (I/O)
+- [ ] 2D rendering
+- [ ] Windowing
+- [ ] Events (I/O)
 - [ ] Animations (frames...)
-- [ ] Multimédia (charger et jouer audio, vidéo...)
+- [ ] Multimedia (assets)
 - [ ] Cross-Platform
 - [ ] Layout
 
