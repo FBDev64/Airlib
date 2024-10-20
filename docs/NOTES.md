@@ -6,8 +6,6 @@ This is the planning document for the library.
 
 Airlib is inspired by [Flixel](https://flixel.org/). It has a Flash-like API and has a very high abstraction layer to facilitate game development.
 
-It will display vector graphics (bitmaps), play audio and I/O.
-
 ## Old
 
 The old library ([old.c](../src/old.c)) will get some more functionalities :
