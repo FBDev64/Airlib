@@ -16,15 +16,9 @@ The old library ([old.c](../src/old.c)) will get some more functionalities :
 - Placeholders,prefixes and helper texts
 - Lists
 
-## Tasks
+## Features
 
-- [ ] 2D rendering
-- [ ] Windowing
-- [ ] Events (I/O)
-- [ ] Animations (frames...)
-- [ ] Multimedia (assets)
-- [ ] Cross-Platform
-- [ ] Layout
-- [ ] Unicode
-- [ ] Better inputs
+Airlib support Window management, Input/Output, Vector Graphics and Audio.
+
+
 
