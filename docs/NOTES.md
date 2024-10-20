@@ -4,7 +4,7 @@ This is the planning document for the library.
 
 ## Objective
 
-The final objective of the library is to have one similar to [Flixel](https://flixel.org/), that has a Flash-like syntax/API.
+Airlib is inspired by [Flixel](https://flixel.org/). It has a Flash-like API and has a very high abstraction layer to facilitate game development.
 
 It will display vector graphics (bitmaps), play audio and I/O.
 
