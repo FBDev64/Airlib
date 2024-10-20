@@ -4,7 +4,7 @@ This is the planning document for the library.
 
 ## Objective
 
-Airlib is inspired by [Flixel](https://flixel.org/). It has a Flash-like API and has a very high abstraction layer to facilitate game development.
+Airlib is similar to [Flixel](https://flixel.org/) and [FlashPunk](http://useflashpunk.net/). It has a Flash-like API and has a very high abstraction layer to facilitate game development.
 
 ## Old
 
