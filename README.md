@@ -10,6 +10,16 @@ A Cross-Platform Flash-like library.
 
 For further reading, documents are available in [docs](./docs/). The documentation ([docs.tex](./docs/docs.tex)) is written in French, but the planning document ([NOTES.md](./docs/NOTES.md)) is in English.
 
+## Download
+
+```bash
+git clone https://GitHub.com/FBDev64/Airlib.git
+cd Airlib
+mkdir build && cd build
+cmake ..
+make
+```
+
 ## Compile
 
 Include the header file OR compile with the shared object file. 
