@@ -1,8 +1,9 @@
 # Airlib
 
-[Website](https://airlib.neocities.org)
-
 A Cross-Platform Flash-like library.
+
+[Website](https://airlib.neocities.org).
+
 
 ![C](https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white)
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
