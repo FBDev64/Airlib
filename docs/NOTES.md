@@ -16,6 +16,6 @@ The old library ([old.c](../src/old.c)) will get some more functionalities :
 
 ## Features
 
-Airlib support **Window management**, **Input/Output**, **Raster Images (bitmaps)**, **Audio** and  **Collisions**.
+Airlib support **Window management**, **Input/Output**, **Sprites**, **Audio** and  **Collisions**.
 
 
