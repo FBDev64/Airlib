@@ -11,7 +11,7 @@
   breaklines=true,
   frame=L,
   xleftmargin=\parindent,
-  language=C,
+  language=bash,
   showstringspaces=false,
   basicstyle=\footnotesize\ttfamily,
   keywordstyle=\bfseries\color{green!40!black},
@@ -59,18 +59,16 @@
 \maketitle
 
 \section{Airlib}
-    Le Aairlib est une librairie ayant une API comme \href{https://en.wikipedia.org/wiki/Adobe_Flash_Player}{Adobe Flash}, inspirée de \href{https://www.openfl.org/}{OpenFL}.\vspace{1cm}
+    Le Airlib est une librairie ayant une API comme \href{httŝ://flixel.org}{Flixel} et \href{https://www.openfl.org/}{OpenFL}.\vspace{1cm}
 
 \section{Langage}
 La librairie utilisera le langage C pour des raisons d'optimisations, de performances et de simplicité.
 
 \section{Utilisation}
-    Le développeur tiers - qui utilisera la librairie - devra inclure \textit{\textbf{library.c}}  et \textit{\textbf{library.h}}, constituant l'API.
-
-    \lstinputlisting[caption=Scheduler, style=customc]
+    Le développeur tiers - qui utilisera la librairie - devra inclure \textit{\textbf{old.h}}  et/ou \textit{\textbf{graphics.h}}, constituant la mojorité l'API.
 
 \section{Compilation}
-    Pour compiler la librairie, il faut avoir \ref{cmake} installé. Voici les étapes de compilation : \vspace{0.5cm}
+    Pour compiler la librairie, il faut avoir CMake installé. Voici les étapes de compilation : \vspace{0.5cm}
 
     \begin{lstlisting}
         git clone https://github.com/FBDev64/Airlib.git
