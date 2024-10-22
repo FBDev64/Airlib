@@ -15,7 +15,7 @@ The website is [here](https://adamonair.neocities.org/airlib).
 ## Download
 
 ```bash
-git clone https://GitHub.com/FBDev64/Airlib.git
+git clone https://GitHub.com/AdamOnAir/Airlib.git
 cd Airlib
 mkdir build && cd build
 cmake ..
