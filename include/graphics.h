@@ -1,23 +1,15 @@
-/* Copyright (c) 2024 Adam Ellouze. All Rights Reserved. */
+#ifndef GRAPHICS_H
+#define GRAPHICS_H
 
-#ifndef GRAPHICS_LIBRARY_H
-#define GRAPHICS_LIBRARY_H
-
-#ifdef _WIN32
 #include <windows.h>
-#else
-#include <X11/Xlib.h>
-#endif
 
-typedef struct {
-    int width;
-    int height;
-    const char* title;
-    void* window; // Pointer to the window
-} Window;
+// Function to initialize and create the window
+HWND InitGraphics(HINSTANCE hInstance, int nCmdShow, const char* title, int width, int height);
 
-Window* create_window(int width, int height, const char* title);
-void destroy_window(Window* window);
-void poll_events();
+// Function to start the message loop
+void StartMessageLoop();
 
-#endif
+// Function to handle window drawing (can be overridden)
+void DrawTextOnWindow(HDC hdc);
+
+#endif // GRAPHICS_H

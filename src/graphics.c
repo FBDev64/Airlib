@@ -1,82 +1,87 @@
-/* Copyright (c) 2024 Adam Ellouze. All Rights Reserved. */
-
 #include "../include/graphics.h"
-#include <stdlib.h>
-#include <stdio.h>
 
-#ifdef _WIN32
-LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
-    switch (uMsg) {
-    case WM_DESTROY:
-        PostQuitMessage(0);
-        return 0;
-    }
-    return DefWindowProc(hwnd, uMsg, wParam, lParam);
-}
+// Forward declaration for the window procedure
+LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
-Window* create_window(int width, int height, const char* title) {
-    Window* win = (Window*)malloc(sizeof(Window));
-    win->width = width;
-    win->height = height;
-    win->title = title;
-
-    HINSTANCE hInstance = GetModuleHandle(NULL);
-    WNDCLASS wc = { 0 };
-    wc.lpfnWndProc = WindowProc;
+// Initialize and create the window
+HWND InitGraphics(HINSTANCE hInstance, int nCmdShow, const char* title, int width, int height) {
+    WNDCLASSEX wc = {0};
+    wc.cbSize = sizeof(WNDCLASSEX);
+    wc.lpfnWndProc = WindowProc;   // Set window procedure
     wc.hInstance = hInstance;
-    wc.lpszClassName = "WindowClass";
-    RegisterClass(&wc);
+    wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+    wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+    wc.lpszClassName = "GraphicsWindowClass";
 
-    win->window = CreateWindowEx(0, "WindowClass", title, WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, CW_USEDEFAULT, width, height, NULL, NULL, hInstance, NULL);
+    // Register the window class
+    if (!RegisterClassEx(&wc)) {
+        MessageBox(NULL, "Window class registration failed!", "Error", MB_ICONEXCLAMATION | MB_OK);
+        return NULL;
+    }
 
-    ShowWindow(win->window, SW_SHOW);
-    return win;
+    // Create the window
+    HWND hwnd = CreateWindowEx(0,
+                               wc.lpszClassName,
+                               title,
+                               WS_OVERLAPPEDWINDOW,
+                               CW_USEDEFAULT, CW_USEDEFAULT,
+                               width, height,
+                               NULL, NULL, hInstance, NULL);
+
+    if (hwnd == NULL) {
+        MessageBox(NULL, "Window creation failed!", "Error", MB_ICONEXCLAMATION | MB_OK);
+        return NULL;
+    }
+
+    // Show the window
+    ShowWindow(hwnd, nCmdShow);
+    UpdateWindow(hwnd);
+
+    return hwnd;
 }
 
-void destroy_window(Window* win) {
-    DestroyWindow((HWND)win->window);
-    free(win);
-}
-
-void poll_events() {
+// Start the message loop
+void StartMessageLoop() {
     MSG msg;
-    while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+    while (GetMessage(&msg, NULL, 0, 0)) {
         TranslateMessage(&msg);
         DispatchMessage(&msg);
     }
 }
 
-#else
-Window* create_window(int width, int height, const char* title) {
-    Window* win = (Window*)malloc(sizeof(Window));
-    win->width = width;
-    win->height = height;
-    win->title = title;
+// Window procedure to handle events
+LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+    switch (uMsg) {
+        case WM_PAINT: {
+            PAINTSTRUCT ps;
+            HDC hdc = BeginPaint(hwnd, &ps);
 
-    win->window = XOpenDisplay(NULL);
-    if (!win->window) {
-        fprintf(stderr, "Could not open X display\n");
-        exit(1);
+            // Draw text on the window
+            DrawTextOnWindow(hdc);
+
+            EndPaint(hwnd, &ps);
+        }
+        break;
+
+        case WM_DESTROY:
+            PostQuitMessage(0);
+            break;
+
+        default:
+            return DefWindowProc(hwnd, uMsg, wParam, lParam);
     }
 
-    Window root = DefaultRootWindow((Display*)win->window);
-    win->window = XCreateSimpleWindow((Display*)win->window, root, 10, 10, width, height, 1,
-        BlackPixel((Display*)win->window, 0), WhitePixel((Display*)win->window, 0));
-
-    XSetStandardProperties((Display*)win->window, win->window, title, title, None, NULL, 0, NULL);
-    XMapRaised((Display*)win->window);
-    return win;
+    return 0;
 }
 
-void destroy_window(Window* win) {
-    XDestroyWindow((Display*)win->window, (Window)win->window);
-    XCloseDisplay((Display*)win->window);
-    free(win);
-}
+// Function to draw text on the window
+void DrawTextOnWindow(HDC hdc) {
+    const char* text = "Congrats! You created your first window!";
+    RECT rect = {190, 200, 600, 250};
 
-void poll_events() {
-    // Gérer les événements X11 ici
-}
+    SetTextColor(hdc, RGB(169, 169, 169));   // Light Gray color
+    SetBkMode(hdc, TRANSPARENT);             // Transparent background
 
-#endif
+    // Draw the text in the specified rectangle
+    DrawText(hdc, text, -1, &rect, DT_SINGLELINE | DT_NOCLIP);
+}
