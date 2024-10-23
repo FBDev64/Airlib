@@ -17,7 +17,11 @@ add_library(Airlib SHARED
 )
 
 # Link the winmm library to the Airlib target (Windows-specific)
-target_link_libraries(Airlib PRIVATE winmm)
+if(WIN32)
+    target_link_libraries(Airlib PRIVATE winmm)
+elseif(UNIX AND NOT APPLE)
+    target_link_libraries(Airlib PRIVATE X11)
+endif()
 
 # Create the Airlib_test executable
 add_executable(Airlib_test main.c)
