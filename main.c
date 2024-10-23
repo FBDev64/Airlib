@@ -1,29 +1,30 @@
-#include "include/graphics.h"
 #include "include/audio.h"
+#include "include/graphics.h"
+#include <windows.h>
 
-// Main entry point
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-    const char* windowTitle = "Airlib Example - Basic Window with Sound";
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+int main() {
+    // Initialize window
+    InitGraphics(800, 600, "Cross-Platform Audio Example");
 
-    // Initialize the window
-    HWND hwnd = InitGraphics(hInstance, nCmdShow, windowTitle, screenWidth, screenHeight);
-    if (!hwnd) {
-        return 1; // Exit if window creation fails
+    // Play sound (replace with the path to your .wav file)
+    PlaySoundFile("sound.wav");
+
+    // Main loop (for simplicity, waits for input and then exits)
+#ifdef _WIN32
+    MSG msg;
+    while (GetMessage(&msg, NULL, 0, 0)) {
+        TranslateMessage(&msg);
+        DispatchMessage(&msg);
     }
+#elif defined(__linux__)
+    getchar();  // Wait for user input before exiting
+#endif
 
-    // Initialize the sound system
-    InitSoundSystem();
-
-    // Play a sound file
-    PlayWavFile("rickroll.mp3");  // Make sure the sound file path is correct
-
-    // Start the message loop
-    StartMessageLoop();
-
-    // Stop the sound when the program exits
+    // Stop the sound before closing
     StopSound();
+
+    // Cleanup
+    CloseGraphics();
 
     return 0;
 }

@@ -14,6 +14,7 @@ add_library(Airlib SHARED
         include/graphics.h
         include/old.h
         include/audio.h
+        main.c
 )
 
 # Link the winmm library to the Airlib target

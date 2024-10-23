@@ -1,24 +1,30 @@
 #include "../include/audio.h"
+
+#ifdef _WIN32
 #include <windows.h>
-#include <mmsystem.h>
+#include <mmsystem.h>  // For PlaySound
 
-// Initialize the sound system (if required, currently no-op)
-void InitSoundSystem() {
-    // Could initialize things like DirectSound or more complex systems here
-    // For now, no setup is needed.
+void PlaySoundFile(const char *filename) {
+    PlaySoundA(filename, NULL, SND_FILENAME | SND_ASYNC);
 }
 
-// Play a .wav file
-void PlayWavFile(const char* filepath) {
-    // PlaySound is a simple function that plays a WAV file
-    // SND_ASYNC: Play sound asynchronously (non-blocking)
-    // SND_FILENAME: The sound is specified by a file name
-    if (!PlaySound(filepath, NULL, SND_ASYNC | SND_FILENAME)) {
-        MessageBox(NULL, "Failed to play sound!", "Error", MB_ICONERROR | MB_OK);
-    }
-}
-
-// Stop currently playing sound
 void StopSound() {
-    PlaySound(NULL, NULL, 0);  // Passing NULL stops any currently playing sound
+    PlaySound(NULL, 0, 0);
 }
+
+#elif defined(__linux__)
+#include <stdlib.h>  // For system()
+
+void PlaySoundFile(const char *filename) {
+    // Use `aplay` to play the wav file on Linux (aplay is a simple ALSA player)
+    char command[256];
+    snprintf(command, sizeof(command), "aplay %s &", filename);
+    system(command);
+}
+
+void StopSound() {
+    // Stop any playing sound by killing aplay (if running)
+    system("killall aplay");
+}
+
+#endif
