@@ -1,5 +1,7 @@
 #include "include/audio.h"
 #include "include/graphics.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 int main() {
     // Initialize window
@@ -13,8 +15,6 @@ int main() {
         DispatchMessage(&msg);
     }
 #elif defined(__linux__)
-  #include <stdlib.h>
-  #include <stdio.h>  
   getchar();  // Wait for user input before exiting
 #endif
 
