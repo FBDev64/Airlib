@@ -22,10 +22,6 @@ cmake ..
 make
 ```
 
-## Compile
-
-Include the header file OR compile with the shared object file. 
-
 ## License
 
 Distribute, modify and use freely under the terms of the
