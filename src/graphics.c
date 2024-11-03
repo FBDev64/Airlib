@@ -1,53 +1,39 @@
+// graphics.c
 #include "../include/graphics.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-#ifdef _WIN32
-#include <windows.h>
+static Display *d;
+static Window w;
+static int s;
 
-static HWND hwnd;
-
-void InitGraphics(int width, int height, const char *title) {
-    // Windows-specific window creation
-    WNDCLASS wc = {0};
-    wc.lpfnWndProc = DefWindowProc;
-    wc.hInstance = GetModuleHandle(NULL);
-    wc.lpszClassName = "MyWindowClass";
-    RegisterClass(&wc);
-
-    hwnd = CreateWindow("MyWindowClass", title, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT,
-                        width, height, NULL, NULL, GetModuleHandle(NULL), NULL);
-    ShowWindow(hwnd, SW_SHOW);
-}
-
-void CloseGraphics() {
-    // Windows-specific cleanup
-    DestroyWindow(hwnd);
-}
-
-#elif defined(__linux__)
-#include <X11/Xlib.h>
-
-static Display *display;
-static Window window;
-
-void InitGraphics(int width, int height, const char *title) {
-    // Linux X11-specific window creation
-    display = XOpenDisplay(NULL);
-    if (display == NULL) {
-        return;
+void createWin(int width, int height, const char *name) {
+    d = XOpenDisplay(NULL);
+    if (d == NULL) {
+        fprintf(stderr, "Cannot open display\n");
+        exit(1);
     }
 
-    int screen = DefaultScreen(display);
-    window = XCreateSimpleWindow(display, RootWindow(display, screen), 10, 10, width, height, 1,
-                                 BlackPixel(display, screen), WhitePixel(display, screen));
-
-    XStoreName(display, window, title);
-    XMapWindow(display, window);
+    s = DefaultScreen(d);
+    w = XCreateSimpleWindow(d, RootWindow(d, s), 10, 10, width, height, 1,
+                            BlackPixel(d, s), WhitePixel(d, s));
+    XStoreName(d, w, name);
+    XSelectInput(d, w, ExposureMask | KeyPressMask);
+    XMapWindow(d, w);
 }
 
-void CloseGraphics() {
-    // Linux X11-specific cleanup
-    XDestroyWindow(display, window);
-    XCloseDisplay(display);
+void displayWinText(const char *msg) {
+    XEvent e;
+    while (1) {
+        XNextEvent(d, &e);
+        if (e.type == Expose) {
+            XFillRectangle(d, w, DefaultGC(d, s), 20, 20, 10, 10);
+            XDrawString(d, w, DefaultGC(d, s), 10, 50, msg, strlen(msg));
+        }
+        if (e.type == KeyPress)
+            break;
+    }
+    XCloseDisplay(d);
 }
 
-#endif
