@@ -15,12 +15,15 @@ The website is [hosted here](https://adamonair.neocities.org/airlib).
 ## Download
 
 ```bash
-git clone https://GitHub.com/AdamOnAir/Airlib.git
+git clone https://github.com/AdamOnAir/Airlib.git
 cd Airlib
 mkdir build && cd build
 cmake ..
 make
 ```
+
+> [!TIP]
+> Use it as a git submodule and include files in `Airlib/include/`.
 
 ## License
 
