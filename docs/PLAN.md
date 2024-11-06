@@ -12,4 +12,4 @@ This is the planning document for the library.
 
 ## Features
 
-Airlib supports **Window management**, **Input/Output** and **Mult-Media** (images display, audio).
+Airlib supports **Window management**, **Input/Output** and **Mult-Media** *(images display, audio)*.
