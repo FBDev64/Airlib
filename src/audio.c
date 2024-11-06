@@ -1,31 +1,46 @@
 #include "../include/audio.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <pulse/pulseaudio.h>
 
-#ifdef _WIN32
-#include <windows.h>
-#include <mmsystem.h>  // For PlaySound
-
-void PlaySoundFile(const char *filename) {
-    PlaySoundA(filename, NULL, SND_FILENAME | SND_ASYNC);
-}
-
-void StopSound() {
-    PlaySound(NULL, 0, 0);
-}
-
-#elif defined(__linux__)
-#include <stdlib.h>  // For system()
+static pa_simple *s = NULL;
 
 void PlaySoundFile(const char *filename) {
-    // Use `aplay` to play the wav file on Linux (aplay is a simple ALSA player)
+    // Set up PulseAudio context
+    pa_sample_spec ss;
+    ss.format = PA_SAMPLE_S16LE;  // 16-bit signed little-endian samples
+    ss.rate = 44100;              // 44.1 kHz sample rate
+    ss.channels = 2;              // Stereo output
+
+    // Open the PulseAudio stream for playback
+    s = pa_simple_new(NULL,               // Use default server
+                      "AudioPlayer",       // Application name
+                      PA_STREAM_PLAYBACK,  // Playback mode
+                      NULL,                // No specific device
+                      "Audio",             // Stream description
+                      &ss,                 // Sample format
+                      NULL,                // No specific channel map
+                      NULL,                // No buffering attributes
+                      NULL);               // No error handling required
+
+    if (!s) {
+        fprintf(stderr, "PulseAudio: Failed to create playback stream\n");
+        return;
+    }
+
+    // Use system command to play sound file using PulseAudio
     char command[256];
-    snprintf(command, sizeof(command), "aplay %s &", filename);
+    snprintf(command, sizeof(command), "paplay %s", filename);
     system(command);
 }
 
 void StopSound() {
-    // Stop any playing sound by killing aplay (if running)
-    system("killall aplay");
-}
+    if (s) {
+        // Stop playback by closing the PulseAudio stream
+        pa_simple_free(s);
+        s = NULL;
+    }
 
-#endif
+    // Terminate any ongoing playback if necessary
+    system("killall paplay");
+}
