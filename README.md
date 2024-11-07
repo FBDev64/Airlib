@@ -3,7 +3,7 @@
 ![C](https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white)
 [![Licence](https://img.shields.io/static/v1.svg?label=lLicense&message=ZLib&color=blue&style=for-the-badge)](./LICENSE)
 
-Airlib is a game development library for C.
+Airlib - a game development library for C.
 
 ## Further reading
 
