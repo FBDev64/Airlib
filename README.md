@@ -24,6 +24,10 @@ make
 > [!TIP]
 > Use it as a git submodule and include files in `Airlib/include/`.
 
+## Cute
+
+Airlib has a [cute version](./include/cute_airlib.h) (one-file header) for the old library. It is better to use it if only using terminal-based utilities.
+
 ## License
 
 Distribute, modify and use freely under the terms of the
