@@ -1,8 +1,10 @@
-// graphics.c
-#include "../include/graphics.h"
+#ifdef __linux__
+
+#include "../../../include/graphics.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <X11/Xlib.h>
 
 static Display *d;
 static Window w;
@@ -37,3 +39,15 @@ void displayWinText(const char *msg) {
     XCloseDisplay(d);
 }
 
+void setWindowIcon(const char *iconPath) {
+    XWMHints *hints = XAllocWMHints();
+    if (hints) {
+        hints->flags = IconPixmapHint;
+        hints->icon_pixmap = XCreatePixmapFromBitmapData(d, w, iconPath,
+                                                        32, 32, 0, 0, 1);
+        XSetWMHints(d, w, hints);
+        XFree(hints);
+    }
+}
+
+#endif

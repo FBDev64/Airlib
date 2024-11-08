@@ -55,6 +55,4 @@ dkms.conf!
 # Build, IDE
 cmake-build-debug
 .idea
-.vs
-.vscode
 build 

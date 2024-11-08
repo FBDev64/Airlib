@@ -10,6 +10,11 @@ This is the planning document for the library.
 - Unicode printing
 - Placeholders, prefixes and helper texts
 
+## Windows
+
+- [ ] Window Management
+- [ ] AUDIO 
+
 ## Features
 
 Airlib supports **Window management**, **Input/Output** and **Mult-Media** *(images display, audio)*.
