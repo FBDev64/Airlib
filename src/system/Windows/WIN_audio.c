@@ -4,12 +4,12 @@
 #include <stdlib.h>
 #include <windows.h>
 
-void PlaySoundFile(const char *filename) {
+__declspec(dllexport) void playSoundFile(const char *filename) {
     if (!PlaySound(filename, NULL, SND_FILENAME | SND_ASYNC)) {
         printf("Error playing sound file: %s\n", filename);
     }
 }
 
-void StopSound() {
+__declspec(dllexport) void stopSound() {
     PlaySound(NULL, NULL, 0);
 }

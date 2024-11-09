@@ -1,3 +1,5 @@
+/* NOTE : Linux audio uses PulseAudio */
+
 #ifdef __linux__
 
 #include "../../../include/audio.h"

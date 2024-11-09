@@ -17,8 +17,7 @@ add_library(Airlib SHARED
         include/old.h
         include/audio.h
         include/Airlib.h
-
-
+        include/cute_airlib.h
 )
 
 if(UNIX AND NOT APPLE)

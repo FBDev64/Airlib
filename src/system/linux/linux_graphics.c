@@ -1,3 +1,5 @@
+/* NOTE : Linux graphics uses X11 */
+
 #ifdef __linux__
 
 #include "../../../include/graphics.h"

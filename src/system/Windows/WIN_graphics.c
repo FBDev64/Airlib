@@ -66,26 +66,9 @@ __declspec(dllexport) void displayWinText(const char *msg) {
 }
 
 __declspec(dllexport) void setWindowIcon(const char *iconPath) {
-    // Load the JPEG image
-    HBITMAP hBitmap = (HBITMAP)LoadImage(NULL, iconPath,
-                                        IMAGE_BITMAP,
-                                        32, 32,
-                                        LR_LOADFROMFILE);
-    if (hBitmap) {
-        // Convert bitmap to icon
-        ICONINFO ii = {0};
-        ii.fIcon = TRUE;
-        ii.hbmColor = hBitmap;
-        ii.hbmMask = CreateBitmap(32, 32, 1, 1, NULL);
-
-        HICON hIcon = CreateIconIndirect(&ii);
-
-        // Set both large and small icons
-        SendMessage(hwnd, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
+    HICON hIcon = (HICON)LoadImage(NULL, iconPath, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE);
+    if (hIcon) {
+        SendMessage(hwnd, WM_SETICON, ICON_BIG, (LPARAM)hIcon);  // Use 'hwnd' instead of 'hWnd'
         SendMessage(hwnd, WM_SETICON, ICON_SMALL, (LPARAM)hIcon);
-
-        // Clean up
-        DeleteObject(ii.hbmMask);
-        DeleteObject(hBitmap);
     }
 }

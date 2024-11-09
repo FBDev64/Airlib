@@ -1,6 +1,6 @@
 #include "include/graphics.h"
-#include "include/audio.h"
 #include <windows.h>
+#include "include/audio.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
                    LPSTR lpCmdLine, int nCmdShow) {
@@ -8,10 +8,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     createWin(800, 600, "Airlib Demo");
 
     // Use absolute path and make sure the icon file exists
-    setWindowIcon("C:/Path/To/Your/Icon.ico");
-
-    // Display some text in the window
-    displayWinText("Welcome to Airlib!");
+    setWindowIcon("C:/Users/Adam/Downloads/ness.ico");
+    playSoundFile("C:/Users/Adam/Downloads/Rick Astley Never Gonna Give You Up Official Music Video.wav");
 
     MSG msg = { 0 };
     while (GetMessage(&msg, NULL, 0, 0)) {

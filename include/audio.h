@@ -6,8 +6,8 @@ extern "C" {
 #endif
 
 // Function declarations
-void PlaySoundFile(const char *filename);
-void StopSound();
+void playSoundFile(const char *filename);
+void stopSound();
 
 #ifdef __cplusplus
 }
