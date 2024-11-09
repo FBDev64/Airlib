@@ -13,12 +13,20 @@ The website is [hosted here](https://adamonair.neocities.org/airlib).
 
 ## Download
 
+Shared Object library, use at compile time :
+
 ```bash
 git clone https://github.com/AdamOnAir/Airlib.git
 cd Airlib
 mkdir build && cd build
 cmake ..
 make
+```
+
+Git Submodule :
+
+```bash
+git submodule add https://github.com/AdamOnAir/Airlib.git
 ```
 
 > [!TIP]
