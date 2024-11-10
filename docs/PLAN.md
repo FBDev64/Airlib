@@ -25,7 +25,7 @@ LibreIO is a `module` for handling controllers and unusual peripherals.
 
 ### LibreArrays
 
-LibreArrays is a `module` for calculations related to arrays like [JAX](https://jax.readthedocs.io/en/latest/quickstart.html)
+LibreArrays is a `module` for calculations related to arrays like [JAX](https://jax.readthedocs.io/en/latest/quickstart.html).
 
 ## Features
 
