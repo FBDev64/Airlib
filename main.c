@@ -8,7 +8,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     createWin(800, 600, "Airlib Demo");
 
     // Use absolute path and make sure the icon file exists
-    setWindowIcon("C:/Users/Adam/Downloads/ness.ico");
+    setWindowIcon("C:/Users/Adam/Pictures/ness.png");
     playSoundFile("C:/Users/Adam/Downloads/Rick Astley Never Gonna Give You Up Official Music Video.wav");
 
     MSG msg = { 0 };
