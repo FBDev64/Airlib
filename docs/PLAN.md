@@ -12,8 +12,20 @@ This is the planning document for the library.
 
 ## Windows
 
-- [ ] Window Management
-- [ ] AUDIO 
+- [x] Window Management
+- [x] AUDIO 
+
+## Sub Libraries
+
+There will some sub-libraries referred as `modules` like LibreIO and LibreArrays.
+
+### LibreIO
+
+LibreIO is a `module` for handling controllers and unusual peripherals.
+
+### LibreArrays
+
+LibreArrays is a `module` for calculations related to arrays like [JAX](https://jax.readthedocs.io/en/latest/quickstart.html).
 
 ## Features
 
