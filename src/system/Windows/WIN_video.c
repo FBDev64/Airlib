@@ -1,3 +1,5 @@
+#ifdef _WIN32
+
 #include "../../../include/graphics.h"
 #include <windows.h>
 #include <string.h>
@@ -72,3 +74,5 @@ __declspec(dllexport) void setWindowIcon(const char *iconPath) {
         SendMessage(hwnd, WM_SETICON, ICON_SMALL, (LPARAM)hIcon);
     }
 }
+
+#endif

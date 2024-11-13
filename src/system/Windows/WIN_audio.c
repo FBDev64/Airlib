@@ -1,3 +1,5 @@
+#ifdef _WIN23
+
 #include "../../../include/audio.h"
 
 #include <stdio.h>
@@ -13,3 +15,5 @@ __declspec(dllexport) void playSoundFile(const char *filename) {
 __declspec(dllexport) void stopSound() {
     PlaySound(NULL, NULL, 0);
 }
+
+#endif

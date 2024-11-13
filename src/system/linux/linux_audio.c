@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pulse/pulseaudio.h>
+#include <pulse/simple.h>
 
 static pa_simple *s = NULL;
 
