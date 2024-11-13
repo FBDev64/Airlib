@@ -1,5 +1,3 @@
-/* Copyright (c) 2024 Adam Ellouze. All Rights Reserved. */
-
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -14,7 +12,7 @@
   #include <unistd.h>
 #endif /* ifdef _WIN32 */
 
-#include "../include/old.h"
+#include "../../include/old.h"
 
 // ------------------------------------
 // Error handling

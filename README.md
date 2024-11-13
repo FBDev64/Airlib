@@ -7,9 +7,9 @@ Airlib - a game development library for C.
 
 ## Further reading
 
-For further reading, documents are available in [docs](./docs/). The documentation, [docs.tex](./docs/docs.tex) is written in French, but the planning document ([NOTES.md](./docs/NOTES.md)) is in English.
+For further reading, documents are available in [docs](./docs/). The the planning document ([NOTES.md](./docs/PLAN.md)) is a technical sort of changelog.
 
-The website is [hosted here](https://adamonair.neocities.org/airlib).
+The website is available [here](https://adamonair.neocities.org/airlib).
 
 ## Download
 
@@ -35,5 +35,4 @@ Airlib has a [cute version](./include/cute_airlib.h) (one-file header) for the o
 
 ## License
 
-Distribute, modify and use freely under the terms of the
-[ZLib License](./LICENSE).
+Distribute, modify and use freely under the terms of the [ZLib License](./LICENSE).

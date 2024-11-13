@@ -6,7 +6,7 @@ set(CMAKE_C_STANDARD 23)
 # Create the shared library target
 add_library(Airlib SHARED
         # Source
-        src/system/linux/linux_audio.c
+	# src/system/linux/linux_audio.c
         src/system/linux/linux_graphics.c
         src/old.c
         src/system/Windows/WIN_audio.c
