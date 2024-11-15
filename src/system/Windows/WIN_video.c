@@ -21,7 +21,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
 }
 
 // Set up and create an OpenGL window
-__declspec(dllexport) extern void agGLCreateWindow(int width, int height, const char* title) {
+__declspec(dllexport) extern void avGLCreateWindow(int width, int height, const char* title) {
     WNDCLASS wc = {};
     wc.style = CS_OWNDC;
     wc.lpfnWndProc = WindowProc;
@@ -63,7 +63,7 @@ __declspec(dllexport) extern void agGLCreateWindow(int width, int height, const 
 }
 
 // Render function
-__declspec(dllexport) extern void agGLRender() {
+__declspec(dllexport) extern void avGLRender() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);  // Set background color to black
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -78,7 +78,7 @@ __declspec(dllexport) extern void agGLRender() {
 }
 
 // Cleanup function
-__declspec(dllexport) extern void agGLCleanup() {
+__declspec(dllexport) extern void avGLCleanup() {
     wglMakeCurrent(NULL, NULL);
     wglDeleteContext(hglrc);
     ReleaseDC(hwnd, hdc);

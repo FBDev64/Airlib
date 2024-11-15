@@ -5,8 +5,8 @@ void createWindow(int width, int height, const char *name);
 void displayWindowText(const char *msg);
 void setWindowIcon(const char *iconPath);
 
-void agGLCreateWindow(int width, int height, const char *title);
-void agGLRender();
-void agGLCleanup();
+void avGLCreateWindow(int width, int height, const char *title);
+void avGLRender();
+void avGLCleanup();
 
 #endif // GRAPHICS_H
