@@ -10,11 +10,6 @@ This is the planning document for the library.
 - Unicode printing
 - Placeholders, prefixes and helper texts
 
-## Windows
-
-- [x] Window Management
-- [x] AUDIO 
-
 ## Sub Libraries
 
 There will some sub-libraries referred as `modules`, e.g. LibreArrays.
@@ -23,11 +18,9 @@ There will some sub-libraries referred as `modules`, e.g. LibreArrays.
 
 LibreArrays is a `module` for array calculations like [JAX](https://jax.readthedocs.io/en/latest/quickstart.html).
 
-### agGL
+## avGL
 
-Airlib Graphics abstraction for OpenGL is a `module` abstracting OpenGL and making OpenGL graphics handling easier.
+Airlib Video abstraction for OpenGL is a `module` abstracting OpenGL and making OpenGL graphics handling easier.
+By the time it will be completed, WinAPI support will be sunsetted.
 
-## WinAPI
-
-Buy the time `agGL` will be done, having all actual WinAPI graphics features, WIN_graphics will be deprecated, due to it's rude syntax;
-
+It is the primary objective for November of 2024, must be completed be fore next December : support OpenGL fully.
