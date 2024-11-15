@@ -2,13 +2,12 @@
 
 #ifdef __linux__
 
-#include "../../../include/graphics.h"
+#include "../../../include/video.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <X11/Xlib.h> // API
 #include <X11/Xutil.h> // Defs
-#include <X11/Xlib.h>  // XPM format
 
 static Display *d;
 static Window w;
@@ -41,33 +40,6 @@ void displayWindowText(const char *msg) {
             break;
     }
     XCloseDisplay(d);
-}
-
-void setWindowIcon(const char *iconPath) {
-    // Open the XPM file and read it into an image structure
-    XpmAttributes attr;
-    XpmImage image;
-    int status = XpmReadFileToImage(d, iconPath, &image, &attr);
-    if (status != XpmSuccess) {
-        fprintf(stderr, "Failed to load XPM icon: %s\n", iconPath);
-        return;
-    }
-
-    // Create the Pixmap for the window icon
-    Pixmap iconPixmap;
-    iconPixmap = XCreatePixmapFromBitmapData(d, w, (const char *)image.data, image.width, image.height, 0, 0, 1);
-
-    // Set the icon on the window
-    XWMHints *hints = XAllocWMHints();
-    if (hints) {
-        hints->flags = IconPixmapHint;  // Set the IconPixmapHint flag
-        hints->icon_pixmap = iconPixmap;
-        XSetWMHints(d, w, hints);  // Apply the hints to the window
-        XFree(hints);  // Free the allocated memory for hints
-    }
-
-    // Free the image resources
-    XpmFreeImage(&image);
 }
 
 #endif

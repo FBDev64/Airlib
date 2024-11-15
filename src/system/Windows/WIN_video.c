@@ -1,6 +1,6 @@
 #ifdef _WIN32
 
-#include "../../../include/graphics.h"
+#include "../../../include/video.h"
 #include <windows.h>
 #include <string.h>
 
