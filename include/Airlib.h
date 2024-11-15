@@ -2,7 +2,7 @@
 #define AIRLIB_H
 
 #include "audio.h"
-#include "graphics.h"
+#include "video.h"
 #include "old.h"
 
 #endif // AIRLIB_H
