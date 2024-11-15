@@ -6,7 +6,7 @@ set(CMAKE_C_STANDARD 23)
 # Create the shared library target
 add_library(Airlib SHARED
         # Source
-	      src/system/linux/linux_audio.c
+		src/system/linux/linux_audio.c
         src/system/linux/linux_video.c
         src/system/old.c
         src/system/Windows/WIN_audio.c
@@ -25,6 +25,7 @@ if(UNIX AND NOT APPLE)
 	target_link_libraries(Airlib PRIVATE pulse-simple)
 elseif(WIN32)
         target_link_libraries(Airlib winmm)
+		target_link_libraries(Airlib opengl32)
 endif()
 
 # Create the Airlib_test executable

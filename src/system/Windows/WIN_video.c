@@ -1,78 +1,87 @@
+#include <stdio.h>
 #ifdef _WIN32
 
-#include "../../../include/video.h"
 #include <windows.h>
-#include <string.h>
+#include <GL/gl.h>
+#include "../../../include/video.h"
 
-static HWND hwnd;
-static HDC hdc;
-static WNDCLASSEX wc;
-static const char* currentText = NULL;
+// Global variables
+HDC hdc;
+HGLRC hglrc;
+HWND hwnd;
 
+// Window procedure callback
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     switch (uMsg) {
         case WM_DESTROY:
             PostQuitMessage(0);
-        return 0;
-
-        case WM_PAINT: {
-            PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hwnd, &ps);
-            if (currentText) {
-                TextOut(hdc, 10, 10, currentText, strlen(currentText));
-            }
-            EndPaint(hwnd, &ps);
             return 0;
-        }
     }
     return DefWindowProc(hwnd, uMsg, wParam, lParam);
 }
 
-__declspec(dllexport) void createWin(int width, int height, const char *name) {
-    wc.cbSize = sizeof(WNDCLASSEX);
-    wc.style = CS_HREDRAW | CS_VREDRAW;
+// Set up and create an OpenGL window
+__declspec(dllexport) extern void agGLCreateWindow(int width, int height, const char* title) {
+    WNDCLASS wc = {};
+    wc.style = CS_OWNDC;
     wc.lpfnWndProc = WindowProc;
-    wc.cbClsExtra = 0;
-    wc.cbWndExtra = 0;
     wc.hInstance = GetModuleHandle(NULL);
-    wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
-    wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-    wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
-    wc.lpszMenuName = NULL;
-    wc.lpszClassName = "AirlibWindow";
-    wc.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
+    wc.lpszClassName = "OpenGLWindowClass";
 
-    RegisterClassEx(&wc);
+    RegisterClass(&wc);
 
     hwnd = CreateWindowEx(
         0,
-        "AirlibWindow",
-        name,
+        wc.lpszClassName,
+        title,
         WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT, CW_USEDEFAULT,
         width, height,
-        NULL,
-        NULL,
-        GetModuleHandle(NULL),
-        NULL
+        NULL, NULL, wc.hInstance, NULL
     );
 
+    hdc = GetDC(hwnd);
+
+    // Set pixel format for OpenGL
+    PIXELFORMATDESCRIPTOR pfd = {};
+    pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
+    pfd.nVersion = 1;
+    pfd.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
+    pfd.iPixelType = PFD_TYPE_RGBA;
+    pfd.cColorBits = 32;
+    pfd.cDepthBits = 24;
+    pfd.iLayerType = PFD_MAIN_PLANE;
+
+    int pixelFormat = ChoosePixelFormat(hdc, &pfd);
+    SetPixelFormat(hdc, pixelFormat, &pfd);
+
+    // Create and set the OpenGL rendering context
+    hglrc = wglCreateContext(hdc);
+    wglMakeCurrent(hdc, hglrc);
+
     ShowWindow(hwnd, SW_SHOW);
-    UpdateWindow(hwnd);
 }
 
-__declspec(dllexport) void displayWinText(const char *msg) {
-    currentText = msg;
-    InvalidateRect(hwnd, NULL, TRUE);
-    UpdateWindow(hwnd);
+// Render function
+__declspec(dllexport) extern void agGLRender() {
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);  // Set background color to black
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    // Simple triangle
+    glBegin(GL_TRIANGLES);
+    glColor3f(1.0f, 0.0f, 0.0f); glVertex2f(-0.5f, -0.5f);  // Red vertex
+    glColor3f(0.0f, 1.0f, 0.0f); glVertex2f(0.5f, -0.5f);   // Green vertex
+    glColor3f(0.0f, 0.0f, 1.0f); glVertex2f(0.0f, 0.5f);    // Blue vertex
+    glEnd();
+
+    SwapBuffers(hdc);
 }
 
-__declspec(dllexport) void setWindowIcon(const char *iconPath) {
-    HICON hIcon = (HICON)LoadImage(NULL, iconPath, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE);
-    if (hIcon) {
-        SendMessage(hwnd, WM_SETICON, ICON_BIG, (LPARAM)hIcon);  // Use 'hwnd' instead of 'hWnd'
-        SendMessage(hwnd, WM_SETICON, ICON_SMALL, (LPARAM)hIcon);
-    }
+// Cleanup function
+__declspec(dllexport) extern void agGLCleanup() {
+    wglMakeCurrent(NULL, NULL);
+    wglDeleteContext(hglrc);
+    ReleaseDC(hwnd, hdc);
 }
 
-#endif
+#endif // _WIN32
