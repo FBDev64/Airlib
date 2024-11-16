@@ -1,12 +1,14 @@
-#include "include/video.h"
-#include "include/audio.h"
+#include <X11/Xlib.h>
+
+#include "include/Airlib.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 int main() {
-    avGLCreateWindow(800, 600, "OpenGL b");
-    playSoundFile("C:/Users/Adam/Downloads/Rick Astley Never Gonna Give You Up Official Music Video.wav");
-    bool running = true;
-    while (running) {
-        avGLRender();
-    }
-
+  createWindow(800, 600);
+  if(XPending(d)) {
+    XNextEvent(d, &e);
+    printf("EVENT: %d", e.type);
+  }
+  printf("EXITTING\n");
 }

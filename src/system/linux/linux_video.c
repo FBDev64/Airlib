@@ -1,45 +1,34 @@
-/* NOTE : Linux graphics uses X11 */
+//  NOTE: Any system running X11 can be handled by linux_video
 
 #ifdef __linux__
 
 #include "../../../include/video.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <X11/Xlib.h> // API
-#include <X11/Xutil.h> // Defs
+#include <X11/Xlib.h>
 
 static Display *d;
 static Window w;
+static XEvent e;
 static int s;
 
-void createWindow(int width, int height, const char *name) {
-    d = XOpenDisplay(NULL);
-    if (d == NULL) {
-        fprintf(stderr, "Cannot open display\n");
-        exit(1);
-    }
+void createWindow(int width, int height) {
+  
+  d = XOpenDisplay(NULL);
+  w = XCreateSimpleWindow(d, RootWindow(d,s), 0, 0, width, height, 1, 
+    BlackPixel(d,s), WhitePixel(d,s));
 
-    s = DefaultScreen(d);
-    w = XCreateSimpleWindow(d, RootWindow(d, s), 10, 10, width, height, 1,
-                            BlackPixel(d, s), WhitePixel(d, s));
-    XStoreName(d, w, name);
-    XSelectInput(d, w, ExposureMask | KeyPressMask);
-    XMapWindow(d, w);
+  s = DefaultScreen(d);
+
+
+  if (d == NULL) {
+    printf("Cannot open display");
+    exit(1);
+  }
+  
+  XMapWindow(d, w);
+  XPending(d);
 }
 
-void displayWindowText(const char *msg) {
-    XEvent e;
-    while (1) {
-        XNextEvent(d, &e);
-        if (e.type == Expose) {
-            XFillRectangle(d, w, DefaultGC(d, s), 20, 20, 10, 10);
-            XDrawString(d, w, DefaultGC(d, s), 10, 50, msg, strlen(msg));
-        }
-        if (e.type == KeyPress)
-            break;
-    }
-    XCloseDisplay(d);
-}
 
 #endif

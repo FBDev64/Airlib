@@ -24,7 +24,7 @@ if(UNIX AND NOT APPLE)
 	target_link_libraries(Airlib PRIVATE X11)
 	target_link_libraries(Airlib PRIVATE pulse-simple)
 elseif(WIN32)
-        target_link_libraries(Airlib winmm)
+    target_link_libraries(Airlib winmm)
 		target_link_libraries(Airlib opengl32)
 endif()
 
@@ -33,3 +33,4 @@ add_executable(Airlib_test main.c)
 
 # Link the Airlib library to the Airlib_test executable
 target_link_libraries(Airlib_test PRIVATE Airlib)
+target_link_libraries(Airlib_test PRIVATE X11)
