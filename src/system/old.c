@@ -75,7 +75,6 @@ void placeholder(char *text) {
         if (index < sizeof(input) - 1) {
             input[index++] = ch;
             putchar(ch);
-            fflush(stdout);
         }
     }
     input[index] = '\0';  // Null-terminate the input string
