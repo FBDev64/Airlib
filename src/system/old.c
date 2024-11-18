@@ -74,7 +74,7 @@ void placeholder(char *text) {
         // Add character to input and print it
         if (index < sizeof(input) - 1) {
             input[index++] = ch;
-            putchar(ch);
+            // putchar(ch); // Do not uncomment, all the function's purpose repose on this to be commented.
         }
     }
     input[index] = '\0';  // Null-terminate the input string
