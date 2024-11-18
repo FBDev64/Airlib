@@ -77,7 +77,7 @@ void placeholder(char *text, char *output) {
             // putchar(ch); // Do not uncomment, all the function's purpose repose on this to be commented.
         }
     }
-    input == output;
+    output = input;
 }
 
 // ------------------------------------
