@@ -51,7 +51,7 @@ void richText(char *text, char *color, unsigned int bold, unsigned int italic, u
     printf("\n");
 }
 
-void placeholder(char *text, char *output) {
+void placeholder(char *text, int output) {
     char input[100] = "";  // Buffer for user input
     int ch, index = 0;
 
