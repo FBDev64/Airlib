@@ -65,7 +65,7 @@ char *errorLog(char *text, unsigned int error, unsigned int warn, unsigned int i
 // -------------------------------------------------
 
 void richText(char *text, char *color, unsigned int bold, unsigned int italic, unsigned int underline);
-void placeholder(char *text, int output);
+void placeholder(char *text, char *output, size_t output_size);
 
 // ------------------------------------------------
 // Window
