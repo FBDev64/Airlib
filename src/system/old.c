@@ -78,6 +78,7 @@ void placeholder(char *text, char *output) {
         }
     }
     output = input;
+    printf(KNRM);
 }
 
 // ------------------------------------
