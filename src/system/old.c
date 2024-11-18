@@ -74,10 +74,11 @@ void placeholder(char *text, char *output) {
         // Add character to input and print it
         if (index < sizeof(input) - 1) {
             input[index++] = ch;
+            output = input;
             // putchar(ch); // Do not uncomment, all the function's purpose repose on this to be commented.
         }
     }
-    output = input;
+
     printf(KNRM);
 }
 
