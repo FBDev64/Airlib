@@ -16,6 +16,7 @@
 #define KMAG  "\e[35m"
 #define KCYN  "\e[36m"
 #define KWHT  "\e[37m"
+#define KHOL "\033[90m%s\033[0m" // placeholder
 
 // -------------------------------------------------
 // Error Handling
@@ -64,6 +65,7 @@ char *errorLog(char *text, unsigned int error, unsigned int warn, unsigned int i
 // -------------------------------------------------
 
 void richText(char *text, char *color, unsigned int bold, unsigned int italic, unsigned int underline);
+void placeholder(char *text);
 
 // ------------------------------------------------
 // Window

@@ -13,6 +13,7 @@
 #endif /* ifdef _WIN32 */
 
 #include "../../include/old.h"
+#include <string.h>
 
 // ------------------------------------
 // Error handling
@@ -48,6 +49,36 @@ void richText(char *text, char *color, unsigned int bold, unsigned int italic, u
     printf("%s", text);
     printf(KNRM);  // Reset to normal
     printf("\n");
+}
+
+void placeholder(char *text) {
+    char input[100] = "";  // Buffer for user input
+    int ch, index = 0;
+
+    // Display the placeholder text in light gray using KHOL
+    printf(KHOL, text);
+    fflush(stdout);
+
+    // Move cursor back to the beginning of the line to type over the placeholder
+    printf("\033[1000D");  // Move cursor far left
+
+    // Read characters one by one
+    while ((ch = getchar()) != '\n' && ch != EOF) {
+        // If the user starts typing, clear the placeholder
+        if (index == 0) {
+            // Clear the placeholder by overwriting with spaces
+            printf("\033[1000D\033[0K"); // Move to start of line and clear it
+            fflush(stdout);
+        }
+
+        // Add character to input and print it
+        if (index < sizeof(input) - 1) {
+            input[index++] = ch;
+            putchar(ch);
+            fflush(stdout);
+        }
+    }
+    input[index] = '\0';  // Null-terminate the input string
 }
 
 // ------------------------------------

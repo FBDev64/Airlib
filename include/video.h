@@ -3,11 +3,6 @@
 
 #include "Airlib_defs.h"
 
-static Display *d;
-static Window w;
-static XEvent e;
-static int s;
-
 /* X11 */
 void createWindow(int height, int width);
 void displayWindowText(const char *msg);
