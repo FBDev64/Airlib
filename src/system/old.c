@@ -51,7 +51,7 @@ void richText(char *text, char *color, unsigned int bold, unsigned int italic, u
     printf("\n");
 }
 
-void placeholder(char *text, int output) {
+void placeholder(char *text) {
     char input[100] = "";  // Buffer for user input
     int ch, index = 0;
 
@@ -71,10 +71,8 @@ void placeholder(char *text, int output) {
             fflush(stdout);
         }
 
-        // Add character to input and print it
         if (index < sizeof(input) - 1) {
             input[index++] = ch;
-            output = ch;
             // putchar(ch); // Do not uncomment, all the function's purpose repose on this to be commented.
         }
     }
