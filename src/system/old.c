@@ -51,8 +51,7 @@ void richText(char *text, char *color, unsigned int bold, unsigned int italic, u
     printf("\n");
 }
 
-void placeholder(char *text) {
-    char input[100] = "";  // Buffer for user input
+void placeholder(char *text, char *output, size_t output_size) {
     int ch, index = 0;
 
     // Display the placeholder text in light gray using KHOL
@@ -71,12 +70,12 @@ void placeholder(char *text) {
             fflush(stdout);
         }
 
-        if (index < sizeof(input) - 1) {
-            input[index++] = ch;
-            // putchar(ch); // Do not uncomment, all the function's purpose repose on this to be commented.
+        // Add character to the output buffer
+        if (index < output_size - 1) {
+            output[index++] = ch;
         }
     }
-
+    output[index] = '\0';  // Null-terminate the input string
     printf(KNRM);
 }
 
