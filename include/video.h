@@ -1,8 +1,6 @@
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
 
-#include "Airlib_defs.h"
-
 /* X11 */
 void createWindow(int height, int width);
 void displayWindowText(const char *msg);
@@ -17,7 +15,7 @@ void avGLCleanup();
 
 /*
 Copyright (C) 2024 Ellouze Adam <elzadam11@tutamail.com>
-  
+
 This software is provided 'as-is', without any express or implied
 warranty.  In no event will the authors be held liable for any damages
 arising from the use of this software.
