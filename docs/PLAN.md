@@ -7,7 +7,7 @@ This is the planning document for the library.
 > [!NOTE]
 > The [old library](../include/old.h) will get some more functionalities :
 
-- [ ]  Unicode printing
+- [x]  Unicode printing
 - [x] Placeholder, helper texts
 
 ## Sub Libraries
