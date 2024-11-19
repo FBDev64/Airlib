@@ -55,7 +55,7 @@ dkms.conf!
 # Build, IDE
 cmake-build-debug
 .idea
-build 
+build/*
 .idea/workspace.xml
 /.idea
 *.xml

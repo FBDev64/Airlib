@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 #include "include/old.h"
 
@@ -10,6 +11,8 @@ void main() { // Example usage of placeholder function with KHOL
 
     // User can print the input when desired
     printf("\nYou entered: %s\n", output);
+    if(strcmp("e", output) == 0) {
+        printf("RUSH 2");
+    }
 
-    return 0;placeholder("Enter your name here...");
 }
