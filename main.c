@@ -1,21 +1,34 @@
-#include <stdio.h>
-#include <string.h>
+#include <GL/gl.h>
+#include "include/video.h"
 
-#include "include/old.h"
+int main(void) {
+    // Create an instance of the Window interface
+    Window* window = createWindowInstance();
 
-void main() { // Example usage of placeholder function with KHOL
-    char output[100];  // User-defined buffer for output
+    // Create a window with OpenGL context
+    window->create(800, 600, "Custom OpenGL Window");
 
-    // Call the placeholder function
-    placeholder("Enter your name here...", output, sizeof(output));
+    // Main loop
+    while (!window->shouldClose()) {
+        // Poll for events
+        window->pollEvents();
 
-    // User can print the input when desired
-    printf("\nYou entered: %s\n", output);
-    if(strcmp("e", output) == 0) {
-        printf("RUSH 2");
+        // Clear the screen
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        // Draw a button and text
+        window->drawButton(-0.5f, -0.5f, 1.0f, 0.3f, "Click Me");
+        window->drawText(-0.8f, 0.8f, "Hello, OpenGL!");
+
+        // Swap buffers
+        window->swapBuffers();
     }
 
+    // Clean up and destroy the window
+    window->destroy();
+    return 0;
 }
+
 
 /*
 Copyright (C) 2024 Ellouze Adam <elzadam11@tutamail.com>

@@ -1,107 +1,92 @@
-#include <stdio.h>
-#ifdef _WIN32
-
-#include <windows.h>
-#include <GL/gl.h>
 #include "../../../include/video.h"
+#include <Windows.h>
+#include <GL/gl.h>
+#include "C:\Users/Adam/freeglut-3.6.0/freeglut-3.6.0/include/GL/freeglut.h"
 
-// Global variables
-HDC hdc;
-HGLRC hglrc;
-HWND hwnd;
+static HWND hwnd;
+static HDC hdc;
+static HGLRC hglrc;
 
-// Window procedure callback
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
-    switch (uMsg) {
-        case WM_DESTROY:
-            PostQuitMessage(0);
-            return 0;
-    }
+    if (uMsg == WM_CLOSE) PostQuitMessage(0);
     return DefWindowProc(hwnd, uMsg, wParam, lParam);
 }
 
-// Set up and create an OpenGL window
-__declspec(dllexport) extern void avGLCreateWindow(int width, int height, const char* title) {
-    WNDCLASS wc = {};
-    wc.style = CS_OWNDC;
+void create(int width, int height, const char* title) {
+    WNDCLASS wc = {0};
     wc.lpfnWndProc = WindowProc;
     wc.hInstance = GetModuleHandle(NULL);
     wc.lpszClassName = "OpenGLWindowClass";
 
     RegisterClass(&wc);
-
-    hwnd = CreateWindowEx(
-        0,
-        wc.lpszClassName,
-        title,
-        WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, CW_USEDEFAULT,
-        width, height,
-        NULL, NULL, wc.hInstance, NULL
-    );
-
+    hwnd = CreateWindowEx(0, "OpenGLWindowClass", title, WS_OVERLAPPEDWINDOW,
+                          CW_USEDEFAULT, CW_USEDEFAULT, width, height,
+                          NULL, NULL, wc.hInstance, NULL);
     hdc = GetDC(hwnd);
 
-    // Set pixel format for OpenGL
-    PIXELFORMATDESCRIPTOR pfd = {};
-    pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
-    pfd.nVersion = 1;
-    pfd.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
-    pfd.iPixelType = PFD_TYPE_RGBA;
-    pfd.cColorBits = 32;
-    pfd.cDepthBits = 24;
-    pfd.iLayerType = PFD_MAIN_PLANE;
+    PIXELFORMATDESCRIPTOR pfd = { sizeof(PIXELFORMATDESCRIPTOR), 1,
+        PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER, PFD_TYPE_RGBA,
+        32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 8, 0,
+        PFD_MAIN_PLANE, 0, 0, 0, 0 };
 
-    int pixelFormat = ChoosePixelFormat(hdc, &pfd);
-    SetPixelFormat(hdc, pixelFormat, &pfd);
-
-    // Create and set the OpenGL rendering context
+    int pf = ChoosePixelFormat(hdc, &pfd);
+    SetPixelFormat(hdc, pf, &pfd);
     hglrc = wglCreateContext(hdc);
     wglMakeCurrent(hdc, hglrc);
 
     ShowWindow(hwnd, SW_SHOW);
 }
 
-// Render function
-__declspec(dllexport) extern void avGLRender() {
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);  // Set background color to black
-    glClear(GL_COLOR_BUFFER_BIT);
+void pollEvents(void) {
+    MSG msg;
+    while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+        TranslateMessage(&msg);
+        DispatchMessage(&msg);
+    }
+}
 
-    // Simple triangle
-    glBegin(GL_TRIANGLES);
-    glColor3f(1.0f, 0.0f, 0.0f); glVertex2f(-0.5f, -0.5f);  // Red vertex
-    glColor3f(0.0f, 1.0f, 0.0f); glVertex2f(0.5f, -0.5f);   // Green vertex
-    glColor3f(0.0f, 0.0f, 1.0f); glVertex2f(0.0f, 0.5f);    // Blue vertex
-    glEnd();
-
+void swapBuffers(void) {
     SwapBuffers(hdc);
 }
 
-// Cleanup function
-__declspec(dllexport) extern void avGLCleanup() {
+int shouldClose(void) {
+    return 0; // Modify to track window close requests
+}
+
+void destroy(void) {
     wglMakeCurrent(NULL, NULL);
     wglDeleteContext(hglrc);
     ReleaseDC(hwnd, hdc);
+    DestroyWindow(hwnd);
 }
 
-#endif // _WIN32
+void drawText(float x, float y, const char* text) {
+    glRasterPos2f(x, y);
+    for (const char* c = text; *c != '\0'; c++) {
+        glutBitmapCharacter(GLUT_BITMAP_8_BY_13, *c); // Requires GLUT for fonts
+    }
+}
 
-/*
-Copyright (C) 2024 Ellouze Adam <elzadam11@tutamail.com>
-  
-This software is provided 'as-is', without any express or implied
-warranty.  In no event will the authors be held liable for any damages
-arising from the use of this software.
+void drawButton(float x, float y, float width, float height, const char* label) {
+    glBegin(GL_QUADS);
+    glVertex2f(x, y);
+    glVertex2f(x + width, y);
+    glVertex2f(x + width, y + height);
+    glVertex2f(x, y + height);
+    glEnd();
 
-Permission is granted to anyone to use this software for any purpose,
-including commercial applications, and to alter it and redistribute it
-freely, subject to the following restrictions:
-  
-1. The origin of this software must not be misrepresented; you must not
-   claim that you wrote the original software. If you use this software
-   in a product, an acknowledgment in the product documentation would be
-   appreciated but is not required. 
-2. Altered source versions must be plainly marked as such, and must not be
-   misrepresented as being the original software.
-3. This notice may not be removed or altered from any source distribution.
-*/
+    drawText(x + width / 2, y + height / 2, label);
+}
+
+Window* createWindowInstance(void) {
+    static Window window = {
+        .create = create,
+        .pollEvents = pollEvents,
+        .swapBuffers = swapBuffers,
+        .shouldClose = shouldClose,
+        .drawText = drawText,
+        .drawButton = drawButton,
+        .destroy = destroy
+    };
+    return &window;
+}

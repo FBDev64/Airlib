@@ -7,9 +7,25 @@ void displayWindowText(const char *msg);
 void setWindowIcon(const char *iconPath);
 
 /* OpenGL */
-void avGLCreateWindow(int width, int height, const char *title);
-void avGLRender();
-void avGLCleanup();
+
+typedef struct Window {
+   void (*create)(int width, int height, const char* title);
+   void (*pollEvents)(void);
+   void (*swapBuffers)(void);
+   int (*shouldClose)(void);
+   void (*destroy)(void);
+   void (*drawText)(float x, float y, const char* text);
+   void (*drawButton)(float x, float y, float width, float height, const char* label);
+} Window;
+
+Window* createWindowInstance(void);
+void drawText(float x, float y, const char* text)
+void drawButton(float x, float y, float width, float height, const char* label);
+void destroy(void);
+int shouldClose(void);
+void swapBuffers(void);
+void create(int width, int height, const char* title);
+void pollEvents(void);
 
 #endif // GRAPHICS_H
 
