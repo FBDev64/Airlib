@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_H
-#define GRAPHICS_H
+#ifndef VIDEO_H
+#define VIDEO_H
 
 /* X11 */
 void createWindow(int height, int width);
@@ -13,21 +13,15 @@ typedef struct Window {
    void (*pollEvents)(void);
    void (*swapBuffers)(void);
    int (*shouldClose)(void);
-   void (*destroy)(void);
    void (*drawText)(float x, float y, const char* text);
    void (*drawButton)(float x, float y, float width, float height, const char* label);
+   void (*destroy)(void);
+   int (*isButtonClicked)(float x, float y, float width, float height)
 } Window;
 
 Window* createWindowInstance(void);
-void drawText(float x, float y, const char* text)
-void drawButton(float x, float y, float width, float height, const char* label);
-void destroy(void);
-int shouldClose(void);
-void swapBuffers(void);
-void create(int width, int height, const char* title);
-void pollEvents(void);
 
-#endif // GRAPHICS_H
+#endif
 
 /*
 Copyright (C) 2024 Ellouze Adam <elzadam11@tutamail.com>

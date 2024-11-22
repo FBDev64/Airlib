@@ -25,7 +25,11 @@ if(UNIX AND NOT APPLE)
 	target_link_libraries(Airlib PRIVATE pulse-simple)
 elseif(WIN32)
     target_link_libraries(Airlib winmm)
-		target_link_libraries(Airlib opengl32)
+	target_link_libraries(Airlib opengl32)
+	target_link_libraries(Airlib
+			gdi32
+			freeglut
+	)
 endif()
 
 # Create the Airlib_test executable
@@ -35,6 +39,10 @@ add_executable(Airlib_test main.c)
 target_link_libraries(Airlib_test PRIVATE Airlib)
 if (UNIX AND NOT APPLE)
 	target_link_libraries(Airlib_test PRIVATE X11)
+	target_link_libraries(Airlib_test
+			OpenGL::GL
+			GLUT::GLUT
+	)
 endif()
 
 #[[ 

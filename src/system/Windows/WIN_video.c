@@ -1,7 +1,7 @@
 #include "../../../include/video.h"
-#include <Windows.h>
+#include <windows.h>
 #include <GL/gl.h>
-#include "C:\Users/Adam/freeglut-3.6.0/freeglut-3.6.0/include/GL/freeglut.h"
+#include <GL/glut.h>
 
 static HWND hwnd;
 static HDC hdc;
@@ -12,7 +12,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
     return DefWindowProc(hwnd, uMsg, wParam, lParam);
 }
 
-void create(int width, int height, const char* title) {
+__declspec(dllexport) void create(int width, int height, const char* title) {
     WNDCLASS wc = {0};
     wc.lpfnWndProc = WindowProc;
     wc.hInstance = GetModuleHandle(NULL);
@@ -37,7 +37,7 @@ void create(int width, int height, const char* title) {
     ShowWindow(hwnd, SW_SHOW);
 }
 
-void pollEvents(void) {
+__declspec(dllexport) void pollEvents(void) {
     MSG msg;
     while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
         TranslateMessage(&msg);
@@ -45,29 +45,29 @@ void pollEvents(void) {
     }
 }
 
-void swapBuffers(void) {
+__declspec(dllexport) void swapBuffers(void) {
     SwapBuffers(hdc);
 }
 
-int shouldClose(void) {
+__declspec(dllexport) int shouldClose(void) {
     return 0; // Modify to track window close requests
 }
 
-void destroy(void) {
+__declspec(dllexport) void destroy(void) {
     wglMakeCurrent(NULL, NULL);
     wglDeleteContext(hglrc);
     ReleaseDC(hwnd, hdc);
     DestroyWindow(hwnd);
 }
 
-void drawText(float x, float y, const char* text) {
+__declspec(dllexport) void drawText(float x, float y, const char* text) {
     glRasterPos2f(x, y);
     for (const char* c = text; *c != '\0'; c++) {
         glutBitmapCharacter(GLUT_BITMAP_8_BY_13, *c); // Requires GLUT for fonts
     }
 }
 
-void drawButton(float x, float y, float width, float height, const char* label) {
+__declspec(dllexport) void drawButton(float x, float y, float width, float height, const char* label) {
     glBegin(GL_QUADS);
     glVertex2f(x, y);
     glVertex2f(x + width, y);
@@ -78,7 +78,28 @@ void drawButton(float x, float y, float width, float height, const char* label) 
     drawText(x + width / 2, y + height / 2, label);
 }
 
-Window* createWindowInstance(void) {
+__declspec(dllexport) int isButtonClicked(float x, float y, float width, float height) {
+    POINT cursorPos;
+    GetCursorPos(&cursorPos);
+    ScreenToClient(hwnd, &cursorPos);
+
+    // Convert window coordinates to OpenGL coordinates
+    RECT rect;
+    GetClientRect(hwnd, &rect);
+    float oglX = (2.0f * cursorPos.x) / rect.right - 1.0f;
+    float oglY = 1.0f - (2.0f * cursorPos.y) / rect.bottom;
+
+    // Check if mouse is within button bounds
+    if (GetAsyncKeyState(VK_LBUTTON) & 0x8000) {
+        if (oglX >= x && oglX <= x + width &&
+            oglY >= y && oglY <= y + height) {
+            return 1;
+            }
+    }
+    return 0;
+}
+
+__declspec(dllexport) Window* createWindowInstance(void) {
     static Window window = {
         .create = create,
         .pollEvents = pollEvents,
@@ -86,7 +107,8 @@ Window* createWindowInstance(void) {
         .shouldClose = shouldClose,
         .drawText = drawText,
         .drawButton = drawButton,
-        .destroy = destroy
+        .destroy = destroy,
+        .isButtonClicked = isButtonClicked
     };
     return &window;
 }
