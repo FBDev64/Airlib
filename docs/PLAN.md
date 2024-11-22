@@ -18,12 +18,12 @@ There will some sub-libraries referred as `modules`, e.g. LibreArrays.
 
 LibreArrays is a `module` for array calculations like [JAX](https://jax.readthedocs.io/en/latest/quickstart.html).
 
-## avGL
+## avGTK
 
-Airlib Video abstraction for OpenGL is a `module` abstracting OpenGL and making OpenGL graphics handling easier.
+Airlib Video abstraction for GTK is a `module` abstracting GTK and making it easier with simple dummy functions.
 By the time it will be completed, WinAPI support will be sunsetted.
 
-It is the primary objective for November of 2024, must be completed be fore next December : support OpenGL fully.
+It is the primary objective for November of 2024, must be completed be fore next December : support GTK fully.
 
 <!---
 Copyright (C) 2024 Ellouze Adam <elzadam11@tutamail.com>
