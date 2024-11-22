@@ -12,6 +12,7 @@
 #define KMAG  "\e[35m"
 #define KCYN  "\e[36m"
 #define KWHT  "\e[37m"
+#define KHOL "\033[90m%s\033[0m"
 
 #include <string.h>
 #include <stdlib.h>
