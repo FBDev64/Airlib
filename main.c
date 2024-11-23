@@ -2,31 +2,31 @@
 #include <GL/glut.h>
 #include "include/video.h"
 
-static const char* display_text = "Hello OpenGL!";
+static const char* display_text = "yOU ARE A KING !";
 
 int main(int argc, char** argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 
     Window* window = createWindowInstance();
-    window->create(800, 600, "OpenGL Window");
+    window->create(800, 600, "Best game ever");
 
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClearColor(0.0f, 1.0f, 1.0f, 0.0f);
 
     while (!window->shouldClose()) {
         window->pollEvents();
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // Draw button background in white
-        glColor3f(1.0f, 1.0f, 1.0f);
-        window->drawButton(-0.5f, -0.5f, 1.0f, 0.3f, "");
+        // Draw button background
+        glColor3f(0.0,0.0,0.0);
+        window->drawButton(-0.5f, -0.5f, 1.0f, 0.3f, "BUD");
 
-        // Draw button text in black
-        glColor3f(0.0f, 0.0f, 0.0f);
+        // Text
+        glColor3f(0.0f, 0.0f, 1.0f);
         window->drawText(-0.2f, -0.4f, "Click Me");
 
         // Draw header text in white
-        glColor3f(1.0f, 1.0f, 1.0f);
+        glColor3f(0.0f, 0.0f, 1.0f);
         window->drawText(-0.8f, 0.8f, display_text);
 
         if (window->isButtonClicked(-0.5f, -0.5f, 1.0f, 0.3f)) {
