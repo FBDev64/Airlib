@@ -1,85 +1,122 @@
 #include "../../../include/video.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-/* X11 */
+#include <GL/glut.h>
+#include <GL/glx.h>
 
-#ifdef __linux__
+/* FreeGLUT (native) */
 
-#include <X11/Xlib.h>
+static Display *display;
+static Window xWindow;
+static GLXContext glContext;
+static int shouldCloseFlag = 0;
 
-static Display *d;
-static Window w;
-static XEvent e;
-static int s;
-static GC gc;
-
-void axCreateWindow(int width, int height) {
-    d = XOpenDisplay(NULL);
-    if (d == NULL) {
-        printf("Cannot open display\n");
+static void create(int width, int height, const char* title) {
+    display = XOpenDisplay(NULL);
+    if (display == NULL) {
+        fprintf(stderr, "Cannot open X display\n");
         exit(1);
     }
 
-    s = DefaultScreen(d);
-    w = XCreateSimpleWindow(d, RootWindow(d,s), 0, 0, width, height, 1,
-        BlackPixel(d,s), WhitePixel(d,s));
+    static int visual_attribs[] = {
+        GLX_RGBA, GLX_DEPTH_SIZE, 24, GLX_DOUBLEBUFFER, None
+    };
+    int screen = DefaultScreen(display);
+    XVisualInfo *vi = glXChooseVisual(display, screen, visual_attribs);
+    if (vi == NULL) {
+        fprintf(stderr, "No appropriate visual found\n");
+        exit(1);
+    }
 
-    // Enable key press and expose events
-    XSelectInput(d, w, KeyPressMask | ExposureMask);
+    Colormap cmap = XCreateColormap(display, RootWindow(display, screen), vi->visual, AllocNone);
+    XSetWindowAttributes swa;
+    swa.colormap = cmap;
+    swa.event_mask = ExposureMask | KeyPressMask | ButtonPressMask;
 
-    // Create graphics context
-    gc = DefaultGC(d, s);
+    xWindow = XCreateWindow(display, RootWindow(display, screen), 0, 0, width, height, 0, vi->depth, InputOutput, vi->visual,
+                           CWColormap | CWEventMask, &swa);
+    XMapWindow(display, xWindow);
+    XStoreName(display, xWindow, title);
 
-    XMapWindow(d, w);
-    XFlush(d);
+    glContext = glXCreateContext(display, vi, NULL, GL_TRUE);
+    glXMakeCurrent(display, xWindow, glContext);
+
+    glEnable(GL_DEPTH_TEST);
 }
 
-void axDrawRect(unsigned long color, int x, int y, int width, int height) {
-    XSetForeground(d, gc, color);
-    XFillRectangle(d, w, gc, x, y, width, height);
-    XFlush(d);
+static void pollEvents(void) {
+    XEvent xev;
+    while (XPending(display) > 0) {
+        XNextEvent(display, &xev);
+        if (xev.type == ClientMessage || xev.type == KeyPress) {
+            shouldCloseFlag = 1;
+        } else if (xev.type == ButtonPress) {
+            // Add button click logic here
+        }
+    }
 }
 
-void axClearWindow() {
-    XClearWindow(d, w);
-    XFlush(d);
+static void swapBuffers(void) {
+    glXSwapBuffers(display, xWindow);
 }
 
-int axGetNextEvent(XEvent *event) {
-    if (XPending(d)) {
-        XNextEvent(d, event);
-        return 1;
+static int shouldClose(void) {
+    return shouldCloseFlag;
+}
+
+static void drawText(float x, float y, const char* text) {
+    glRasterPos2f(x, y);
+    while (*text) {
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *text);
+        text++;
+    }
+}
+
+static void drawButton(float x, float y, float width, float height, const char* label) {
+    glBegin(GL_QUADS);
+    glVertex2f(x, y);
+    glVertex2f(x + width, y);
+    glVertex2f(x + width, y + height);
+    glVertex2f(x, y + height);
+    glEnd();
+    drawText(x + width / 10.0f, y + height / 2.0f, label);
+}
+
+static int isButtonClicked(float x, float y, float width, float height) {
+    XEvent xev;
+    if (XPending(display) > 0) {
+        XNextEvent(display, &xev);
+        if (xev.type == ButtonPress) {
+            int mouseX = xev.xbutton.x;
+            int mouseY = xev.xbutton.y;
+            if (mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height) {
+                return 1;
+            }
+        }
     }
     return 0;
 }
 
-void axCloseWindow() {
-    XCloseDisplay(d);
+static void destroy(void) {
+    glXMakeCurrent(display, None, NULL);
+    glXDestroyContext(display, glContext);
+    XDestroyWindow(display, xWindow);
+    XCloseDisplay(display);
 }
 
-#endif
+CustomWindow* createWindowInstance(void) {
+    static CustomWindow win = {
+        .create = create,
+        .pollEvents = pollEvents,
+        .swapBuffers = swapBuffers,
+        .shouldClose = shouldClose,
+        .drawText = drawText,
+        .drawButton = drawButton,
+        .destroy = destroy,
+        .isButtonClicked = isButtonClicked
+    };
+    return &win;
+}
 
-/* FreeGLUT (cross-platform) */
-
-
-
-/*
-Copyright (C) 2024 Ellouze Adam <elzadam11@tutamail.com>
-  
-This software is provided 'as-is', without any express or implied
-warranty.  In no event will the authors be held liable for any damages
-arising from the use of this software.
-
-Permission is granted to anyone to use this software for any purpose,
-including commercial applications, and to alter it and redistribute it
-freely, subject to the following restrictions:
-  
-1. The origin of this software must not be misrepresented; you must not
-   claim that you wrote the original software. If you use this software
-   in a product, an acknowledgment in the product documentation would be
-   appreciated but is not required. 
-2. Altered source versions must be plainly marked as such, and must not be
-   misrepresented as being the original software.
-3. This notice may not be removed or altered from any source distribution.
-*/

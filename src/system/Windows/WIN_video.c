@@ -1,3 +1,5 @@
+#ifdef _WIN32
+
 #include "../../../include/video.h"
 #include <windows.h>
 #include <GL/gl.h>
@@ -112,3 +114,5 @@ __declspec(dllexport) Window* createWindowInstance(void) {
     };
     return &window;
 }
+
+#endif

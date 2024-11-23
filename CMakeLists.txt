@@ -21,10 +21,11 @@ add_library(Airlib SHARED
 )
 
 if(UNIX AND NOT APPLE)
-	target_link_libraries(Airlib PRIVATE X11)
-	target_link_libraries(Airlib PRIVATE pulse-simple)
+	find_package(GLUT REQUIRED)
+  find_package(OpenGL REQUIRED)
+  target_link_libraries(Airlib PRIVATE X11 OpenGL::GL GLUT::GLUT pulse-simple)
 elseif(WIN32)
-    target_link_libraries(Airlib winmm)
+  target_link_libraries(Airlib winmm)
 	target_link_libraries(Airlib opengl32)
 	target_link_libraries(Airlib
 			gdi32
@@ -37,12 +38,9 @@ add_executable(Airlib_test main.c)
 
 # Link the Airlib library to the Airlib_test executable
 target_link_libraries(Airlib_test PRIVATE Airlib)
+
 if (UNIX AND NOT APPLE)
-	target_link_libraries(Airlib_test PRIVATE X11)
-	target_link_libraries(Airlib_test
-			OpenGL::GL
-			GLUT::GLUT
-	)
+	  target_link_libraries(Airlib_test PRIVATE OpenGL::GL GLUT::GLUT X11)
 endif()
 
 #[[ 

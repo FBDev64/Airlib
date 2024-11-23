@@ -1,41 +1,28 @@
-#include <GL/gl.h>
 #include <GL/glut.h>
+#include <stdio.h>
 #include "include/video.h"
 
-static const char* display_text = "yOU ARE A KING !";
-
 int main(int argc, char** argv) {
-    glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+    glutInit(&argc, argv); // Initialize FreeGLUT
 
-    Window* window = createWindowInstance();
-    window->create(800, 600, "Best game ever");
+    CustomWindow *win = createWindowInstance();
+    win->create(800, 600, "Linux GLX Window");
 
-    glClearColor(0.0f, 1.0f, 1.0f, 0.0f);
+    while (!win->shouldClose()) {
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    while (!window->shouldClose()) {
-        window->pollEvents();
-        glClear(GL_COLOR_BUFFER_BIT);
+        win->drawText(-0.5f, 0.0f, "Hello, Linux with GLX!");
+        win->drawButton(-0.5f, -0.5f, 0.3f, 0.2f, "Click Me");
 
-        // Draw button background
-        glColor3f(0.0,0.0,0.0);
-        window->drawButton(-0.5f, -0.5f, 1.0f, 0.3f, "BUD");
-
-        // Text
-        glColor3f(0.0f, 0.0f, 1.0f);
-        window->drawText(-0.2f, -0.4f, "Click Me");
-
-        // Draw header text in white
-        glColor3f(0.0f, 0.0f, 1.0f);
-        window->drawText(-0.8f, 0.8f, display_text);
-
-        if (window->isButtonClicked(-0.5f, -0.5f, 1.0f, 0.3f)) {
-            display_text = "Hello GLUT!";
+        if (win->isButtonClicked(-0.5f, -0.5f, 0.3f, 0.2f)) {
+            printf("Button was clicked!\n");
         }
 
-        window->swapBuffers();
+        win->swapBuffers();
+        win->pollEvents();
     }
 
-    window->destroy();
+    win->destroy();
     return 0;
 }
+
