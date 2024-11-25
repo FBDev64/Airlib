@@ -18,9 +18,10 @@ There will some sub-libraries referred as `modules`, e.g. LibreArrays.
 
 LibreArrays is a `module` for array calculations like [JAX](https://jax.readthedocs.io/en/latest/quickstart.html).
 
-## asGL
+## asX
 
-Airlib subsystem for OpenGL is a `module` abstracting FreeGLUT and w/GL/x, making it easier with simple dummy functions.
+Airlib subsystem for X is a `module` abstracting X11 API, making it easier with simple dummy functions.
+The primary rendering and window management library is FreeGLUT.
 
 <!---
 Copyright (C) 2024 Ellouze Adam <elzadam11@tutamail.com>
