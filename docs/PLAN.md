@@ -5,10 +5,7 @@ This is the planning document for the library.
 ## Old
 
 > [!NOTE]
-> The [old library](../include/old.h) will get some more functionalities :
-
-- [x]  Unicode printing
-- [x] Placeholder, helper texts
+> The [old library](../include/old.h) will be renamed to "terminal" in a future update.
 
 ## Sub Libraries
 
