@@ -18,12 +18,9 @@ There will some sub-libraries referred as `modules`, e.g. LibreArrays.
 
 LibreArrays is a `module` for array calculations like [JAX](https://jax.readthedocs.io/en/latest/quickstart.html).
 
-## avGLFW
+## asGL
 
-Airlib Video abstraction for GLFW is a `module` abstracting GLFW and making it easier with simple dummy functions.
-By the time it will be completed, WinAPI support will be sunsetted.
-
-It is the primary objective for November of 2024, must be completed be fore next December : support GLFW fully.
+Airlib subsystem for OpenGL is a `module` abstracting FreeGLUT and w/GL/x, making it easier with simple dummy functions.
 
 <!---
 Copyright (C) 2024 Ellouze Adam <elzadam11@tutamail.com>
