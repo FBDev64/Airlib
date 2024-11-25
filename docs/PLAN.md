@@ -21,7 +21,7 @@ LibreArrays is a `module` for array calculations like [JAX](https://jax.readthed
 ## asX
 
 Airlib subsystem for X is a `module` abstracting X11 API, making it easier with simple dummy functions.
-The primary rendering and window management library is FreeGLUT.
+The primary rendering and window management library is wGL and GLx.
 
 <!---
 Copyright (C) 2024 Ellouze Adam <elzadam11@tutamail.com>
