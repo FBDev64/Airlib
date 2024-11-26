@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <stddef.h>
 
 #ifdef _WIN32
   #include <conio.h>
@@ -12,7 +13,7 @@
   #include <unistd.h>
 #endif /* ifdef _WIN32 */
 
-#include "../../include/old.h"
+#include "../../include/terminal.h"
 #include <string.h>
 
 // ------------------------------------

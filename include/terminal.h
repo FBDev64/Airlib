@@ -1,7 +1,9 @@
 /* Copyright (c) 2024 Adam Ellouze. All Rights Reserved. */
 
-#ifndef OLD_LIBRARY_H
-#define OLD_LIBRARY_H
+#ifndef TERMINAL_H
+#define TERMINAL_H
+
+#include <stddef.h>
 
 // ------------------------------------------------
 // Some Basic Info
@@ -99,7 +101,7 @@ void drawBox(int x, int y, int width, int height, char *color);
   void disableNonBlockingInput();
 #endif 
 
-#endif //OLD_LIBRARY_H
+#endif //TERMINAL_H
 
 /*
 Copyright (C) 2024 Ellouze Adam <elzadam11@tutamail.com>

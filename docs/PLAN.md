@@ -2,23 +2,16 @@
 
 This is the planning document for the library.
 
-## Old
-
-> [!NOTE]
-> The [old library](../include/old.h) will be renamed to "terminal" in a future update.
-
-## Sub Libraries
-
-There will some sub-libraries referred as `modules`, e.g. LibreArrays.
-
-### LibreArrays
-
-LibreArrays is a `module` for array calculations like [JAX](https://jax.readthedocs.io/en/latest/quickstart.html).
-
 ## asX
 
 Airlib subsystem for X is a `module` abstracting X11 API, making it easier with simple dummy functions.
 The primary rendering and window management library is wGL and GLx.
+
+`asX` is deprecated as of November 2024.
+
+## Stellar Engine
+
+The archived StellarEngine will be back as a fork of [Tilengine](https://tilengin.org) using Airlib rather than SDL.
 
 <!---
 Copyright (C) 2024 Ellouze Adam <elzadam11@tutamail.com>
