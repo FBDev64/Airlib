@@ -3,7 +3,7 @@
 
 #include "audio.h"
 #include "video.h"
-#include "old.h"
+#include "terminal.h"
 
 #endif // AIRLIB_H
 

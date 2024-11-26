@@ -31,7 +31,7 @@ char *errorLog(char *text, unsigned int error, unsigned int warn, unsigned int i
 // -------------------------------------------------
 
 #if defined(_WIN32)
-    #define GET_PLATFORM "Windows"
+#define GET_PLATFORM "Windows"
 #elif defined(__APPLE__) || defined(__MACH__)
     #define GET_PLATFORM "Apple"
 #elif defined(TARGET_OS_EMBEDDED)
@@ -67,6 +67,7 @@ char *errorLog(char *text, unsigned int error, unsigned int warn, unsigned int i
 // -------------------------------------------------
 
 void richText(char *text, char *color, unsigned int bold, unsigned int italic, unsigned int underline);
+
 void placeholder(char *text, char *output, size_t output_size);
 
 // ------------------------------------------------
@@ -74,6 +75,7 @@ void placeholder(char *text, char *output, size_t output_size);
 // ------------------------------------------------
 
 void segFault();
+
 void clrscr();
 
 // ------------------------------------------------
@@ -81,7 +83,9 @@ void clrscr();
 // ------------------------------------------------
 
 void sysSleep(int ms);
+
 float getGameTime();
+
 float stopWatch();
 
 // ------------------------------------------------
@@ -95,11 +99,11 @@ void drawBox(int x, int y, int width, int height, char *color);
 // -----------------------------------------------
 
 #ifdef _WIN32
-  char nonBlockingInput();
-#else 
+char nonBlockingInput();
+#else
   void enableNonBlockingInput(); 
   void disableNonBlockingInput();
-#endif 
+#endif
 
 #endif //TERMINAL_H
 

@@ -2,20 +2,21 @@
 
 This is the planning document for the library.
 
-## asX
+## am
 
-Airlib subsystem for X is a `module` abstracting X11 API, making it easier with simple dummy functions.
-The primary rendering and window management library is wGL and GLx.
-
-`asX` is deprecated as of November 2024.
+Airlib Math, short `am` is a module[1] for array calculations.
 
 ## Stellar Engine
 
-The archived StellarEngine will be back as a fork of [Tilengine](https://tilengin.org) using Airlib rather than SDL.
+The archived [StellarEngine](https://github.com/AdamOnAir/StellarEngine) will be back as a fork of [Tilengine](https://tilengin.org) using Airlib rather than SDL.
+
+---
+_1. A module is a section of the library._
+
 
 <!---
 Copyright (C) 2024 Ellouze Adam <elzadam11@tutamail.com>
-  
+
 This software is provided 'as-is', without any express or implied
 warranty.  In no event will the authors be held liable for any damages
 arising from the use of this software.
