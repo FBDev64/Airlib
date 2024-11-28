@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <windows.h>
 
-__declspec(dllexport) extern void playSoundFile(const char *filename) {
+__declspec(dllexport) extern void playSound(const char *filename) {
     if (!PlaySound(filename, NULL, SND_FILENAME | SND_ASYNC)) {
         printf("Error playing sound file: %s\n", filename);
     }

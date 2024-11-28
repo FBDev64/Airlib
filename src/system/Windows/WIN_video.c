@@ -1,4 +1,3 @@
-// video.c
 #include "../../../include/video.h"
 #include <windows.h>
 #include <GL/gl.h>
@@ -9,14 +8,22 @@ static HDC hdc;
 static HGLRC hglrc;
 static int should_close = 0;
 
+// WindowProc function definition goes here:
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     switch (uMsg) {
         case WM_CLOSE:
             should_close = 1;
             PostQuitMessage(0);
             return 0;
+
         case WM_LBUTTONDOWN:
             return 0;
+
+        case WM_SETCURSOR:
+            // Prevent the cursor from changing to resizing
+            SetCursor(LoadCursor(NULL, IDC_ARROW));  // Default arrow cursor
+            return TRUE;
+
         default:
             return DefWindowProc(hwnd, uMsg, wParam, lParam);
     }
@@ -25,7 +32,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
 __declspec(dllexport) void create(int width, int height, const char* title) {
     WNDCLASS wc = {0};
     wc.style = CS_OWNDC;
-    wc.lpfnWndProc = WindowProc;
+    wc.lpfnWndProc = WindowProc;  // Assign WindowProc to handle messages
     wc.hInstance = GetModuleHandle(NULL);
     wc.lpszClassName = "WGL_Window";
 
@@ -126,6 +133,10 @@ __declspec(dllexport) int isButtonClicked(float x, float y, float width, float h
     return 0;
 }
 
+__declspec(dllexport) void setBackgroundColor(float red, float green, float blue, float alpha) {
+    glClearColor(red, green, blue, alpha);
+}
+
 __declspec(dllexport) Win* createWindowInstance(void) {
     static Win window = {
         .create = create,
@@ -135,7 +146,8 @@ __declspec(dllexport) Win* createWindowInstance(void) {
         .drawText = drawText,
         .drawButton = drawButton,
         .destroy = destroy,
-        .isButtonClicked = isButtonClicked
+        .isButtonClicked = isButtonClicked,
+        .setBackgroundColor = setBackgroundColor
     };
     return &window;
 }

@@ -10,6 +10,7 @@ typedef struct Win {
    void (*drawButton)(float x, float y, float width, float height, const char* label);
    void (*destroy)(void);
    int (*isButtonClicked)(float x, float y, float width, float height);
+   void (*setBackgroundColor)(float red, float green, float blue, float alpha);
 } Win;
 
 // Creates and returns a pointer to a Win instance
