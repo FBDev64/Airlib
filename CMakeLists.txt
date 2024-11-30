@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.21)
 project(Airlib C)
 
-set(CMAKE_C_STANDARD 23)
+set(CMAKE_C_STANDARD 99)
 
 # Create the shared library target
 add_library(Airlib SHARED
         # Source
-		  src/system/gnu_linux/linux_audio.c
+		src/system/gnu_linux/linux_audio.c
         src/system/gnu_linux/linux_video.c
 		src/system/terminal.c
         src/system/Windows/WIN_audio.c
@@ -21,16 +21,10 @@ add_library(Airlib SHARED
 )
 
 if(UNIX AND NOT APPLE)
-	find_package(GLUT REQUIRED)
   find_package(OpenGL REQUIRED)
-  target_link_libraries(Airlib PRIVATE X11 OpenGL::GL GLUT::GLUT pulse-simple)
+  target_link_libraries(Airlib PRIVATE X11 OpenGL::GL pulse-simple)
 elseif(WIN32)
-  target_link_libraries(Airlib winmm)
-	target_link_libraries(Airlib opengl32)
-	target_link_libraries(Airlib
-			gdi32
-			freeglut
-	)
+  target_link_libraries(Airlib winmm opengl32 gdi32)
 endif()
 
 # Create the Airlib_test executable
@@ -40,7 +34,7 @@ add_executable(Airlib_test main.c)
 target_link_libraries(Airlib_test PRIVATE Airlib)
 
 if (UNIX AND NOT APPLE)
-	  target_link_libraries(Airlib_test PRIVATE OpenGL::GL GLUT::GLUT X11)
+	  target_link_libraries(Airlib_test PRIVATE OpenGL::GL X11)
 endif()
 
 #[[ 
