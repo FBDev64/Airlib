@@ -6,9 +6,9 @@ This is the planning document for the library.
 
 Airlib Math, short `am` is a module[1] for array calculations.
 
-## Stellar Engine
+## Current Development
 
-The archived [StellarEngine](https://github.com/AdamOnAir/StellarEngine) will be back as a fork of [Tilengine](https://tilengin.org) using Airlib rather than SDL.
+The current objective is only to finish and test the code and make it cross-platform.
 
 ---
 _1. A module is a section of the library._
