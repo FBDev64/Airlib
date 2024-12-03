@@ -69,7 +69,7 @@ static int shouldClose(void) {
 static void drawText(float x, float y, const char* text) {
     glRasterPos2f(x, y);
     while (*text) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *text);
+        //glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *text);
         text++;
     }
 }
@@ -107,7 +107,7 @@ static void destroy(void) {
 }
 
 Win* createWindowInstance(void) {
-    static CustomWindow win = {
+    static Win win = {
         .create = create,
         .pollEvents = pollEvents,
         .swapBuffers = swapBuffers,
