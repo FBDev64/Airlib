@@ -14,9 +14,9 @@ VDL - a low-level, cross-platform development library for OpenGL written in port
 
 ## Further reading
 
-For further reading, documents are available in [docs](./docs/). The the planning document ([NOTES.md](./docs/PLAN.md)) is a technical sort of changelog.
+For further reading, documents are available in [docs](./docs/). The the planning document ([PLAN.md](./docs/PLAN.md)) is a technical sort of changelog.
 
-The website is available [here](https://adamonair.neocities.org/airlib).
+Homepage : [here](https://adamonair.neocities.org/vdl).
 
 ## Download
 
