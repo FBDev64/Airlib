@@ -1,4 +1,4 @@
-/* NOTE : Linux audio uses PulseAudio */
+/* NOTE : Linux audio uses PulseAudio
 
 #ifdef __linux__
 
@@ -51,6 +51,7 @@ void StopSound() {
 }
 
 #endif
+*/
 
 /*
 Copyright (C) 2024 Ellouze Adam <elzadam11@tutamail.com>
