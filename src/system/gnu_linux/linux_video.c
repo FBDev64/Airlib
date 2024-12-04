@@ -5,7 +5,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <GL/glut.h>
 #include <GL/glx.h>
 
 static Display *display;
@@ -69,7 +68,7 @@ static int shouldClose(void) {
 static void drawText(float x, float y, const char* text) {
     glRasterPos2f(x, y);
     while (*text) {
-        //glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *text);
+        // glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *text);
         text++;
     }
 }
