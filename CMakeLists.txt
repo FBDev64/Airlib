@@ -27,10 +27,10 @@ elseif(WIN32)
   target_link_libraries(VDL winmm opengl32 gdi32)
 endif()
 
-# Create the Airlib_test executable
+# Create the vdl_test executable
 add_executable(vdl_test main.c)
 
-# Link the Airlib library to the Airlib_test executable
+# Link VDL to vdl_test executable
 target_link_libraries(vdl_test PRIVATE VDL)
 
 if (UNIX AND NOT APPLE)
