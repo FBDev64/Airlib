@@ -1,9 +1,9 @@
-# Airlib
+# VDL
 
 ![C](https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white)
 [![Licence](https://img.shields.io/static/v1.svg?label=lLicense&message=ZLib&color=blue&style=for-the-badge)](./LICENSE)
 
-Airlib - a low-level, cross-platform development library for OpenGL written in portable C(99).
+VDL - a low-level, cross-platform development library for OpenGL written in portable C(99).
 
 ## Features
 
@@ -23,8 +23,8 @@ The website is available [here](https://adamonair.neocities.org/airlib).
 Shared Object library, use at compile time :
 
 ```bash
-git clone https://github.com/AdamOnAir/Airlib.git
-cd Airlib
+git clone https://github.com/AdamOnAir/vdl.git
+cd vdl
 mkdir build && cd build
 cmake ..
 make
