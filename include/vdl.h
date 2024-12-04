@@ -1,11 +1,11 @@
-#ifndef AIRLIB_H
-#define AIRLIB_H
+#ifndef VDL_H
+#define VDL_H
 
 #include "audio.h"
 #include "video.h"
 #include "terminal.h"
 
-#endif // AIRLIB_H
+#endif
 
 /*
 Copyright (C) 2024 Ellouze Adam <elzadam11@tutamail.com>
