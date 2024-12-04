@@ -2,9 +2,9 @@
 
 This is the planning document for the library.
 
-## am
+## vdlm
 
-Airlib Math, short `am` is a module[1] for array calculations.
+VDL math, short `vdlm` is a module[1] for array calculations.
 
 ## Current Development
 
