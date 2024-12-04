@@ -1,40 +1,40 @@
 cmake_minimum_required(VERSION 3.21)
-project(Airlib C)
+project(VDL C)
 
 set(CMAKE_C_STANDARD 99)
 
 # Create the shared library target
-add_library(Airlib SHARED
+add_library(VDL SHARED
         # Source
-		src/system/gnu_linux/linux_audio.c
+	src/system/gnu_linux/linux_audio.c
         src/system/gnu_linux/linux_video.c
-		src/system/terminal.c
+	src/system/terminal.c
         src/system/Windows/WIN_audio.c
         src/system/Windows/WIN_video.c
 
         # Headers
         include/video.h
-		include/terminal.h
+	include/terminal.h
         include/audio.h
-        include/Airlib.h
-        include/cute_airlib.h
+        include/vdl.h
+        include/cute_vdl.h
 )
 
 if(UNIX AND NOT APPLE)
   find_package(OpenGL REQUIRED)
-  target_link_libraries(Airlib PRIVATE X11 OpenGL::GL pulse-simple)
+  target_link_libraries(VDL PRIVATE X11 OpenGL::GL pulse-simple)
 elseif(WIN32)
-  target_link_libraries(Airlib winmm opengl32 gdi32)
+  target_link_libraries(VDL winmm opengl32 gdi32)
 endif()
 
 # Create the Airlib_test executable
-add_executable(Airlib_test main.c)
+add_executable(vdl_test main.c)
 
 # Link the Airlib library to the Airlib_test executable
-target_link_libraries(Airlib_test PRIVATE Airlib)
+target_link_libraries(vdl_test PRIVATE VDL)
 
 if (UNIX AND NOT APPLE)
-	  target_link_libraries(Airlib_test PRIVATE OpenGL::GL X11)
+	  target_link_libraries(vdl_test PRIVATE OpenGL::GL X11)
 endif()
 
 #[[ 
