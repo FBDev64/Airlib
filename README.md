@@ -33,7 +33,7 @@ make
 Git Submodule :
 
 ```bash
-git submodule add https://github.com/AdamOnAir/Airlib.git
+git submodule add https://github.com/AdamOnAir/vdl.git
 ```
 
 ## License
