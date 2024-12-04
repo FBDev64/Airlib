@@ -1,5 +1,5 @@
-#ifndef CUTE_AIRLIB_H
-#define CUTE_AIRLIB_H
+#ifndef CUTE_VDL_H
+#define CUTE_VDL_H
 
 /* Defining ANSI escape codes */
 
@@ -184,9 +184,9 @@ void disableNonBlockingInput() {
     fcntl(STDIN_FILENO, F_SETFL, flags & ~O_NONBLOCK); // Set stdin back to blocking
 }
 
-#endif//ifdef WIN32
+#endif //ifdef WIN32
 
-#endif //CUTE_AIRLIB_H
+#endif 
 
 /*
 Copyright (C) 2024 Ellouze Adam <elzadam11@tutamail.com>
