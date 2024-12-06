@@ -1,8 +1,14 @@
-#ifdef _WIN32
-
+#define STB_IMAGE_IMPLEMENTATION
 #include "../../../include/video.h"
+#include "../../../include/stb_image.h"
+#include "../../../include/stb_easyfont.h"
 #include <windows.h>
 #include <GL/gl.h>
+#include <stdio.h>
+
+#ifndef GL_CLAMP_TO_EDGE
+#define GL_CLAMP_TO_EDGE 0x812F
+#endif
 
 // Global variables for window and OpenGL
 static HWND hwnd;
@@ -10,109 +16,131 @@ static HDC hdc;
 static HGLRC hglrc;
 static int should_close = 0;
 
-// WindowProc function definition goes here:
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     switch (uMsg) {
-        case WM_CLOSE:
+        case WM_DESTROY:
             should_close = 1;
-            PostQuitMessage(0);
-            return 0;
-
-        case WM_LBUTTONDOWN:
-            return 0;
-
-        case WM_SETCURSOR:
-            // Prevent the cursor from changing to resizing
-            SetCursor(LoadCursor(NULL, IDC_ARROW));  // Default arrow cursor
-            return TRUE;
-
-        default:
-            return DefWindowProc(hwnd, uMsg, wParam, lParam);
+        PostQuitMessage(0);
+        return 0;
+        case WM_CLOSE:
+            DestroyWindow(hwnd);
+        return 0;
     }
-}
-
-__declspec(dllexport) void create(int width, int height, const char* title) {
-    WNDCLASS wc = {0};
-    wc.style = CS_OWNDC;
-    wc.lpfnWndProc = WindowProc;  // Assign WindowProc to handle messages
-    wc.hInstance = GetModuleHandle(NULL);
-    wc.lpszClassName = "WGL_Window";
-
-    RegisterClass(&wc);
-
-    hwnd = CreateWindowEx(
-        0, wc.lpszClassName, title, WS_OVERLAPPEDWINDOW | WS_VISIBLE,
-        CW_USEDEFAULT, CW_USEDEFAULT, width, height,
-        NULL, NULL, wc.hInstance, NULL
-    );
-
-    hdc = GetDC(hwnd);
-
-    // Set up the pixel format descriptor
-    PIXELFORMATDESCRIPTOR pfd = {
-        sizeof(PIXELFORMATDESCRIPTOR),
-        1,
-        PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER,
-        PFD_TYPE_RGBA,
-        32,
-        0, 0, 0, 0, 0, 0,
-        0, 0,
-        0, 0, 0, 0, 0,
-        24,
-        8,
-        0,
-        PFD_MAIN_PLANE,
-        0, 0, 0, 0
-    };
-
-    int pixel_format = ChoosePixelFormat(hdc, &pfd);
-    SetPixelFormat(hdc, pixel_format, &pfd);
-
-    hglrc = wglCreateContext(hdc);
-    wglMakeCurrent(hdc, hglrc);
+    return DefWindowProc(hwnd, uMsg, wParam, lParam);
 }
 
 __declspec(dllexport) void pollEvents(void) {
     MSG msg;
-    while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+    if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+        if (msg.message == WM_QUIT) {
+            should_close = 1;
+        }
         TranslateMessage(&msg);
         DispatchMessage(&msg);
     }
-}
-
-__declspec(dllexport) void swapBuffers(void) {
-    SwapBuffers(hdc);
 }
 
 __declspec(dllexport) int shouldClose(void) {
     return should_close;
 }
 
-__declspec(dllexport) void drawText(float x, float y, const char* text) {
-    // Simple placeholder for text rendering, not using GLUT
-    glRasterPos2f(x, y);
-    for (const char* c = text; *c != '\0'; c++) {
-        for (int i = 0; i < 8; i++) { // Basic "blocky" character rendering
-            glBegin(GL_POINTS);
-            glVertex2f(x + (i % 4) * 0.01, y + (i / 4) * 0.02);
-            glEnd();
-        }
-        x += 0.05f; // Advance position (placeholder spacing)
-    }
+void create(int width, int height, const char* title) {
+    WNDCLASS wc = {0};
+    wc.lpfnWndProc = WindowProc;
+    wc.hInstance = GetModuleHandle(NULL);
+    wc.lpszClassName = "OpenGL_Window";
+    RegisterClass(&wc);
+
+    hwnd = CreateWindowEx(
+        0, wc.lpszClassName, title, WS_OVERLAPPEDWINDOW | WS_VISIBLE,
+        CW_USEDEFAULT, CW_USEDEFAULT, width, height, NULL, NULL, wc.hInstance, NULL
+    );
+
+    hdc = GetDC(hwnd);
+
+    PIXELFORMATDESCRIPTOR pfd =
+{
+        sizeof(PIXELFORMATDESCRIPTOR),
+        1,
+        PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER,    // Flags
+        PFD_TYPE_RGBA,        // The kind of framebuffer. RGBA or palette.
+        32,                   // Colordepth of the framebuffer.
+        0, 0, 0, 0, 0, 0,
+        0,
+        0,
+        0,
+        0, 0, 0, 0,
+        24,                   // Number of bits for the depthbuffer
+        8,                    // Number of bits for the stencilbuffer
+        0,                    // Number of Aux buffers in the framebuffer.
+        PFD_MAIN_PLANE,
+        0,
+        0, 0, 0
+    };
+
+    int pixelFormat = ChoosePixelFormat(hdc, &pfd);
+    SetPixelFormat(hdc, pixelFormat, &pfd);
+
+    hglrc = wglCreateContext(hdc);
+    wglMakeCurrent(hdc, hglrc);
+
+    // OpenGL initialization
+    glEnable(GL_TEXTURE_2D);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0, width, height, 0, -1, 1);  // Ensure this matches your window dimensions
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
 }
 
-__declspec(dllexport) void drawButton(float x, float y, float width, float height, const char* label) {
-    // Draw a simple rectangle button
-    glColor3f(0.3f, 0.3f, 0.3f); // Button color
-    glBegin(GL_QUADS);
-    glVertex2f(x, y);
-    glVertex2f(x + width, y);
-    glVertex2f(x + width, y + height);
-    glVertex2f(x, y + height);
-    glEnd();
+__declspec(dllexport) void swapBuffers(void) {
+    SwapBuffers(hdc);
+}
 
-    // Draw button label
-    drawText(x + 0.1f * width, y + 0.4f * height, label);
+__declspec(dllexport) GLuint loadTexture(const char* filename) {
+    int width, height, channels;
+    unsigned char* imageData = stbi_load(filename, &width, &height, &channels, 0);
+    if (!imageData) {
+        printf("Error: Could not load image %s\n", filename);
+        return 0;
+    }
+
+    GLuint textureID;
+    glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+
+    // Set texture data
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
+
+    // Set texture parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+    stbi_image_free(imageData);
+    return textureID;
+}
+
+__declspec(dllexport) void drawTexture(GLuint textureID, float x, float y, float width, float height) {
+    glBindTexture(GL_TEXTURE_2D, textureID);
+
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 0.0f); glVertex2f(x, y);
+    glTexCoord2f(1.0f, 0.0f); glVertex2f(x + width, y);
+    glTexCoord2f(1.0f, 1.0f); glVertex2f(x + width, y + height);
+    glTexCoord2f(0.0f, 1.0f); glVertex2f(x, y + height);
+    glEnd();
+}
+
+__declspec(dllexport) void drawText(float x, float y, const char* text, unsigned char* color) {
+    glColor3ub(color[0], color[1], color[2]);
+    static char vertex_buffer[99999];
+    int num_quads = stb_easy_font_print(x, y, (char*)text, NULL, vertex_buffer, sizeof(vertex_buffer));
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glVertexPointer(2, GL_FLOAT, 16, vertex_buffer);
+    glDrawArrays(GL_QUADS, 0, num_quads * 4);
+    glDisableClientState(GL_VERTEX_ARRAY);
 }
 
 __declspec(dllexport) void destroy(void) {
@@ -122,21 +150,34 @@ __declspec(dllexport) void destroy(void) {
     DestroyWindow(hwnd);
 }
 
-__declspec(dllexport) int isButtonClicked(float x, float y, float width, float height) {
-    POINT pt;
-    GetCursorPos(&pt);
-    ScreenToClient(hwnd, &pt);
+__declspec(dllexport) void drawButton(float x, float y, float width, float height, const char* label) {
+    // Draw button background
+    glBegin(GL_QUADS);
+    glVertex2f(x, y);
+    glVertex2f(x + width, y);
+    glVertex2f(x + width, y + height);
+    glVertex2f(x, y + height);
+    glEnd();
 
-    if ((GetAsyncKeyState(VK_LBUTTON) & 0x8000) &&
-        pt.x >= x && pt.x <= x + width &&
-        pt.y >= y && pt.y <= y + height) {
-        return 1;
-    }
-    return 0;
+    // Draw button text centered
+    float textX = x + (width - strlen(label) * 8) / 2;  // Approximate character width
+    float textY = y + (height - 12) / 2;  // Approximate character height
+    unsigned char textColor[3] = {0, 0, 0};  // Black text
+    drawText(textX, textY, label, textColor);
 }
 
-__declspec(dllexport) void setBackgroundColor(float red, float green, float blue, float alpha) {
-    glClearColor(red, green, blue, alpha);
+__declspec(dllexport) int isButtonClicked(float x, float y, float width, float height) {
+    if (GetAsyncKeyState(VK_LBUTTON) & 0x8000) {
+        POINT p;
+        GetCursorPos(&p);
+        ScreenToClient(hwnd, &p);
+
+        if (p.x >= x && p.x <= x + width &&
+            p.y >= y && p.y <= y + height) {
+            return 1;
+            }
+    }
+    return 0;
 }
 
 __declspec(dllexport) Win* createWindowInstance(void) {
@@ -147,11 +188,11 @@ __declspec(dllexport) Win* createWindowInstance(void) {
         .shouldClose = shouldClose,
         .drawText = drawText,
         .drawButton = drawButton,
-        .destroy = destroy,
         .isButtonClicked = isButtonClicked,
-        .setBackgroundColor = setBackgroundColor
+        .destroy = destroy,
+        .loadTexture = loadTexture,
+        .drawTexture = drawTexture
     };
     return &window;
 }
 
-#endif

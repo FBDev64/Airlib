@@ -18,24 +18,20 @@ For further reading, documents are available in [docs](./docs/). The the plannin
 
 Homepage : [here](https://adamonair.neocities.org/vdl).
 
+## Build
+
+### Dependencies :
+
+* [WGL](https://registry.khronos.org/OpenGL/api/GL/wgl.h)
+* GLX (glx.h)
+* [OpenGL](https://www.opengl.org/)
+
+> [!NOTE]  
+> In [CMakeLists.txt](./CMakeLists.txt), you can find the list of dependencies.
+
 ## Download
 
-Shared Object library, use at compile time :
-
-```bash
-git clone https://github.com/AdamOnAir/vdl.git
-cd vdl
-mkdir build && cd build
-cmake ..
-make
-```
-
-Git Submodule :
-
-```bash
-git submodule add https://github.com/AdamOnAir/vdl.git
-```
-
+On UNIX, VDL can be installed through the [install script](https://github.com/AdamOnAir/pkg/blob/trunk/installer.sh).
 ## License
 
 Distribute, modify and use freely under the terms of the [ZLib License](./LICENSE).

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 3.10)
 project(VDL C)
 
 set(CMAKE_C_STANDARD 99)
@@ -6,15 +6,15 @@ set(CMAKE_C_STANDARD 99)
 # Create the shared library target
 add_library(VDL SHARED
         # Source
-	      src/system/gnu_linux/linux_audio.c
+		src/system/gnu_linux/linux_audio.c
         src/system/gnu_linux/linux_video.c
-	      src/system/terminal.c
+		src/system/terminal.c
         src/system/Windows/WIN_audio.c
         src/system/Windows/WIN_video.c
 
         # Headers
         include/video.h
-	      include/terminal.h
+		include/terminal.h
         include/audio.h
         include/vdl.h
         include/cute_vdl.h

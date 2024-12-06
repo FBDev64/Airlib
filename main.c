@@ -1,35 +1,40 @@
-#include <GL/gl.h>
 #include "include/video.h"
-#include "include/audio.h"
+#include <GL/gl.h>
 
 int main() {
-  Win* window = createWindowInstance();
-  window->create(800, 600, "WGL Window");
+    Win* window = createWindowInstance();
+    window->create(600, 700, "Test");
 
-  // Set OpenGL clear color (background color)
-  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);  // Black background
+    // Load texture once before the main loop
+    GLuint textureId = window->loadTexture("C:/Users/Adam/Pictures/ness.png");
 
-  while (!window->shouldClose()) {
-    // Clear the screen with the current clear color
-    glClear(GL_COLOR_BUFFER_BIT);
+    // Example text color (white)
+    unsigned char textColor[3] = {255, 255, 255};
 
-    // Draw a button (example)
-    window->drawButton(0.2f, 0.2f, 0.3f, 0.2f, "Click Me");
+    while (!window->shouldClose()) {
+        // Clear the screen
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // Check if the button is clicked
-    if (window->isButtonClicked(0.2f, 0.2f, 0.3f, 0.2f)) {
-      // Set a different background color (e.g., red)
-      window->setBackgroundColor(1.0f, 0.0f, 0.0f, 1.0f);  // Red background
+        // Draw texture
+        window->drawTexture(textureId, 100, 100, 200, 200);
+
+        // Draw some text
+        window->drawText(250, 50, "Hello VDL!", textColor);
+
+        // Draw a button
+        window->drawButton(250, 300, 100, 40, "Click Me!");
+
+        // Check if button is clicked
+        if (window->isButtonClicked(250, 300, 100, 40)) {
+            window->drawText(250, 50, "Hello VL!", textColor);
+        }
+
+        // Handle events and swap buffers
+        window->pollEvents();
+        window->swapBuffers();
     }
 
-    // Draw some text
-    window->drawText(0.0f, 0.0f, "Button Clicked");
-
-    // Swap buffers to display the changes
-    window->swapBuffers();
-    window->pollEvents();
-  }
-
-  window->destroy();
-  return 0;
+    // Cleanup
+    window->destroy();
+    return 0;
 }

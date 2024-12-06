@@ -59,6 +59,7 @@ build/*
 .idea/workspace.xml
 /.idea
 *.xml
+out/
 
 # Copyright (C) 2024 Ellouze Adam <elzadam11@tutamail.com>
 #   
