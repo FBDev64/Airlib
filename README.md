@@ -27,15 +27,12 @@ Homepage : [here](https://adamonair.neocities.org/vdl).
 * [OpenGL](https://www.opengl.org/)
 * [stb](https://github.com/nothings/stb)
 
-> [!TIP]
-> To make executables faster and tinier, use [TCC](https://bellard.org/tcc/).
-
 UNIX :
 ```bash
 git clone https://github.com/AdamOnAir/pkg # pkg is the repo containing VDL installer
 cd pkg
 chmod +x installer.sh
-./installer.sh
+sudo ./installer.sh
 ```
 
 ## License
