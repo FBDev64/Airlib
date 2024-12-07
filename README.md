@@ -23,8 +23,9 @@ Homepage : [here](https://adamonair.neocities.org/vdl).
 ### Dependencies :
 
 * [WGL](https://registry.khronos.org/OpenGL/api/GL/wgl.h)
-* GLX (glx.h)
+* [GLX](https://dri.freedesktop.org/wiki/GLX/)
 * [OpenGL](https://www.opengl.org/)
+* [stb](https://github.com/nothings/stb)
 
 > [!NOTE]  
 > In [CMakeLists.txt](./CMakeLists.txt), you can find the list of dependencies.
