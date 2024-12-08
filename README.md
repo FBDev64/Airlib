@@ -3,35 +3,38 @@
 ![C](https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white)
 [![Licence](https://img.shields.io/static/v1.svg?label=lLicense&message=ZLib&color=blue&style=for-the-badge)](./LICENSE)
 
-VDL - a low-level, cross-platform development library for OpenGL written in portable C(99).
+**V**ideo **D**evelopment **L**ibrary is a low-level, cross-platform development library for OpenGL written in portable C (C99).
 
 ## Features
 
 * Written in portable C (C99)
 * Zlib license: free for any project, including commercial ones;
-* Cross-platform : Windows and X11 (any system running Xorg)
+* Cross-platform : *Windows* and *X11* (any system running Xorg)
 * Native : Uses `wGL` and `GLX`, `winmm` and `ALSA`.
 
-## Further reading
-
-For further reading, documents are available in [docs](./docs/). The the planning document ([PLAN.md](./docs/PLAN.md)) is a technical sort of changelog.
-
-Homepage : [here](https://adamonair.neocities.org/vdl).
+Homepage : [adamonair.neocities.org/vdl](https://adamonair.neocities.org/vdl).
 
 ## Build
 
 ### Dependencies :
 
-* [WGL](https://registry.khronos.org/OpenGL/api/GL/wgl.h)
-* GLX (glx.h)
-* [OpenGL](https://www.opengl.org/)
+* [wGL](https://registry.khronos.org/OpenGL/api/GL/wgl.h)
+* [glX](https://dri.freedesktop.org/wiki/GLX/)
+* [stb](https://github.com/nothings/stb)
+  
+### UNIX
+```bash
+git clone https://github.com/AdamOnAir/pkg # pkg is the repo containing VDL installer
+cd pkg
+chmod +x installer.sh
+sudo ./installer.sh
+```
 
-> [!NOTE]  
-> In [CMakeLists.txt](./CMakeLists.txt), you can find the list of dependencies.
+### Windows
+- Go to [pkg](https://github.com/AdamOnAir/pkg/releases/)
+- Download `setup-vdl.exe`
+- Execute
 
-## Download
-
-On UNIX, VDL can be installed through the [install script](https://github.com/AdamOnAir/pkg/blob/trunk/installer.sh).
 ## License
 
 Distribute, modify and use freely under the terms of the [ZLib License](./LICENSE).
