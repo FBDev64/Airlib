@@ -4,6 +4,7 @@
 #include "audio.h"
 #include "video.h"
 #include "terminal.h"
+#include "cute_vdl.h"
 
 #endif
 

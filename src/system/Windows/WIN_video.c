@@ -1,3 +1,5 @@
+#if defined(__WIN32)
+
 #define STB_IMAGE_IMPLEMENTATION
 #include "../../../include/video.h"
 #include "../../../include/stb_image.h"
@@ -91,6 +93,10 @@ void create(int width, int height, const char* title) {
     glOrtho(0, width, height, 0, -1, 1);  // Ensure this matches your window dimensions
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+
+    // Add after glLoadIdentity();
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);  // Set white background
+
 }
 
 __declspec(dllexport) void swapBuffers(void) {
@@ -98,50 +104,97 @@ __declspec(dllexport) void swapBuffers(void) {
 }
 
 __declspec(dllexport) GLuint loadTexture(const char* filename) {
+    // Step 1: Load image data
     int width, height, channels;
-    unsigned char* imageData = stbi_load(filename, &width, &height, &channels, 0);
+    unsigned char* imageData = stbi_load(filename, &width, &height, &channels, STBI_rgb_alpha);
     if (!imageData) {
-        printf("Error: Could not load image %s\n", filename);
+        printf("Failed to load texture: %s\n", filename);
         return 0;
     }
 
+    // Step 2: Generate and bind texture
     GLuint textureID;
     glGenTextures(1, &textureID);
     glBindTexture(GL_TEXTURE_2D, textureID);
 
-    // Set texture data
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
-
-    // Set texture parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    // Step 3: Set texture parameters
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
+    // Step 4: Upload texture data
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
+
+    // Step 5: Free image data and return
     stbi_image_free(imageData);
+
     return textureID;
 }
 
 __declspec(dllexport) void drawTexture(GLuint textureID, float x, float y, float width, float height) {
-    glBindTexture(GL_TEXTURE_2D, textureID);
+    // Step 1: Save states
+    glPushAttrib(GL_CURRENT_BIT | GL_TEXTURE_BIT);
 
+    // Step 2: Enable texturing
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    // Step 3: Bind texture and set color
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+
+    // Step 4: Draw textured quad
     glBegin(GL_QUADS);
     glTexCoord2f(0.0f, 0.0f); glVertex2f(x, y);
     glTexCoord2f(1.0f, 0.0f); glVertex2f(x + width, y);
     glTexCoord2f(1.0f, 1.0f); glVertex2f(x + width, y + height);
     glTexCoord2f(0.0f, 1.0f); glVertex2f(x, y + height);
     glEnd();
+
+    // Step 5: Restore states
+    glPopAttrib();
+
+    // Disable blending after texture drawing
+    glDisable(GL_BLEND);
+    // After window->drawTexture call:
+    glDisable(GL_TEXTURE_2D);
 }
 
 __declspec(dllexport) void drawText(float x, float y, const char* text, unsigned char* color) {
+    // 1. Save current OpenGL state
+    glPushMatrix();
+    glPushAttrib(GL_ALL_ATTRIB_BITS);
+
+    // 2. Set text color
     glColor3ub(color[0], color[1], color[2]);
+
+    // 3. Setup vertex buffer for font rendering
     static char vertex_buffer[99999];
-    int num_quads = stb_easy_font_print(x, y, (char*)text, NULL, vertex_buffer, sizeof(vertex_buffer));
+
+    // 4. Configure font spacing and scale
+    stb_easy_font_spacing(0.6f);  // Adjust character spacing
+    float scale = 1.2f;  // Scale factor for text size
+
+    // 5. Transform to correct position and scale
+    glTranslatef(x, y, 0);
+    glScalef(scale, scale, 1.0f);
+
+    // 6. Render text
+    int num_quads = stb_easy_font_print(0, 0, (char*)text, NULL, vertex_buffer, sizeof(vertex_buffer));
+
+    // 7. Setup vertex array and render
     glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(2, GL_FLOAT, 16, vertex_buffer);
     glDrawArrays(GL_QUADS, 0, num_quads * 4);
     glDisableClientState(GL_VERTEX_ARRAY);
+
+    // 8. Restore OpenGL state
+    glPopAttrib();
+    glPopMatrix();
 }
+
 
 __declspec(dllexport) void destroy(void) {
     wglMakeCurrent(NULL, NULL);
@@ -196,3 +249,4 @@ __declspec(dllexport) Win* createWindowInstance(void) {
     return &window;
 }
 
+#endif

@@ -3,38 +3,31 @@
 
 int main() {
     Win* window = createWindowInstance();
-    window->create(600, 700, "Test");
+    window->create(600, 700, "WGL Test");
 
-    // Load texture once before the main loop
     GLuint textureId = window->loadTexture("C:/Users/Adam/Pictures/ness.png");
-
-    // Example text color (white)
-    unsigned char textColor[3] = {255, 255, 255};
+    unsigned char textColor[3] = {34, 84, 2};
 
     while (!window->shouldClose()) {
-        // Clear the screen
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        // Draw texture
-        window->drawTexture(textureId, 100, 100, 200, 200);
-
-        // Draw some text
-        window->drawText(250, 50, "Hello VDL!", textColor);
-
-        // Draw a button
+        // Set color for button
+        glColor3f(1.0f, 0.0f, 0.0f);  // Red color for button
         window->drawButton(250, 300, 100, 40, "Click Me!");
 
-        // Check if button is clicked
+        // Reset color to white before drawing texture
+        glColor3f(1.0f, 1.0f, 1.0f);  // White color
+
+        window->drawTexture(textureId, 100, 200, 200, 100);
+
         if (window->isButtonClicked(250, 300, 100, 40)) {
-            window->drawText(250, 50, "Hello VL!", textColor);
+            window->drawText(100, 100, "Button clicked!", textColor);
         }
 
-        // Handle events and swap buffers
         window->pollEvents();
         window->swapBuffers();
     }
 
-    // Cleanup
     window->destroy();
     return 0;
 }
