@@ -21,8 +21,7 @@ Homepage : [adamonair.neocities.org/vdl](https://adamonair.neocities.org/vdl).
 * [wGL](https://registry.khronos.org/OpenGL/api/GL/wgl.h)
 * [glX](https://dri.freedesktop.org/wiki/GLX/)
 * [stb](https://github.com/nothings/stb)
-* [OpenGL](https://www.opengl.org/)
-
+  
 ### UNIX
 ```bash
 git clone https://github.com/AdamOnAir/pkg # pkg is the repo containing VDL installer
