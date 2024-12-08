@@ -12,28 +12,29 @@
 * Cross-platform : *Windows* and *X11* (any system running Xorg)
 * Native : Uses `wGL` and `GLX`, `winmm` and `ALSA`.
 
-## Further reading
-
-For further reading, documents are available in [docs](./docs/). The the planning document ([PLAN.md](./docs/PLAN.md)) is a technical sort of changelog.
-
-Homepage : [here](https://adamonair.neocities.org/vdl).
+Homepage : [adamonair.neocities.org/vdl](https://adamonair.neocities.org/vdl).
 
 ## Build
 
 ### Dependencies :
 
-* [WGL](https://registry.khronos.org/OpenGL/api/GL/wgl.h)
-* [GLX](https://dri.freedesktop.org/wiki/GLX/)
-* [OpenGL](https://www.opengl.org/)
+* [wGL](https://registry.khronos.org/OpenGL/api/GL/wgl.h)
+* [glX](https://dri.freedesktop.org/wiki/GLX/)
 * [stb](https://github.com/nothings/stb)
+* [OpenGL](https://www.opengl.org/)
 
-UNIX :
+### UNIX
 ```bash
 git clone https://github.com/AdamOnAir/pkg # pkg is the repo containing VDL installer
 cd pkg
 chmod +x installer.sh
 sudo ./installer.sh
 ```
+
+### Windows
+- Go to [pkg](https://github.com/AdamOnAir/pkg/releases/)
+- Download `setup-vdl.exe`
+- Execute
 
 ## License
 
