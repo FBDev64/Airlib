@@ -3,7 +3,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "../../../include/video.h"
 #include "../../../include/stb_image.h"
-#include "../../../include/stb_easyfont.h"
+#include "../../../include/stb_easy_font.h"
 #include <X11/Xlib.h>
 #include <GL/glx.h>
 #include <GL/gl.h>
