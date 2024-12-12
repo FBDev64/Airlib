@@ -12,7 +12,7 @@
 * Cross-platform : *Windows* and *X11* (any system running Xorg)
 * Native : Uses `wGL` and `GLX`, `winmm` and `ALSA`.
 
-Homepage : [adamonair.neocities.org/vdl](https://adamonair.neocities.org/vdl).
+Homepage hosted at : [adamonair.neocities.org/vdl](https://adamonair.neocities.org/vdl).
 
 ## Build
 

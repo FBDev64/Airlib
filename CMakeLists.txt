@@ -5,15 +5,15 @@ project(VDL C)
 # Create the shared library target
 add_library(VDL SHARED
         # Source
-		src/system/gnu_linux/linux_audio.c
+	      src/system/gnu_linux/linux_audio.c
         src/system/gnu_linux/linux_video.c
-		src/system/terminal.c
+	      src/system/terminal.c
         src/system/Windows/WIN_audio.c
         src/system/Windows/WIN_video.c
 
         # Headers
         include/video.h
-		include/terminal.h
+	      include/terminal.h
         include/audio.h
         include/vdl.h
         include/cute_vdl.h
@@ -21,7 +21,7 @@ add_library(VDL SHARED
 
 if(UNIX AND NOT APPLE)
   find_package(OpenGL REQUIRED)
-  target_link_libraries(VDL PRIVATE X11 OpenGL::GL)
+  target_link_libraries(VDL PRIVATE X11 OpenGL::GL m)
 elseif(WIN32)
   target_link_libraries(VDL winmm opengl32 gdi32)
 endif()
@@ -30,7 +30,7 @@ endif()
 add_executable(vdl_test main.c)
 
 # Link VDL to vdl_test executable
-target_link_libraries(vdl_test PRIVATE VDL)
+target_link_libraries(vdl_test PRIVATE VDL m)
 
 if (UNIX AND NOT APPLE)
 	  target_link_libraries(vdl_test PRIVATE OpenGL::GL X11)

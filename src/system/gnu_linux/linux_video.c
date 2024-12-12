@@ -1,142 +1,203 @@
-#ifdef __linux__
+#if defined(__linux__)
 
+#define STB_IMAGE_IMPLEMENTATION
 #include "../../../include/video.h"
+#include "../../../include/stb_image.h"
+#include "../../../include/stb_easy_font.h"
+#include <X11/Xlib.h>
+#include <GL/glx.h>
+#include <GL/gl.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-#include <GL/glx.h>
+#ifndef GL_CLAMP_TO_EDGE
+#define GL_CLAMP_TO_EDGE 0x812F
+#endif
 
-static Display *display;
-static Window xWindow;
-static GLXContext glContext;
-static int shouldCloseFlag = 0;
+// Global variables for window and OpenGL
+static Display* display;
+static Window window;
+static GLXContext glxContext;
+static Atom wmDeleteMessage;
+static int should_close = 0;
 
-static void create(int width, int height, const char* title) {
+void create(int width, int height, const char* title) {
     display = XOpenDisplay(NULL);
-    if (display == NULL) {
-        fprintf(stderr, "Cannot open X display\n");
-        exit(1);
+    if (!display) {
+        fprintf(stderr, "Failed to open X display\n");
+        exit(EXIT_FAILURE);
     }
 
-    static int visual_attribs[] = {
+    int screen = DefaultScreen(display);
+    Window root = RootWindow(display, screen);
+
+    int visualAttribs[] = {
         GLX_RGBA, GLX_DEPTH_SIZE, 24, GLX_DOUBLEBUFFER, None
     };
-    int screen = DefaultScreen(display);
-    XVisualInfo *vi = glXChooseVisual(display, screen, visual_attribs);
-    if (vi == NULL) {
-        fprintf(stderr, "No appropriate visual found\n");
-        exit(1);
+
+    XVisualInfo* visual = glXChooseVisual(display, screen, visualAttribs);
+    if (!visual) {
+        fprintf(stderr, "No suitable visual found\n");
+        exit(EXIT_FAILURE);
     }
 
-    Colormap cmap = XCreateColormap(display, RootWindow(display, screen), vi->visual, AllocNone);
+    Colormap colormap = XCreateColormap(display, root, visual->visual, AllocNone);
+
     XSetWindowAttributes swa;
-    swa.colormap = cmap;
-    swa.event_mask = ExposureMask | KeyPressMask | ButtonPressMask;
+    swa.colormap = colormap;
+    swa.event_mask = ExposureMask | KeyPressMask | KeyReleaseMask | StructureNotifyMask;
 
-    xWindow = XCreateWindow(display, RootWindow(display, screen), 0, 0, width, height, 0, vi->depth, InputOutput, vi->visual,
-                           CWColormap | CWEventMask, &swa);
-    XMapWindow(display, xWindow);
-    XStoreName(display, xWindow, title);
+    window = XCreateWindow(
+        display, root, 0, 0, width, height, 0, visual->depth, InputOutput,
+        visual->visual, CWColormap | CWEventMask, &swa
+    );
 
-    glContext = glXCreateContext(display, vi, NULL, GL_TRUE);
-    glXMakeCurrent(display, xWindow, glContext);
+    XStoreName(display, window, title);
 
-    glEnable(GL_DEPTH_TEST);
+    wmDeleteMessage = XInternAtom(display, "WM_DELETE_WINDOW", False);
+    XSetWMProtocols(display, window, &wmDeleteMessage, 1);
+
+    XMapWindow(display, window);
+
+    glxContext = glXCreateContext(display, visual, NULL, GL_TRUE);
+    glXMakeCurrent(display, window, glxContext);
+
+    // OpenGL initialization
+    glEnable(GL_TEXTURE_2D);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0, width, height, 0, -1, 1);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
-static void pollEvents(void) {
-    XEvent xev;
-    while (XPending(display) > 0) {
-        XNextEvent(display, &xev);
-        if (xev.type == ClientMessage || xev.type == KeyPress) {
-            shouldCloseFlag = 1;
-        } else if (xev.type == ButtonPress) {
-            // Add button click logic here
+__attribute__((visibility("default"))) void pollEvents(void) {
+    while (XPending(display)) {
+        XEvent event;
+        XNextEvent(display, &event);
+        if (event.type == ClientMessage && (Atom)event.xclient.data.l[0] == wmDeleteMessage) {
+            should_close = 1;
         }
     }
 }
 
-static void swapBuffers(void) {
-    glXSwapBuffers(display, xWindow);
+__attribute__((visibility("default"))) int shouldClose(void) {
+    return should_close;
 }
 
-static int shouldClose(void) {
-    return shouldCloseFlag;
+__attribute__((visibility("default"))) void swapBuffers(void) {
+    glXSwapBuffers(display, window);
 }
 
-static void drawText(float x, float y, const char* text) {
-    glRasterPos2f(x, y);
-    while (*text) {
-        // glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *text);
-        text++;
+__attribute__((visibility("default"))) GLuint loadTexture(const char* filename) {
+    int width, height, channels;
+    unsigned char* imageData = stbi_load(filename, &width, &height, &channels, STBI_rgb_alpha);
+    if (!imageData) {
+        printf("Failed to load texture: %s\n", filename);
+        return 0;
     }
+
+    GLuint textureID;
+    glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
+
+    stbi_image_free(imageData);
+
+    return textureID;
 }
 
-static void drawButton(float x, float y, float width, float height, const char* label) {
+__attribute__((visibility("default"))) void drawTexture(GLuint textureID, float x, float y, float width, float height) {
+    glPushAttrib(GL_CURRENT_BIT | GL_TEXTURE_BIT);
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 0.0f); glVertex2f(x, y);
+    glTexCoord2f(1.0f, 0.0f); glVertex2f(x + width, y);
+    glTexCoord2f(1.0f, 1.0f); glVertex2f(x + width, y + height);
+    glTexCoord2f(0.0f, 1.0f); glVertex2f(x, y + height);
+    glEnd();
+
+    glPopAttrib();
+    glDisable(GL_BLEND);
+    glDisable(GL_TEXTURE_2D);
+}
+
+__attribute__((visibility("default"))) void drawText(float x, float y, const char* text, unsigned char* color) {
+    glPushMatrix();
+    glPushAttrib(GL_ALL_ATTRIB_BITS);
+    glColor3ub(color[0], color[1], color[2]);
+
+    static char vertex_buffer[99999];
+    stb_easy_font_spacing(0.6f);
+    float scale = 1.2f;
+
+    glTranslatef(x, y, 0);
+    glScalef(scale, scale, 1.0f);
+
+    int num_quads = stb_easy_font_print(0, 0, (char*)text, NULL, vertex_buffer, sizeof(vertex_buffer));
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glVertexPointer(2, GL_FLOAT, 16, vertex_buffer);
+    glDrawArrays(GL_QUADS, 0, num_quads * 4);
+    glDisableClientState(GL_VERTEX_ARRAY);
+
+    glPopAttrib();
+    glPopMatrix();
+}
+
+__attribute__((visibility("default"))) void destroy(void) {
+    glXMakeCurrent(display, None, NULL);
+    glXDestroyContext(display, glxContext);
+    XDestroyWindow(display, window);
+    XCloseDisplay(display);
+}
+
+__attribute__((visibility("default"))) void drawButton(float x, float y, float width, float height, const char* label) {
     glBegin(GL_QUADS);
     glVertex2f(x, y);
     glVertex2f(x + width, y);
     glVertex2f(x + width, y + height);
     glVertex2f(x, y + height);
     glEnd();
-    drawText(x + width / 10.0f, y + height / 2.0f, label);
+
+    float textX = x + (width - strlen(label) * 8) / 2;
+    float textY = y + (height - 12) / 2;
+    unsigned char textColor[3] = {0, 0, 0};
+    drawText(textX, textY, label, textColor);
 }
 
-static int isButtonClicked(float x, float y, float width, float height) {
-    XEvent xev;
-    if (XPending(display) > 0) {
-        XNextEvent(display, &xev);
-        if (xev.type == ButtonPress) {
-            int mouseX = xev.xbutton.x;
-            int mouseY = xev.xbutton.y;
-            if (mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height) {
-                return 1;
-            }
-        }
-    }
+__attribute__((visibility("default"))) int isButtonClicked(float x, float y, float width, float height) {
+    // Button click functionality is not implemented for X11 here.
     return 0;
 }
 
-static void destroy(void) {
-    glXMakeCurrent(display, None, NULL);
-    glXDestroyContext(display, glContext);
-    XDestroyWindow(display, xWindow);
-    XCloseDisplay(display);
-}
-
-Win* createWindowInstance(void) {
-    static Win win = {
+__attribute__((visibility("default"))) Win* createWindowInstance(void) {
+    static Win window = {
         .create = create,
         .pollEvents = pollEvents,
         .swapBuffers = swapBuffers,
         .shouldClose = shouldClose,
-        .drawText = drawText,
-        .drawButton = drawButton,
         .destroy = destroy,
-        .isButtonClicked = isButtonClicked
+        .drawButton = drawButton,
+        .isButtonClicked = isButtonClicked,
+        .loadTexture = loadTexture,
+        .drawTexture = drawTexture,
+        .drawText = drawText
     };
-    return &win;
+    return &window;
 }
 
 #endif
-
-/*
-Copyright (C) 2024 Ellouze Adam <elzadam11@tutamail.com>
-
-This software is provided 'as-is', without any express or implied
-warranty.  In no event will the authors be held liable for any damages
-arising from the use of this software.
-
-Permission is granted to anyone to use this software for any purpose,
-including commercial applications, and to alter it and redistribute it
-freely, subject to the following restrictions:
-
-1. The origin of this software must not be misrepresented; you must not
-claim that you wrote the original software. If you use this software
-in a product, an acknowledgment in the product documentation would be
-appreciated but is not required.
-2. Altered source versions must be plainly marked as such, and must not be
-misrepresented as being the original software.
-3. This notice may not be removed or altered from any source distribution.
-*/
