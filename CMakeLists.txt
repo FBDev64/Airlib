@@ -26,7 +26,6 @@ elseif(WIN32)
   target_link_libraries(VDL winmm opengl32 gdi32)
 endif()
 
-# Create the vdl_test executable
 add_executable(vdl_test main.c)
 
 # Link VDL to vdl_test executable
