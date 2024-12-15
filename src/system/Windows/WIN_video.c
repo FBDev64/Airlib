@@ -4,7 +4,8 @@
 #include "../../../include/stb_image.h"
 #include "../../../include/stb_easyfont.h"
 
-#include "../../../include/video.h"
+#include "../../../include/vdl.h"
+#include "../../../include/audio.h"
 #include "../../../include/io.h"
 
 #include <windows.h>
@@ -256,7 +257,9 @@ __declspec(dllexport) Win* createWindowInstance(void) {
         .loadTexture = loadTexture,
         .drawTexture = drawTexture,
         .checkGLError = checkGLError,
-        .vdl_isKeyPressed = vdl_isKeyPressed
+        .vdl_isKeyPressed = vdl_isKeyPressed,
+        .playSound = playSound,
+        .stopSound = stopSound,
     };
     return &window;
 }

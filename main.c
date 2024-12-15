@@ -3,7 +3,7 @@
 
 int main() {
     Win* window = createWindowInstance();
-    window->create(600, 700, "VDL/GL Test");
+    window->create(500, 300, "VDL Test");
 
     unsigned char textColor[3] = {34, 84, 2};
 
@@ -12,15 +12,18 @@ int main() {
 
         // Set color for button
         glColor3f(1.0f, 0.0f, 0.0f);  // Red color for button
-        window->drawButton(250, 300, 100, 40, "Click Me!");
-        
-        window->drawText(100, 100, "Button clicked not", textColor);
+        window->drawText(10, 10, "ESC to quit", textColor);
+        window->drawText(10, 20, "P to play sound", textColor);
         
         // Reset color to white before drawing texture
         glColor3f(1.0f, 1.0f, 1.0f);  // White color
 
         if (window->vdl_isKeyPressed(VDL_KEY_ESCAPE)) {
             window->destroy();
+        }
+
+        if (window->vdl_isKeyPressed(VDL_KEY_P)) {
+            window->playSound("C:/Users/Adam/Music/rickroll.wav");
         }
 
         window->pollEvents();

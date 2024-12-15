@@ -1,7 +1,10 @@
 #ifndef VDL_IO_H
 #define VDL_IO_H
 
-// Define an enum for keyboard keys
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 typedef enum {
     VDL_KEY_UNKNOWN = 0,
     VDL_KEY_A = 0x41,
