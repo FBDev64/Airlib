@@ -2,7 +2,7 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "../../../include/stb_image.h"
-#include "../../../include/stb_easyfont.h"
+#include "../../../include/stb_easy_font.h"
 
 #include "../../../include/vdl.h"
 #include "../../../include/audio.h"
