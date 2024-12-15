@@ -6,7 +6,6 @@ This is the planning document for the library.
 
 - [ ] Keyboard enum/struct
 - [ ] glX button click
-- [x] Windows bug-fix : window auto-closes
 - [ ] Frame Buffer for pixel drawing
 
 
