@@ -1,4 +1,4 @@
-#ifdef _WIN32
+#if defined(__WIN32)
 
 #include "../../../include/audio.h"
 
