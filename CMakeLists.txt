@@ -5,21 +5,21 @@ project(VDL C)
 # Create the shared library target
 add_library(VDL SHARED
         # Source
-		src/system/gnu_linux/linux_audio.c
+	src/system/gnu_linux/linux_audio.c
         src/system/gnu_linux/linux_video.c
-		src/system/terminal.c
+	src/system/terminal.c
         src/system/Windows/WIN_audio.c
         src/system/Windows/WIN_video.c
-		src/system/Windows/WIN_io.c
+	src/system/Windows/WIN_io.c
 
         # Headers
-		include/terminal.h
+	include/terminal.h
         include/audio.h
         include/vdl.h
 
-		# STB
-		include/stb_easy_font.h
-		include/stb_image.h
+	# STB
+	include/stb_easy_font.h
+	include/stb_image.h
 
 )
 
