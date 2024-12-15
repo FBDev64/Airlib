@@ -1,4 +1,4 @@
-#include "include/video.h"
+#include "include/vdl.h"
 #include <GL/gl.h>
 
 int main() {
@@ -19,8 +19,8 @@ int main() {
         // Reset color to white before drawing texture
         glColor3f(1.0f, 1.0f, 1.0f);  // White color
 
-        if (window->isButtonClicked(250, 300, 100, 40)) {
-            window->drawText(100, 100, "Button clicked!", textColor);
+        if (window->vdl_isKeyPressed(VDL_KEY_ESCAPE)) {
+            window->destroy();
         }
 
         window->pollEvents();

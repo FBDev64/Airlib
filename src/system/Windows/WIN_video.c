@@ -1,9 +1,12 @@
 #if defined(__WIN32)
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "../../../include/video.h"
 #include "../../../include/stb_image.h"
 #include "../../../include/stb_easyfont.h"
+
+#include "../../../include/video.h"
+#include "../../../include/io.h"
+
 #include <windows.h>
 #include <GL/gl.h>
 #include <stdio.h>
@@ -252,7 +255,8 @@ __declspec(dllexport) Win* createWindowInstance(void) {
         .destroy = destroy,
         .loadTexture = loadTexture,
         .drawTexture = drawTexture,
-        .checkGLError = checkGLError
+        .checkGLError = checkGLError,
+        .vdl_isKeyPressed = vdl_isKeyPressed
     };
     return &window;
 }
