@@ -1,8 +1,7 @@
 #if defined(__linux__)
 
-// #define STBI_NO_SIMD
+#define STBI_NO_SIMD
 #define STB_IMAGE_IMPLEMENTATION
-
 #include "../../../include/stb_image.h"
 #include "../../../include/stb_easy_font.h"
 
