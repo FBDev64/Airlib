@@ -233,6 +233,13 @@ __declspec(dllexport) int isButtonClicked(float x, float y, float width, float h
     return 0;
 }
 
+__declspec(dllexport) void checkGLError() {
+    GLenum err;
+    while((err = glGetError()) != GL_NO_ERROR){
+        printf("%s", err);
+    }
+}
+
 __declspec(dllexport) Win* createWindowInstance(void) {
     static Win window = {
         .create = create,
@@ -244,7 +251,8 @@ __declspec(dllexport) Win* createWindowInstance(void) {
         .isButtonClicked = isButtonClicked,
         .destroy = destroy,
         .loadTexture = loadTexture,
-        .drawTexture = drawTexture
+        .drawTexture = drawTexture,
+        .checkGLError = checkGLError
     };
     return &window;
 }

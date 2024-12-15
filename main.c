@@ -1,29 +1,21 @@
-#include "include/video.h"
+#include "include/vdl.h"
 #include <GL/gl.h>
 
 int main() {
     Win* window = createWindowInstance();
-    window->create(600, 700, "VDL/GL Test");
+    window->create(800, 600, "VDL testing");
+    unsigned char textColor[] = { 1, 3, 4 }; // BECAUSE WAS WHITE
 
-    unsigned char textColor[3] = {34, 84, 2};
-
-    while (!window->shouldClose()) {
+    while (!window->shouldClose()) { // the () is very important
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        // Set color for button
-        glColor3f(1.0f, 0.0f, 0.0f);  // Red color for button
-        window->drawButton(250, 300, 100, 40, "Click Me!");
-        
-        window->drawText(100, 100, "Button clicked not", textColor);
-        
-        // Reset color to white before drawing texture
-        glColor3f(1.0f, 1.0f, 1.0f);  // White color
+        glColor3f(1.0f, 0.0f, 0.0f); // red color
+        window->drawButton(250, 300, 100, 40, "Click Me");
 
         if (window->isButtonClicked(250, 300, 100, 40)) {
-            window->drawText(100, 100, "Button clicked!", textColor);
+            window->drawText(100, 100, "Clicked Nn Rr Ll Tt!", textColor);
         }
 
-        window->pollEvents();
+        window->pollEvents(); // Needed to update window
         window->swapBuffers();
     }
 

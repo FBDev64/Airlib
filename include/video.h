@@ -15,7 +15,8 @@ typedef struct Win {
    void (*setBackgroundColor)(float red, float green, float blue, float alpha);
    void (*getOpenGLVersion)(void);
    GLuint (*loadTexture)(const char* filename);  // Add loadTexture
-   void (*drawTexture)(GLuint textureID, float x, float y, float width, float height);  // Add drawTexture
+   void (*drawTexture)(GLuint textureID, float x, float y, float width, float height);
+   void (*checkGLError)(void);
 } Win;
 
 // Creates and returns a pointer to a Win instance
