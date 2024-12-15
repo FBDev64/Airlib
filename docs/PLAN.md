@@ -2,10 +2,13 @@
 
 This is the planning document for the library.
 
-## Objectives
+## TO-DO list 
 
-- Controller support
-- glX support
+- [ ] Keyboard enum/struct
+- [ ] glX button click
+- [ ] Windows bug-fix : window auto-closes
+- [ ] Frame Buffer for pixel drawing
 
-# Defs
+
+## Defs
 _1. A module is a section of the library._
