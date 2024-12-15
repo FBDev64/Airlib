@@ -1,4 +1,4 @@
-#ifdef _WIN32
+#if defined(__WIN32)
 
 #include <windows.h>
 #include "../../../include/io.h"
