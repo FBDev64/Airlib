@@ -10,7 +10,7 @@ add_library(VDL SHARED
         src/system/terminal.c
         src/system/Windows/WIN_audio.c
         src/system/Windows/WIN_video.c
-	       src/system/Windows/WIN_io.c
+        src/system/Windows/WIN_io.c
 
         # Headers
 	       include/terminal.h
