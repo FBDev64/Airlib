@@ -17,9 +17,9 @@ add_library(VDL SHARED
         include/audio.h
         include/vdl.h
 
-	       # STB
-	       include/stb_easy_font.h
-	       include/stb_image.h
+        # STB
+        include/stb_easy_font.h
+        include/stb_image.h
 
 )
 
