@@ -6,24 +6,27 @@ int main() {
     window->create(500, 300, "VDL Test");
 
     unsigned char textColor[3] = {34, 84, 2};
+    int isPlaying = 0;
 
     while (!window->shouldClose()) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        // Set color for button
-        glColor3f(1.0f, 0.0f, 0.0f);  // Red color for button
         window->drawText(10, 10, "ESC to quit", textColor);
-        window->drawText(10, 20, "P to play sound", textColor);
-        
-        // Reset color to white before drawing texture
-        glColor3f(1.0f, 1.0f, 1.0f);  // White color
+        window->drawText(10, 20, "A to play sound", textColor);
 
-        if (window->vdl_isKeyPressed(VDL_KEY_ESCAPE)) {
+        glColor3f(1.0f, 1.0f, 1.0f);
+
+        if (window->keyboard->isKeyPressed(KB_KEY_ESCAPE)) {
             window->destroy();
         }
 
-        if (window->vdl_isKeyPressed(VDL_KEY_P)) {
+        if (window->keyboard->isKeyPressed(KB_KEY_A) && !isPlaying) {
             window->playSound("C:/Users/Adam/Music/rickroll.wav");
+            isPlaying = 1;
+        }
+
+        if (!window->keyboard->isKeyPressed(KB_KEY_A)) {
+            isPlaying = 0;
         }
 
         window->pollEvents();

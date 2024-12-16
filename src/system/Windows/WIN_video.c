@@ -6,7 +6,6 @@
 
 #include "../../../include/vdl.h"
 #include "../../../include/audio.h"
-#include "../../../include/io.h"
 
 #include <windows.h>
 #include <GL/gl.h>
@@ -245,6 +244,10 @@ __declspec(dllexport) void checkGLError() {
 }
 
 __declspec(dllexport) Win* createWindowInstance(void) {
+    static Keyboard kb = {
+        .isKeyPressed = vdl_isKeyPressed  // This connects to our WIN_io.c implementation
+    };
+
     static Win window = {
         .create = create,
         .pollEvents = pollEvents,
@@ -257,9 +260,9 @@ __declspec(dllexport) Win* createWindowInstance(void) {
         .loadTexture = loadTexture,
         .drawTexture = drawTexture,
         .checkGLError = checkGLError,
-        .vdl_isKeyPressed = vdl_isKeyPressed,
         .playSound = playSound,
         .stopSound = stopSound,
+        .keyboard = &kb  // This connects our keyboard structure
     };
     return &window;
 }
